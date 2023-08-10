@@ -8,8 +8,7 @@ import org.slf4j.Logger;
 
 import it.unibo.trashware.db.ConnectionProvider;
 import it.unibo.trashware.db.ConnectionProviderImpl;
-import it.unibo.trashware.model.Representative;
-import it.unibo.trashware.utils.DateUtils;
+import it.unibo.trashware.model.entities.Representative;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -17,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 class TestDBConnection {
@@ -31,7 +31,7 @@ class TestDBConnection {
         provider = new ConnectionProviderImpl();
         final Optional<EntityManager> response = provider.getConnection();
         if (response.isEmpty()) {
-            fail("Error: could not estabilish a connection with the database.");
+            fail("Error: could not establish a connection with the database.");
         }
         em = response.get();    // gets the entity manager
     }
@@ -42,21 +42,21 @@ class TestDBConnection {
         // Write a new row in the table
         final String fiscalCode = "RSSMRA90M09C573R";
         em.getTransaction().begin();
-        final Representative newRep = new Representative(
-            fiscalCode,
-            "Mario", 
-            "Rossi", 
-            "Cesena",
-            DateUtils.buildDate(9, 8, 1990).get(), 
-            "Cesena",
-            "47522",
-            "FC",
-            "Via Cesare Battisti",
-            18,
-            "+393330000000",
-            "+393330000001",
-            "0547000000",
-            "mario.rossi@outlook.com");
+        final Representative newRep = new Representative();
+        newRep.setCodiceFiscale(fiscalCode);
+        newRep.setName("Mario");
+        newRep.setSurname("Rossi");
+        newRep.setBirthplace("Cesena");
+        newRep.setBirthday(LocalDate.of(1990, 8, 9));
+        newRep.setResidenceCity("Cesena");
+        newRep.setResidenceCAP("47522");
+        newRep.setResidenceProvince("FC");
+        newRep.setResidenceStreet("Via Cesare Battisti");
+        newRep.setResidenceStreetNumber(18);
+        newRep.setTelephoneNumber1("+393330000000");
+        newRep.setTelephoneNumber2("+393330000001");
+        newRep.setFaxNumber("0547000000");
+        newRep.setEmail("mario.rossi@outlook.com");
         try {
             em.persist(newRep);
             em.getTransaction().commit();
@@ -68,7 +68,7 @@ class TestDBConnection {
 
         // Read the row just inserted
         final TypedQuery<Representative> query = em.createQuery(
-            "SELECT ref FROM Representative ref WHERE ref.fiscalCode = :fiscalCode",
+            "SELECT ref FROM Representative ref WHERE ref.codiceFiscale = :fiscalCode",
             Representative.class
         );
         query.setParameter("fiscalCode", fiscalCode);
