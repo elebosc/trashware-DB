@@ -11,7 +11,10 @@ import it.unibo.trashware.db.ConnectionProviderImpl;
 import it.unibo.trashware.model.Representative;
 import it.unibo.trashware.utils.DateUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Optional;
@@ -34,10 +37,13 @@ class TestDBConnection {
     }
 
     @Test
-    void testInsert() {
+    void testInsertAndRemove() {
+
+        // Write a new row in the table
+        final String fiscalCode = "RSSMRA90M09C573R";
         em.getTransaction().begin();
-        final Representative representative = new Representative(
-            "RSSMRA90M09C573R",
+        final Representative newRep = new Representative(
+            fiscalCode,
             "Mario", 
             "Rossi", 
             "Cesena",
@@ -52,7 +58,7 @@ class TestDBConnection {
             "0547000000",
             "mario.rossi@outlook.com");
         try {
-            em.persist(representative);
+            em.persist(newRep);
             em.getTransaction().commit();
         } catch (final Exception ex) {
             LOGGER.error("Error: insert operation failed.", ex);
@@ -60,15 +66,37 @@ class TestDBConnection {
             fail("Error: insert operation failed.");
         }
 
-        // TO DO: check with query
+        // Read the row just inserted
+        final TypedQuery<Representative> query = em.createQuery(
+            "SELECT ref FROM Representative ref WHERE ref.fiscalCode = :fiscalCode",
+            Representative.class
+        );
+        query.setParameter("fiscalCode", fiscalCode);
+        final Representative readRep = query.getSingleResult();
+        assertTrue(readRep.equals(newRep));
 
-        // TO DO: remove row 
+        // Remove the inserted row
+        em.getTransaction().begin();
+        try {
+            em.remove(newRep);
+            em.getTransaction().commit();
+        } catch (final Exception ex) {
+            LOGGER.error("Error: delete operation failed.", ex);
+            em.getTransaction().rollback();
+            fail("Error: delete operation failed.");
+        }
 
-        em.close();
+        // Try to read the row; no result should be returned.
+        assertThrows(
+            jakarta.persistence.NoResultException.class,
+            () -> query.getSingleResult()
+        );
+
     }
 
     @AfterAll
     static void tearDownAll() {
+        em.close();
         provider.closeConnection();
     }
 
