@@ -14,7 +14,7 @@ public class RepresentationId implements Serializable {
     private String codiceFiscaleReferente;
 
     @Column(name = "`PartitaIVASocietà`", nullable = false, length = 11)
-    private String partitaIVASocietà;
+    private String societyVATNumber;
 
     public String getCodiceFiscaleReferente() {
         return codiceFiscaleReferente;
@@ -24,12 +24,12 @@ public class RepresentationId implements Serializable {
         this.codiceFiscaleReferente = codiceFiscaleReferente;
     }
 
-    public String getPartitaIVASocietà() {
-        return partitaIVASocietà;
+    public String getSocietyVATNumber() {
+        return societyVATNumber;
     }
 
-    public void setPartitaIVASocietà(String partitaIVASocietà) {
-        this.partitaIVASocietà = partitaIVASocietà;
+    public void setSocietyVATNumber(String societyVATNumber) {
+        this.societyVATNumber = societyVATNumber;
     }
 
     @Override
@@ -37,13 +37,13 @@ public class RepresentationId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         RepresentationId entity = (RepresentationId) o;
-        return Objects.equals(this.partitaIVASocietà, entity.partitaIVASocietà) &&
+        return Objects.equals(this.societyVATNumber, entity.societyVATNumber) &&
                 Objects.equals(this.codiceFiscaleReferente, entity.codiceFiscaleReferente);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(partitaIVASocietà, codiceFiscaleReferente);
+        return Objects.hash(societyVATNumber, codiceFiscaleReferente);
     }
 
 }
