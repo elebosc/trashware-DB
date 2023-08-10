@@ -13,37 +13,37 @@ import jakarta.persistence.Table;
 public final class Representative {
     
     @Id
-    @Column(name = "CodiceFiscale")
+    @Column(name = "CodiceFiscale", nullable = false)
     private String fiscalCode;
 
-    @Column(name = "Nome")
+    @Column(name = "Nome", nullable = false)
     private String name;
 
-    @Column(name = "Cognome")
+    @Column(name = "Cognome", nullable = false)
     private String surname;
 
-    @Column(name = "Luogo_Nascita")
+    @Column(name = "Luogo_Nascita", nullable = false)
     private String birthPlace;
 
-    @Column(name = "Data_Nascita")
+    @Column(name = "Data_Nascita", nullable = false)
     private Date birthday;
 
-    @Column(name = "Città_Residenza")
+    @Column(name = "Città_Residenza", nullable = false)
     private String residenceCity;
 
-    @Column(name = "CAP_Residenza")
+    @Column(name = "CAP_Residenza", nullable = false)
     private String residenceCAP;
 
-    @Column(name = "Provincia_Residenza")
+    @Column(name = "Provincia_Residenza", nullable = false)
     private String residenceProvince;
 
-    @Column(name = "Via_Residenza")
+    @Column(name = "Via_Residenza", nullable = false)
     private String residenceStreet;
 
-    @Column(name = "NumCivico_Residenza")
+    @Column(name = "NumCivico_Residenza", nullable = false)
     private int residenceHouseNumber;
 
-    @Column(name = "NumTelefono1")
+    @Column(name = "NumTelefono1", nullable = false)
     private String telephoneNumber1;
 
     @Column(name = "NumTelefono2")
