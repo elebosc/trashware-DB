@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Table(name = "referente")
 public class Representative {
     @Id
-    @Column(name = "CodiceFiscale", nullable = false, length = 16)
+    @Column(name = "CodiceFiscale", nullable = false, length = 16, columnDefinition = "char")
     private String codiceFiscale;
 
     @Column(name = "Nome", nullable = false, length = 35)
@@ -29,10 +29,10 @@ public class Representative {
     @Column(name = "`Città_Residenza`", nullable = false, length = 35)
     private String residenceCity;
 
-    @Column(name = "CAP_Residenza", nullable = false, length = 5)
+    @Column(name = "CAP_Residenza", nullable = false, length = 5, columnDefinition = "char")
     private String residenceCAP;
 
-    @Column(name = "Provincia_Residenza", nullable = false, length = 2)
+    @Column(name = "Provincia_Residenza", nullable = false, length = 2, columnDefinition = "char")
     private String residenceProvince;
 
     @Column(name = "Via_Residenza", nullable = false, length = 35)

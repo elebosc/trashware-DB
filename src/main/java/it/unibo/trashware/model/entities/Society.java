@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 })
 public class Society {
     @Id
-    @Column(name = "PartitaIVA", nullable = false, length = 11)
+    @Column(name = "PartitaIVA", nullable = false, length = 11, columnDefinition = "char")
     private String partitaIVA;
 
     @Column(name = "CodiceFiscale", nullable = false, length = 16)
@@ -20,10 +20,10 @@ public class Society {
     @Column(name = "`Città_SedeLegale`", nullable = false, length = 35)
     private String registeredOfficeCity;
 
-    @Column(name = "CAP_SedeLegale", nullable = false, length = 5)
+    @Column(name = "CAP_SedeLegale", nullable = false, length = 5, columnDefinition = "char")
     private String registeredOfficeCAP;
 
-    @Column(name = "Provincia_SedeLegale", nullable = false, length = 2)
+    @Column(name = "Provincia_SedeLegale", nullable = false, length = 2, columnDefinition = "char")
     private String registeredOfficeProvince;
 
     @Column(name = "Via_SedeLegale", nullable = false, length = 35)

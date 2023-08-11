@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Table(name = "operatore")
 public class Operator {
     @Id
-    @Column(name = "CodiceFiscale", nullable = false, length = 16)
-    private String codiceFiscale;
+    @Column(name = "CodiceFiscale", nullable = false, length = 16, columnDefinition = "char")
+    private String fiscalCode;
 
     @Column(name = "Nome", nullable = false, length = 35)
     private String name;
@@ -29,10 +29,10 @@ public class Operator {
     @Column(name = "`Città_Residenza`", nullable = false, length = 35)
     private String residenceCity;
 
-    @Column(name = "CAP_Residenza", nullable = false, length = 5)
+    @Column(name = "CAP_Residenza", nullable = false, length = 5, columnDefinition = "char")
     private String residenceCAP;
 
-    @Column(name = "Provincia_Residenza", nullable = false, length = 2)
+    @Column(name = "Provincia_Residenza", nullable = false, length = 2, columnDefinition = "char")
     private String residenceProvince;
 
     @Column(name = "Via_Residenza", nullable = false, length = 35)
@@ -50,12 +50,12 @@ public class Operator {
     @Column(name = "Email", length = 256)
     private String email;
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
+    public String getFiscalCode() {
+        return fiscalCode;
     }
 
-    public void setCodiceFiscale(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
+    public void setFiscalCode(String codiceFiscale) {
+        this.fiscalCode = codiceFiscale;
     }
 
     public String getName() {

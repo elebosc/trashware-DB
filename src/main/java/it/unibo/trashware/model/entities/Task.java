@@ -11,7 +11,7 @@ public class Task {
     @MapsId
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumns({
-            @JoinColumn(name = "CodiceFiscaleOperatore", referencedColumnName = "CodiceFiscaleOperatore", nullable = false),
+            @JoinColumn(name = "CodiceFiscaleOperatore", referencedColumnName = "CodiceFiscaleOperatore", nullable = false, columnDefinition = "char"),
             @JoinColumn(name = "DataTurno", referencedColumnName = "Data", nullable = false),
             @JoinColumn(name = "OraInizioTurno", referencedColumnName = "OraInizio", nullable = false)
     })

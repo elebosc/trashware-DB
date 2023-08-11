@@ -13,47 +13,47 @@ import java.util.Objects;
 public class TaskId implements Serializable {
     private static final long serialVersionUID = 7935673349876242184L;
     @Column(name = "CodiceFiscaleOperatore", nullable = false, length = 16)
-    private String codiceFiscaleOperatore;
+    private String operatorFiscalCode;
 
     @Column(name = "DataTurno", nullable = false)
-    private LocalDate dataTurno;
+    private LocalDate workShiftDate;
 
     @Column(name = "OraInizioTurno", nullable = false)
-    private Instant oraInizioTurno;
+    private Instant workShiftStartTime;
 
     @Column(name = "NumElenco", nullable = false)
-    private Integer numElenco;
+    private Integer taskNumber;
 
-    public String getCodiceFiscaleOperatore() {
-        return codiceFiscaleOperatore;
+    public String getOperatorFiscalCode() {
+        return operatorFiscalCode;
     }
 
-    public void setCodiceFiscaleOperatore(String codiceFiscaleOperatore) {
-        this.codiceFiscaleOperatore = codiceFiscaleOperatore;
+    public void setOperatorFiscalCode(String opeatorFiscalCode) {
+        this.operatorFiscalCode = opeatorFiscalCode;
     }
 
-    public LocalDate getDataTurno() {
-        return dataTurno;
+    public LocalDate getWorkShiftDate() {
+        return workShiftDate;
     }
 
-    public void setDataTurno(LocalDate dataTurno) {
-        this.dataTurno = dataTurno;
+    public void setWorkShiftDate(LocalDate workShiftDate) {
+        this.workShiftDate = workShiftDate;
     }
 
-    public Instant getOraInizioTurno() {
-        return oraInizioTurno;
+    public Instant getWorkShiftStartTime() {
+        return workShiftStartTime;
     }
 
-    public void setOraInizioTurno(Instant oraInizioTurno) {
-        this.oraInizioTurno = oraInizioTurno;
+    public void setWorkShiftStartTime(Instant workShiftStartTime) {
+        this.workShiftStartTime = workShiftStartTime;
     }
 
-    public Integer getNumElenco() {
-        return numElenco;
+    public Integer getTaskNumber() {
+        return taskNumber;
     }
 
-    public void setNumElenco(Integer numElenco) {
-        this.numElenco = numElenco;
+    public void setTaskNumber(Integer taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     @Override
@@ -61,15 +61,15 @@ public class TaskId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         TaskId entity = (TaskId) o;
-        return Objects.equals(this.oraInizioTurno, entity.oraInizioTurno) &&
-                Objects.equals(this.dataTurno, entity.dataTurno) &&
-                Objects.equals(this.numElenco, entity.numElenco) &&
-                Objects.equals(this.codiceFiscaleOperatore, entity.codiceFiscaleOperatore);
+        return Objects.equals(this.workShiftStartTime, entity.workShiftStartTime) &&
+                Objects.equals(this.workShiftDate, entity.workShiftDate) &&
+                Objects.equals(this.taskNumber, entity.taskNumber) &&
+                Objects.equals(this.operatorFiscalCode, entity.operatorFiscalCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(oraInizioTurno, dataTurno, numElenco, codiceFiscaleOperatore);
+        return Objects.hash(workShiftStartTime, workShiftDate, taskNumber, operatorFiscalCode);
     }
 
 }

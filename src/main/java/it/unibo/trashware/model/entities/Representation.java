@@ -10,7 +10,7 @@ public class Representation {
 
     @MapsId("codiceFiscaleReferente")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CodiceFiscaleReferente", nullable = false)
+    @JoinColumn(name = "CodiceFiscaleReferente", nullable = false, columnDefinition = "char")
     private it.unibo.trashware.model.entities.Representative representativeFiscalCode;
 
     @MapsId("partitaIVASocietà")

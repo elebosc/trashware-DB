@@ -21,7 +21,7 @@ public class Operation {
     private String notes;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CodiceFiscaleReferente", nullable = false)
+    @JoinColumn(name = "CodiceFiscaleReferente", nullable = false, columnDefinition = "char")
     private it.unibo.trashware.model.entities.Representative representativeFiscalCode;
 
     public String getIDOperazione() {

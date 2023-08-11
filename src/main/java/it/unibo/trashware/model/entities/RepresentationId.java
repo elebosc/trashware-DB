@@ -13,7 +13,7 @@ public class RepresentationId implements Serializable {
     @Column(name = "CodiceFiscaleReferente", nullable = false, length = 16)
     private String codiceFiscaleReferente;
 
-    @Column(name = "`PartitaIVASocietà`", nullable = false, length = 11)
+    @Column(name = "`PartitaIVASocietà`", nullable = false, length = 11, columnDefinition = "char")
     private String societyVATNumber;
 
     public String getCodiceFiscaleReferente() {
