@@ -54,8 +54,8 @@ public class Operator {
         return fiscalCode;
     }
 
-    public void setFiscalCode(String codiceFiscale) {
-        this.fiscalCode = codiceFiscale;
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
     }
 
     public String getName() {

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Representative {
     @Id
     @Column(name = "CodiceFiscale", nullable = false, length = 16, columnDefinition = "char")
-    private String codiceFiscale;
+    private String fiscalCode;
 
     @Column(name = "Nome", nullable = false, length = 35)
     private String name;
@@ -53,12 +53,12 @@ public class Representative {
     @Column(name = "Email", length = 256)
     private String email;
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
+    public String getFiscalCode() {
+        return fiscalCode;
     }
 
-    public void setCodiceFiscale(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
     }
 
     public String getName() {

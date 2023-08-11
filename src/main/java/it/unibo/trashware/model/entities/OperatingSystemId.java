@@ -11,36 +11,36 @@ import java.util.Objects;
 public class OperatingSystemId implements Serializable {
     private static final long serialVersionUID = 2827388438042316998L;
     @Column(name = "IDPC", nullable = false, length = 10)
-    private String idpc;
+    private String pcID;
 
     @Column(name = "Nome", nullable = false, length = 35)
-    private String nome;
+    private String name;
 
     @Column(name = "Versione", nullable = false, length = 10)
-    private String versione;
+    private String version;
 
-    public String getIdpc() {
-        return idpc;
+    public String getPcID() {
+        return pcID;
     }
 
-    public void setIdpc(String idpc) {
-        this.idpc = idpc;
+    public void setPcID(String idpc) {
+        this.pcID = idpc;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getVersione() {
-        return versione;
+    public String getVersion() {
+        return version;
     }
 
-    public void setVersione(String versione) {
-        this.versione = versione;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     @Override
@@ -48,14 +48,14 @@ public class OperatingSystemId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OperatingSystemId entity = (OperatingSystemId) o;
-        return Objects.equals(this.versione, entity.versione) &&
-                Objects.equals(this.nome, entity.nome) &&
-                Objects.equals(this.idpc, entity.idpc);
+        return Objects.equals(this.version, entity.version) &&
+                Objects.equals(this.name, entity.name) &&
+                Objects.equals(this.pcID, entity.pcID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(versione, nome, idpc);
+        return Objects.hash(version, name, pcID);
     }
 
 }

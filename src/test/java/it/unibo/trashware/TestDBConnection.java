@@ -43,7 +43,7 @@ class TestDBConnection {
         final String fiscalCode = "RSSMRA90M09C573R";
         em.getTransaction().begin();
         final Representative newRep = new Representative();
-        newRep.setCodiceFiscale(fiscalCode);
+        newRep.setFiscalCode(fiscalCode);
         newRep.setName("Mario");
         newRep.setSurname("Rossi");
         newRep.setBirthplace("Cesena");
@@ -68,7 +68,7 @@ class TestDBConnection {
 
         // Read the row just inserted
         final TypedQuery<Representative> query = em.createQuery(
-            "SELECT ref FROM Representative ref WHERE ref.codiceFiscale = :fiscalCode",
+            "SELECT ref FROM Representative ref WHERE ref.fiscalCode = :fiscalCode",
             Representative.class
         );
         query.setParameter("fiscalCode", fiscalCode);

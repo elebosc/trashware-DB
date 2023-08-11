@@ -11,25 +11,25 @@ import java.util.Objects;
 public class OperationObjectComponentId implements Serializable {
     private static final long serialVersionUID = 5652926893960953850L;
     @Column(name = "IDComponente", nullable = false, length = 10)
-    private String iDComponente;
+    private String componentID;
 
     @Column(name = "IDOperazione", nullable = false, length = 10)
-    private String iDOperazione;
+    private String operationID;
 
-    public String getIDComponente() {
-        return iDComponente;
+    public String getComponentID() {
+        return componentID;
     }
 
-    public void setIDComponente(String iDComponente) {
-        this.iDComponente = iDComponente;
+    public void setComponentID(String componentID) {
+        this.componentID = componentID;
     }
 
-    public String getIDOperazione() {
-        return iDOperazione;
+    public String getOperationID() {
+        return operationID;
     }
 
-    public void setIDOperazione(String iDOperazione) {
-        this.iDOperazione = iDOperazione;
+    public void setOperationID(String operationID) {
+        this.operationID = operationID;
     }
 
     @Override
@@ -37,13 +37,13 @@ public class OperationObjectComponentId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OperationObjectComponentId entity = (OperationObjectComponentId) o;
-        return Objects.equals(this.iDComponente, entity.iDComponente) &&
-                Objects.equals(this.iDOperazione, entity.iDOperazione);
+        return Objects.equals(this.componentID, entity.componentID) &&
+                Objects.equals(this.operationID, entity.operationID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iDComponente, iDOperazione);
+        return Objects.hash(componentID, operationID);
     }
 
 }

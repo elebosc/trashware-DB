@@ -11,25 +11,25 @@ import java.util.Objects;
 public class OperationObjectPeripheralId implements Serializable {
     private static final long serialVersionUID = -2153242838408291998L;
     @Column(name = "IDPeriferica", nullable = false, length = 10)
-    private String iDPeriferica;
+    private String peripheralID;
 
     @Column(name = "IDOperazione", nullable = false, length = 10)
-    private String iDOperazione;
+    private String operationID;
 
-    public String getIDPeriferica() {
-        return iDPeriferica;
+    public String getPeripheralID() {
+        return peripheralID;
     }
 
-    public void setIDPeriferica(String iDPeriferica) {
-        this.iDPeriferica = iDPeriferica;
+    public void setPeripheralID(String peripheralID) {
+        this.peripheralID = peripheralID;
     }
 
-    public String getIDOperazione() {
-        return iDOperazione;
+    public String getOperationID() {
+        return operationID;
     }
 
-    public void setIDOperazione(String iDOperazione) {
-        this.iDOperazione = iDOperazione;
+    public void setOperationID(String operationID) {
+        this.operationID = operationID;
     }
 
     @Override
@@ -37,13 +37,13 @@ public class OperationObjectPeripheralId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OperationObjectPeripheralId entity = (OperationObjectPeripheralId) o;
-        return Objects.equals(this.iDPeriferica, entity.iDPeriferica) &&
-                Objects.equals(this.iDOperazione, entity.iDOperazione);
+        return Objects.equals(this.peripheralID, entity.peripheralID) &&
+                Objects.equals(this.operationID, entity.operationID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iDPeriferica, iDOperazione);
+        return Objects.hash(peripheralID, operationID);
     }
 
 }

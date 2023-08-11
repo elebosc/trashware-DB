@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Operation {
     @Id
     @Column(name = "IDOperazione", nullable = false, length = 10)
-    private String iDOperazione;
+    private String operationID;
 
     @Column(name = "Tipo", nullable = false, length = 35)
     private String type;
@@ -24,12 +24,12 @@ public class Operation {
     @JoinColumn(name = "CodiceFiscaleReferente", nullable = false, columnDefinition = "char")
     private it.unibo.trashware.model.entities.Representative representativeFiscalCode;
 
-    public String getIDOperazione() {
-        return iDOperazione;
+    public String getOperationID() {
+        return operationID;
     }
 
-    public void setIDOperazione(String iDOperazione) {
-        this.iDOperazione = iDOperazione;
+    public void setOperationID(String operationID) {
+        this.operationID = operationID;
     }
 
     public String getType() {

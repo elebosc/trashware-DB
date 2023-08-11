@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class PC {
     @Id
     @Column(name = "IDPC", nullable = false, length = 10)
-    private String idpc;
+    private String pcID;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDMemMassa_02")
@@ -52,12 +52,12 @@ public class PC {
     @Column(name = "Note", length = 2000)
     private String notes;
 
-    public String getIdpc() {
-        return idpc;
+    public String getPcID() {
+        return pcID;
     }
 
-    public void setIdpc(String idpc) {
-        this.idpc = idpc;
+    public void setPcID(String idpc) {
+        this.pcID = idpc;
     }
 
     public it.unibo.trashware.model.entities.MassStorageDevice getMassStorage02ID() {

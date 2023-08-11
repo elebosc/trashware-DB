@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Completion {
     @Id
     @Column(name = "IDRichiesta", nullable = false, length = 10)
-    private String iDRichiesta;
+    private String requestID;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -19,12 +19,12 @@ public class Completion {
     @Column(name = "Data", nullable = false)
     private LocalDate date;
 
-    public String getIDRichiesta() {
-        return iDRichiesta;
+    public String getRequestID() {
+        return requestID;
     }
 
-    public void setIDRichiesta(String iDRichiesta) {
-        this.iDRichiesta = iDRichiesta;
+    public void setRequestID(String requestID) {
+        this.requestID = requestID;
     }
 
     public it.unibo.trashware.model.entities.Request getRequest() {

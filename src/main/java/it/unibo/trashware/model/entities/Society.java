@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class Society {
     @Id
     @Column(name = "PartitaIVA", nullable = false, length = 11, columnDefinition = "char")
-    private String partitaIVA;
+    private String VATNumber;
 
     @Column(name = "CodiceFiscale", nullable = false, length = 16)
     private String fiscalCode;
@@ -32,12 +32,12 @@ public class Society {
     @Column(name = "NumCivico_SedeLegale", nullable = false)
     private Integer registeredOfficeStreetNumber;
 
-    public String getPartitaIVA() {
-        return partitaIVA;
+    public String getVATNumber() {
+        return VATNumber;
     }
 
-    public void setPartitaIVA(String partitaIVA) {
-        this.partitaIVA = partitaIVA;
+    public void setVATNumber(String VATNumber) {
+        this.VATNumber = VATNumber;
     }
 
     public String getFiscalCode() {

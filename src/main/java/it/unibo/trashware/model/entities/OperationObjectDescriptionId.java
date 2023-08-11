@@ -11,25 +11,25 @@ import java.util.Objects;
 public class OperationObjectDescriptionId implements Serializable {
     private static final long serialVersionUID = 593576048454640100L;
     @Column(name = "IDOperazione", nullable = false, length = 10)
-    private String iDOperazione;
+    private String operationID;
 
     @Column(name = "NumLinea", nullable = false)
-    private Integer numLinea;
+    private Integer lineNumber;
 
-    public String getIDOperazione() {
-        return iDOperazione;
+    public String getOperationID() {
+        return operationID;
     }
 
-    public void setIDOperazione(String iDOperazione) {
-        this.iDOperazione = iDOperazione;
+    public void setOperationID(String operationID) {
+        this.operationID = operationID;
     }
 
-    public Integer getNumLinea() {
-        return numLinea;
+    public Integer getLineNumber() {
+        return lineNumber;
     }
 
-    public void setNumLinea(Integer numLinea) {
-        this.numLinea = numLinea;
+    public void setLineNumber(Integer lineNumber) {
+        this.lineNumber = lineNumber;
     }
 
     @Override
@@ -37,13 +37,13 @@ public class OperationObjectDescriptionId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OperationObjectDescriptionId entity = (OperationObjectDescriptionId) o;
-        return Objects.equals(this.iDOperazione, entity.iDOperazione) &&
-                Objects.equals(this.numLinea, entity.numLinea);
+        return Objects.equals(this.operationID, entity.operationID) &&
+                Objects.equals(this.lineNumber, entity.lineNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iDOperazione, numLinea);
+        return Objects.hash(operationID, lineNumber);
     }
 
 }

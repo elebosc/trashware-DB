@@ -11,25 +11,25 @@ import java.util.Objects;
 public class OperationObjectPCId implements Serializable {
     private static final long serialVersionUID = 7368082363070276928L;
     @Column(name = "IDPC", nullable = false, length = 10)
-    private String idpc;
+    private String pcID;
 
     @Column(name = "IDOperazione", nullable = false, length = 10)
-    private String iDOperazione;
+    private String operationID;
 
-    public String getIdpc() {
-        return idpc;
+    public String getPcID() {
+        return pcID;
     }
 
-    public void setIdpc(String idpc) {
-        this.idpc = idpc;
+    public void setPcID(String pcID) {
+        this.pcID = pcID;
     }
 
-    public String getIDOperazione() {
-        return iDOperazione;
+    public String getOperationID() {
+        return operationID;
     }
 
-    public void setIDOperazione(String iDOperazione) {
-        this.iDOperazione = iDOperazione;
+    public void setOperationID(String operationID) {
+        this.operationID = operationID;
     }
 
     @Override
@@ -37,13 +37,13 @@ public class OperationObjectPCId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         OperationObjectPCId entity = (OperationObjectPCId) o;
-        return Objects.equals(this.iDOperazione, entity.iDOperazione) &&
-                Objects.equals(this.idpc, entity.idpc);
+        return Objects.equals(this.operationID, entity.operationID) &&
+                Objects.equals(this.pcID, entity.pcID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iDOperazione, idpc);
+        return Objects.hash(operationID, pcID);
     }
 
 }

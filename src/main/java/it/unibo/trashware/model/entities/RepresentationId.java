@@ -10,18 +10,18 @@ import java.util.Objects;
 @Embeddable
 public class RepresentationId implements Serializable {
     private static final long serialVersionUID = 905070332300834634L;
-    @Column(name = "CodiceFiscaleReferente", nullable = false, length = 16)
-    private String codiceFiscaleReferente;
+    @Column(name = "CodiceFiscaleReferente", nullable = false, length = 16, columnDefinition = "char")
+    private String representativeFiscalCode;
 
     @Column(name = "`PartitaIVASocietà`", nullable = false, length = 11, columnDefinition = "char")
     private String societyVATNumber;
 
-    public String getCodiceFiscaleReferente() {
-        return codiceFiscaleReferente;
+    public String getRepresentativeFiscalCode() {
+        return representativeFiscalCode;
     }
 
-    public void setCodiceFiscaleReferente(String codiceFiscaleReferente) {
-        this.codiceFiscaleReferente = codiceFiscaleReferente;
+    public void setRepresentativeFiscalCode(String representativeFiscalCode) {
+        this.representativeFiscalCode = representativeFiscalCode;
     }
 
     public String getSocietyVATNumber() {
@@ -38,12 +38,12 @@ public class RepresentationId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         RepresentationId entity = (RepresentationId) o;
         return Objects.equals(this.societyVATNumber, entity.societyVATNumber) &&
-                Objects.equals(this.codiceFiscaleReferente, entity.codiceFiscaleReferente);
+                Objects.equals(this.representativeFiscalCode, entity.representativeFiscalCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(societyVATNumber, codiceFiscaleReferente);
+        return Objects.hash(societyVATNumber, representativeFiscalCode);
     }
 
 }

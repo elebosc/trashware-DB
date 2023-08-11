@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class Peripheral {
     @Id
     @Column(name = "IDPeriferica", nullable = false, length = 10)
-    private String iDPeriferica;
+    private String peripheralID;
 
     @Column(name = "Tipo", nullable = false, length = 35)
     private String type;
@@ -27,12 +27,12 @@ public class Peripheral {
     @Column(name = "Note", length = 2000)
     private String notes;
 
-    public String getIDPeriferica() {
-        return iDPeriferica;
+    public String getPeripheralID() {
+        return peripheralID;
     }
 
-    public void setIDPeriferica(String iDPeriferica) {
-        this.iDPeriferica = iDPeriferica;
+    public void setPeripheralID(String peripheralID) {
+        this.peripheralID = peripheralID;
     }
 
     public String getType() {

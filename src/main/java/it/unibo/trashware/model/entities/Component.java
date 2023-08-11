@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class Component {
     @Id
     @Column(name = "IDComponente", nullable = false, length = 10)
-    private String iDComponente;
+    private String componentID;
 
     @Column(name = "Tipo", nullable = false, length = 35)
     private String type;
@@ -24,12 +24,12 @@ public class Component {
     @Column(name = "Note", length = 2000)
     private String notes;
 
-    public String getIDComponente() {
-        return iDComponente;
+    public String getComponentID() {
+        return componentID;
     }
 
-    public void setIDComponente(String iDComponente) {
-        this.iDComponente = iDComponente;
+    public void setComponentID(String componentID) {
+        this.componentID = componentID;
     }
 
     public String getType() {

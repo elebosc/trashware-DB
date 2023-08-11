@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Request {
     @Id
     @Column(name = "IDRichiesta", nullable = false, length = 10)
-    private String iDRichiesta;
+    private String requestID;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -31,12 +31,12 @@ public class Request {
     @Column(name = "Stato", nullable = false, length = 35)
     private String status;
 
-    public String getIDRichiesta() {
-        return iDRichiesta;
+    public String getRequestID() {
+        return requestID;
     }
 
-    public void setIDRichiesta(String iDRichiesta) {
-        this.iDRichiesta = iDRichiesta;
+    public void setRequestID(String requestID) {
+        this.requestID = requestID;
     }
 
     public it.unibo.trashware.model.entities.Operation getOperationID() {

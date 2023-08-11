@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Monitor {
     @Id
     @Column(name = "IDPeriferica", nullable = false, length = 10)
-    private String iDPeriferica;
+    private String peripheralID;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -32,12 +32,12 @@ public class Monitor {
     @Column(name = "AudioIntegrato", nullable = false)
     private Byte hasEmbeddedAudio;
 
-    public String getIDPeriferica() {
-        return iDPeriferica;
+    public String getPeripheralID() {
+        return peripheralID;
     }
 
-    public void setIDPeriferica(String iDPeriferica) {
-        this.iDPeriferica = iDPeriferica;
+    public void setPeripheralID(String peripheralID) {
+        this.peripheralID = peripheralID;
     }
 
     public it.unibo.trashware.model.entities.Peripheral getPeripheral() {

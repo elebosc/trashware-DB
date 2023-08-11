@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Laptop {
     @Id
     @Column(name = "IDPC", nullable = false, length = 10)
-    private String idpc;
+    private String pcID;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,12 +26,12 @@ public class Laptop {
     @Column(name = "Colore", nullable = false, length = 15)
     private String color;
 
-    public String getIdpc() {
-        return idpc;
+    public String getPcID() {
+        return pcID;
     }
 
-    public void setIdpc(String idpc) {
-        this.idpc = idpc;
+    public void setPcID(String idpc) {
+        this.pcID = idpc;
     }
 
     public it.unibo.trashware.model.entities.PC getPc() {

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Cpu {
     @Id
     @Column(name = "IDComponente", nullable = false, length = 10)
-    private String iDComponente;
+    private String componentID;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -17,12 +17,12 @@ public class Cpu {
     @Column(name = "Architettura", nullable = false)
     private Integer architecture;
 
-    public String getIDComponente() {
-        return iDComponente;
+    public String getComponentID() {
+        return componentID;
     }
 
-    public void setIDComponente(String iDComponente) {
-        this.iDComponente = iDComponente;
+    public void setComponentID(String componentID) {
+        this.componentID = componentID;
     }
 
     public it.unibo.trashware.model.entities.Component getComponent() {
