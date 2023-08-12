@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import it.unibo.trashware.db.ConnectionProvider;
-import it.unibo.trashware.db.ConnectionProviderImpl;
 import it.unibo.trashware.model.entities.Representative;
+import it.unibo.trashware.model.provider.ConnectionProvider;
+import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 

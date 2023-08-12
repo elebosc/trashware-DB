@@ -1,4 +1,4 @@
-package it.unibo.trashware.db;
+package it.unibo.trashware.model.provider;
 
 import java.util.Optional;
 
