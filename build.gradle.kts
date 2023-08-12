@@ -29,7 +29,6 @@ dependencies {
 
     // Hibernate
     implementation("org.hibernate:hibernate-core:6.2.7.Final")
-    implementation("javax.persistence:javax.persistence-api:2.2")
 
     // MySQL
     implementation("mysql:mysql-connector-java:8.0.33")
@@ -43,6 +42,9 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.6")
     // Logback backend for SLF4J
     runtimeOnly("ch.qos.logback:logback-classic:1.4.5")
+
+    // Datafaker
+    implementation("net.datafaker:datafaker:2.0.1")
 }
 
 application {
