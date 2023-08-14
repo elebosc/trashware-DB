@@ -16,7 +16,7 @@ public class ControllerImpl implements Controller {
 
     /**
      * Creates a new controller.
-     * @throws IOException
+     * @throws IOException if an error occurs while trying to create a connection to the database.
      */
     public ControllerImpl() throws IOException {
         this.opService = new OperationsServiceImpl();

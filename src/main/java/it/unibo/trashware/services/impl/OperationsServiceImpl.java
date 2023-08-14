@@ -18,6 +18,10 @@ public class OperationsServiceImpl implements OperationsService {
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Representative, String> representativesDAO;
 
+    /**
+     * Creates a new instance of {@link OperationsService}.
+     * @throws IOException if an error occurs while trying to create a connection to the database.
+     */
     public OperationsServiceImpl() throws IOException {
         this.operationsDAO = new GenericDAOImpl<>();
         this.representativesDAO = new GenericDAOImpl<>();
