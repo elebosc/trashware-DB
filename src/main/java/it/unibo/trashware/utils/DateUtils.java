@@ -1,4 +1,6 @@
-// TO DO: add credits, this class is not mine
+/*
+ * CREDITS: https://github.com/giacomocavalieri/labDB/blob/main/src/main/java/lab/utils/Utils.java
+ */
 
 package it.unibo.trashware.utils;
 
