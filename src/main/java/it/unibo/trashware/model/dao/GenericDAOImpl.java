@@ -11,12 +11,19 @@ import it.unibo.trashware.model.provider.ConnectionProvider;
 import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
 
+/**
+ * {@link GenericDAO} implementation.
+ */
 public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericDAOImpl.class);
 
     private EntityManager em;
 
+    /**
+     * Creates a new instance of a generic DAO.
+     * @throws IOException if an error occurs while trying to create a connection to the database.
+     */
     public GenericDAOImpl() throws IOException {
         // Connect to the database
         final ConnectionProvider provider = new ConnectionProviderImpl();
