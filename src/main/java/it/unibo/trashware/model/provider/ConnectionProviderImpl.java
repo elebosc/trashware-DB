@@ -9,12 +9,16 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+/**
+ * An implementation of a {@link ConnectionProvider}.
+ */
 public final class ConnectionProviderImpl implements ConnectionProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionProvider.class);
 
     private EntityManagerFactory emf;
     
+    @Override
     public Optional<EntityManager> getConnection() {
         final String persistenceUnitName = "persistence-unit";
         this.emf = Persistence.createEntityManagerFactory(persistenceUnitName);
@@ -26,6 +30,7 @@ public final class ConnectionProviderImpl implements ConnectionProvider {
         }
     }
 
+    @Override
     public void closeConnection() {
         this.emf.close();
     }
