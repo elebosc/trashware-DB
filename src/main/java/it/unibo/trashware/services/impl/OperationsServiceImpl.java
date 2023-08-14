@@ -10,18 +10,17 @@ import it.unibo.trashware.model.entities.Operation;
 import it.unibo.trashware.model.entities.Representative;
 import it.unibo.trashware.services.api.OperationsService;
 
+/**
+ * Implementation of {@link OperationsService}.
+ */
 public class OperationsServiceImpl implements OperationsService {
 
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Representative, String> representativesDAO;
 
     public OperationsServiceImpl() throws IOException {
-        try {
-            this.operationsDAO = new GenericDAOImpl<>();
-            this.representativesDAO = new GenericDAOImpl<>();
-        } catch (final IOException ex) {
-            throw ex;
-        }
+        this.operationsDAO = new GenericDAOImpl<>();
+        this.representativesDAO = new GenericDAOImpl<>();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class OperationsServiceImpl implements OperationsService {
         // Create representative entity
         final Representative rep = new Representative();
         rep.setFiscalCode(fiscalCode);
-        rep.setName(surname);
+        rep.setName(name);
         rep.setSurname(surname);
         rep.setBirthplace(birthplace);
         rep.setBirthday(birthday);
