@@ -25,9 +25,9 @@ public class OperationsServiceImpl implements OperationsService {
      * @throws IOException if an error occurs while trying to create a connection to the database.
      */
     public OperationsServiceImpl() throws IOException {
-        this.operationsDAO = new GenericDAOImpl<>();
-        this.representativesDAO = new GenericDAOImpl<>();
-        this.societiesDAO = new GenericDAOImpl<>();
+        this.operationsDAO = new GenericDAOImpl<>(Operation.class);
+        this.representativesDAO = new GenericDAOImpl<>(Representative.class);
+        this.societiesDAO = new GenericDAOImpl<>(Society.class);
     }
 
     @Override
