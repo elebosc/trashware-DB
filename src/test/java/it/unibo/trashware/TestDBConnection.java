@@ -10,10 +10,9 @@ import it.unibo.trashware.model.entities.Representative;
 import it.unibo.trashware.model.provider.ConnectionProvider;
 import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
@@ -67,13 +66,8 @@ class TestDBConnection {
         }
 
         // Read the row just inserted
-        final TypedQuery<Representative> query = em.createQuery(
-            "SELECT ref FROM Representative ref WHERE ref.fiscalCode = :fiscalCode",
-            Representative.class
-        );
-        query.setParameter("fiscalCode", fiscalCode);
-        final Representative readRep = query.getSingleResult();
-        assertTrue(readRep.equals(newRep));
+        final Representative readRep = em.find(Representative.class, fiscalCode);
+        assertEquals(newRep, readRep);
 
         // Remove the inserted row
         em.getTransaction().begin();
@@ -87,10 +81,7 @@ class TestDBConnection {
         }
 
         // Try to read the row; no result should be returned.
-        assertThrows(
-            jakarta.persistence.NoResultException.class,
-            () -> query.getSingleResult()
-        );
+        assertNull(em.find(Representative.class, fiscalCode));
 
     }
 
