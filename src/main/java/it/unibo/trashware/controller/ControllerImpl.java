@@ -32,4 +32,14 @@ public class ControllerImpl implements Controller {
             residenceStreet, residenceStreetNumber, telephoneNumber1, telephoneNumber2, faxNumber, email
         );
     }
+
+    @Override
+    public void addSociety(String VATNumber, String fiscalCode, String name, String registeredOfficeCity,
+            String registeredOfficeCAP, String registeredOfficeProvince, String registeredOfficeStreet,
+            int registeredOfficeStreetNumber) {
+        opService.addSociety(
+            VATNumber, fiscalCode, name, registeredOfficeCity, registeredOfficeCAP, registeredOfficeProvince,
+            registeredOfficeStreet, registeredOfficeStreetNumber
+        );
+    }
 }

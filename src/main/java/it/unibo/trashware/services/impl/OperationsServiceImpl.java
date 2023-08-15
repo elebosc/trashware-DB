@@ -8,6 +8,7 @@ import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Operation;
 import it.unibo.trashware.model.entities.Representative;
+import it.unibo.trashware.model.entities.Society;
 import it.unibo.trashware.services.api.OperationsService;
 
 /**
@@ -17,6 +18,7 @@ public class OperationsServiceImpl implements OperationsService {
 
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Representative, String> representativesDAO;
+    private GenericDAO<Society, String> societiesDAO;
 
     /**
      * Creates a new instance of {@link OperationsService}.
@@ -25,6 +27,7 @@ public class OperationsServiceImpl implements OperationsService {
     public OperationsServiceImpl() throws IOException {
         this.operationsDAO = new GenericDAOImpl<>();
         this.representativesDAO = new GenericDAOImpl<>();
+        this.societiesDAO = new GenericDAOImpl<>();
     }
 
     @Override
@@ -75,8 +78,17 @@ public class OperationsServiceImpl implements OperationsService {
     public void addSociety(String VATNumber, String fiscalCode, String name, String registeredOfficeCity,
             String registeredOfficeCAP, String registeredOfficeProvince, String registeredOfficeStreet,
             int registeredOfficeStreetNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addSociety'");
+        final Society society = new Society();
+        society.setVATNumber(VATNumber);
+        society.setFiscalCode(fiscalCode);
+        society.setName(name);
+        society.setRegisteredOfficeCity(registeredOfficeCity);
+        society.setRegisteredOfficeCAP(registeredOfficeCAP);
+        society.setRegisteredOfficeProvince(registeredOfficeProvince);
+        society.setRegisteredOfficeStreet(registeredOfficeStreet);
+        society.setRegisteredOfficeStreetNumber(registeredOfficeStreetNumber);
+        // Request society insertion
+        this.societiesDAO.add(society);
     }
 
     @Override

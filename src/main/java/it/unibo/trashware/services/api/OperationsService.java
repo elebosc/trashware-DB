@@ -56,20 +56,14 @@ public interface OperationsService {
     
 	/**
 	 * Stores data about a new society.
+	 * @param VATNumber
 	 * @param fiscalCode
 	 * @param name
-	 * @param surname
-	 * @param birthplace
-	 * @param birthday
-	 * @param residenceCity
-	 * @param residenceCAP
-	 * @param residenceProvince
-	 * @param residenceStreet
-	 * @param residenceStreetNumber
-	 * @param telephoneNumber1
-	 * @param telephoneNumber2
-	 * @param faxNumber
-	 * @param email
+	 * @param registeredOfficeCity
+	 * @param registeredOfficeCAP
+	 * @param registeredOfficeProvince
+	 * @param registeredOfficeStreet
+	 * @param registeredOfficeStreetNumber
 	 */
     void addSociety(String VATNumber, String fiscalCode, String name, String registeredOfficeCity,
             String registeredOfficeCAP, String registeredOfficeProvince, String registeredOfficeStreet,

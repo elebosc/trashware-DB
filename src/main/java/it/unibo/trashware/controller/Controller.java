@@ -30,4 +30,18 @@ public interface Controller {
             int residenceStreetNumber, String telephoneNumber1, Optional<String> telephoneNumber2,
             Optional<String> faxNumber, Optional<String> email);
 
+    /**
+     * Stores data about a new society.
+     * @param VATNumber
+     * @param fiscalCode
+     * @param name
+     * @param registeredOfficeCity
+     * @param registeredOfficeCAP
+     * @param registeredOfficeProvince
+     * @param registeredOfficeStreet
+     * @param registeredOfficeStreetNumber
+     */
+    void addSociety(String VATNumber, String fiscalCode, String name, String registeredOfficeCity, String registeredOfficeCAP,
+            String registeredOfficeProvince, String registeredOfficeStreet, int registeredOfficeStreetNumber);
+
 }
