@@ -19,12 +19,13 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericDAOImpl.class);
 
     private EntityManager em;
+    private Class<T> entityClass;
 
     /**
      * Creates a new instance of a generic DAO.
      * @throws IOException if an error occurs while trying to create a connection to the database.
      */
-    public GenericDAOImpl() throws IOException {
+    public GenericDAOImpl(final Class<T> entityClass) throws IOException {
         // Connect to the database
         final ConnectionProvider provider = new ConnectionProviderImpl();
         final Optional<EntityManager> response = provider.getConnection();
@@ -32,12 +33,14 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             throw new IOException("Error: DAO could not establish a connection with the database.");
         }
         this.em = response.get();
+        // Set entity class
+        this.entityClass = entityClass;
     }
 
     @Override
-    public Optional<T> getByID(ID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByID'");
+    public Optional<T> getByID(final ID id) {
+        final T entity = this.em.find(this.entityClass, id);
+        return (entity != null) ? Optional.of(entity) : Optional.empty();
     }
 
     @Override
@@ -47,7 +50,7 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
 
     @Override
-    public void add(T entity) {
+    public void add(final T entity) {
         em.getTransaction().begin();
         try {
             em.persist(entity);
@@ -67,8 +70,15 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
 
     @Override
     public void delete(T entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        em.getTransaction().begin();
+        try {
+            em.remove(entity);
+            em.getTransaction().commit();
+        } catch (final Exception ex) {
+            LOGGER.error("Error: delete operation failed.", ex);
+            em.getTransaction().rollback();
+            throw ex;
+        }
     }
 
 }
