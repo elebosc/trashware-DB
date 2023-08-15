@@ -39,23 +39,8 @@ class TestDBConnection {
     void testInsertAndRemove() {
 
         // Write a new row in the table
-        final String fiscalCode = "RSSMRA90M09C573R";
+        final Representative newRep = createRepresentativeObj();
         em.getTransaction().begin();
-        final Representative newRep = new Representative();
-        newRep.setFiscalCode(fiscalCode);
-        newRep.setName("Mario");
-        newRep.setSurname("Rossi");
-        newRep.setBirthplace("Cesena");
-        newRep.setBirthday(LocalDate.of(1990, 8, 9));
-        newRep.setResidenceCity("Cesena");
-        newRep.setResidenceCAP("47522");
-        newRep.setResidenceProvince("FC");
-        newRep.setResidenceStreet("Via Cesare Battisti");
-        newRep.setResidenceStreetNumber(18);
-        newRep.setTelephoneNumber1("+393330000000");
-        newRep.setTelephoneNumber2("+393330000001");
-        newRep.setFaxNumber("0547000000");
-        newRep.setEmail("mario.rossi@outlook.com");
         try {
             em.persist(newRep);
             em.getTransaction().commit();
@@ -66,7 +51,7 @@ class TestDBConnection {
         }
 
         // Read the row just inserted
-        final Representative readRep = em.find(Representative.class, fiscalCode);
+        final Representative readRep = em.find(Representative.class, newRep.getFiscalCode());
         assertEquals(newRep, readRep);
 
         // Remove the inserted row
@@ -81,7 +66,7 @@ class TestDBConnection {
         }
 
         // Try to read the row; no result should be returned.
-        assertNull(em.find(Representative.class, fiscalCode));
+        assertNull(em.find(Representative.class, newRep.getFiscalCode()));
 
     }
 
@@ -89,6 +74,25 @@ class TestDBConnection {
     static void tearDownAll() {
         em.close();
         provider.closeConnection();
+    }
+
+    private Representative createRepresentativeObj() {
+        final Representative rep = new Representative();
+        rep.setFiscalCode("RSSMRA90M09C573R");
+        rep.setName("Mario");
+        rep.setSurname("Rossi");
+        rep.setBirthplace("Cesena");
+        rep.setBirthday(LocalDate.of(1990, 8, 9));
+        rep.setResidenceCity("Cesena");
+        rep.setResidenceCAP("47522");
+        rep.setResidenceProvince("FC");
+        rep.setResidenceStreet("Via Cesare Battisti");
+        rep.setResidenceStreetNumber(18);
+        rep.setTelephoneNumber1("+393330000000");
+        rep.setTelephoneNumber2("+393330000001");
+        rep.setFaxNumber("0547000000");
+        rep.setEmail("mario.rossi@outlook.com");
+        return rep;
     }
 
 }
