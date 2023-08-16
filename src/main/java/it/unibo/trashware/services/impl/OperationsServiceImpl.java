@@ -46,7 +46,7 @@ public class OperationsServiceImpl implements OperationsService {
     @Override
     public void addDonation(String id, LocalDate date, Optional<String> notes, String representativeID) {
         final Operation op = createOperationObj(id, "Donazione", date, notes, representativeID);
-        // Request operation insertion
+        // Operation insertion
         this.operationsDAO.add(op);
     }
 
@@ -61,15 +61,14 @@ public class OperationsServiceImpl implements OperationsService {
         request.setDeadlineDate(deadline);
         request.setStatus(DEFAULT_REQUEST_STATUS);
         request.setPriorityLevel(priorityLevel);
-        // Request operation insertion
-        this.operationsDAO.add(operation);
+        // Request insertion
         this.requestsDAO.add(request);
     }
 
     private Operation createOperationObj(String id, String type, LocalDate date, Optional<String> notes, String representativeID) {
         final Operation op = new Operation();
         op.setOperationID(id);
-        op.setType("Donazione");
+        op.setType(type);
         op.setDate(date);
         notes.ifPresent((value) -> op.setNotes(value));
         final Optional<Representative> representative = this.representativesDAO.getByID(representativeID);
@@ -101,7 +100,7 @@ public class OperationsServiceImpl implements OperationsService {
         telephoneNumber2.ifPresent((number) -> rep.setTelephoneNumber2(number));
         faxNumber.ifPresent((number) -> rep.setFaxNumber(number));
         email.ifPresent((address) -> rep.setEmail(address));
-        // Request representative insertion
+        // Representative insertion
         this.representativesDAO.add(rep);
     }
 
@@ -118,7 +117,7 @@ public class OperationsServiceImpl implements OperationsService {
         society.setRegisteredOfficeProvince(registeredOfficeProvince);
         society.setRegisteredOfficeStreet(registeredOfficeStreet);
         society.setRegisteredOfficeStreetNumber(registeredOfficeStreetNumber);
-        // Request society insertion
+        // Society insertion
         this.societiesDAO.add(society);
     }
 
@@ -130,7 +129,7 @@ public class OperationsServiceImpl implements OperationsService {
         final Representation representation = new Representation();
         representation.setId(representationID);
         representation.setRepresentativeTitle(representativeTitle);
-        // Request representation insertion
+        // Representation insertion
         this.representationsDAO.add(representation);
     }
 
@@ -145,7 +144,7 @@ public class OperationsServiceImpl implements OperationsService {
         objDescription.setType(type);
         objDescription.setQuantity(quantity);
         notes.ifPresent(value -> objDescription.setNotes(value));
-        // Request object description insertion
+        // Object description insertion
         this.objectDescriptionsDAO.add(objDescription);
     }
     

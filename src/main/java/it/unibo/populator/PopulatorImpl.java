@@ -26,6 +26,7 @@ public final class PopulatorImpl implements Populator {
 
     private Controller controller;
     private Faker faker;
+    private Random random;
 
     /**
      * Creates a new database populator.
@@ -34,6 +35,7 @@ public final class PopulatorImpl implements Populator {
     public PopulatorImpl(final Controller controller) {
         this.controller = controller;
         this.faker = new Faker(Locale.ITALY);
+        this.random = new Random();
     }
 
     @Override
@@ -41,6 +43,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> repFiscalCodes = createRepresentatives();
         final List<String> societiesVATNumbers = createSocieties();
         createRepresentations(repFiscalCodes, societiesVATNumbers);
+        final List<String> operationIDs = createOperations(repFiscalCodes);
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -107,24 +110,46 @@ public final class PopulatorImpl implements Populator {
     }
 
     private void createRepresentations(final List<String> repFiscalCodes, final List<String> societiesVATNumbers) {
-        final Random rand = new Random();
         for (final String societyID : societiesVATNumbers) {
             controller.addRepresentation(
                 societyID,
-                repFiscalCodes.get(rand.nextInt(N_REP)),
+                repFiscalCodes.get(this.random.nextInt(N_REP)),
                 faker.company().profession()
             );
         }
     }
 
-    private void createOperations() {
+    private List<String> createOperations(final List<String> repFiscalCodes) {
+        final List<String> operationIDs = new LinkedList<>();
+        // Create donations
         for (int i = 0; i < N_DONATIONS; i++) {
+            String donationID = Generator.generateDonationID();
             controller.addDonation(
-                Generator.generateDonationID(),
-                faker.date().future(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a future date within one year from now
+                donationID,
+                faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a past date within one year from now
                 Optional.empty(),   // empty notes
-                null);
+                repFiscalCodes.get(this.random.nextInt(N_REP))
+            );
+            operationIDs.add(donationID);
         }
+        // Create requests
+        final int MIN_PRIORITY_LEVEL = 1;
+        final int MAX_PRIORITY_LEVEL = 5;
+        for (int i = 0; i < N_REQUESTS; i++) {
+            String requestID = Generator.generateRequestID();
+            controller.addRequest(
+                requestID,
+                "Ordine",
+                "",
+                faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a past date within one year from now
+                faker.date().future(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a future date within one year from now
+                random.nextInt(MIN_PRIORITY_LEVEL, MAX_PRIORITY_LEVEL),
+                Optional.empty(),
+                repFiscalCodes.get(this.random.nextInt(N_REP))
+            );
+            operationIDs.add(requestID);
+        }
+        return operationIDs;
     }
     
 }

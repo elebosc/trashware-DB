@@ -12,6 +12,8 @@ import it.unibo.populator.utils.fiscalcode.ComputeFiscalCode;
  * This class provides methods to generate other types of data that the faker is not able to generate.
  */
 public final class Generator {
+
+	private final static Random RANDOM = new Random();
     
 	/**
 	 * Generates the fiscal code according to the given name, surname, birthplace and birthday.
@@ -32,7 +34,7 @@ public final class Generator {
                         birthday.getDayOfMonth(),
                         birthday.getMonthValue(),
                         birthday.getYear(),
-                        gender[new Random().nextInt(gender.length)])
+                        gender[RANDOM.nextInt(gender.length)])
                         // gender is not chosen according to the name;
                         // it is not accurate, but it is not relevant to the purpose of the generated fake data.
                 )
@@ -50,7 +52,7 @@ public final class Generator {
 	 */
 	public static String generateNumericCode(final int length) {
 		final int DIGIT_BOUND_EXCLUSIVE = 10;
-		return IntStream.generate(() -> new Random().nextInt(DIGIT_BOUND_EXCLUSIVE))
+		return IntStream.generate(() -> RANDOM.nextInt(DIGIT_BOUND_EXCLUSIVE))
 				.limit(length)
 				.mapToObj(digit -> String.valueOf(digit))
 				.collect(Collectors.joining());
