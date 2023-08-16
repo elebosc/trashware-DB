@@ -42,4 +42,27 @@ public class ControllerImpl implements Controller {
             registeredOfficeStreet, registeredOfficeStreetNumber
         );
     }
+
+    @Override
+    public void addRepresentation(String societyVATNumber, String representativeFiscalCode, String representativeTitle) {
+        opService.addRepresentation(societyVATNumber, representativeFiscalCode, representativeTitle);
+    }
+
+    @Override
+    public void addDonation(String id, LocalDate date, Optional<String> notes, String representativeID) {
+        this.opService.addDonation(id, date, notes, representativeID);
+    }
+
+    @Override
+    public void addRequest(String id, String type, String reason, LocalDate date, LocalDate deadline, int priorityLevel,
+            Optional<String> notes, String representativeID) {
+        this.opService.addRequest(id, type, reason, date, deadline, priorityLevel, notes, representativeID);
+    }
+
+    @Override
+    public void addObjectDescription(String operationID, int lineNumber, String type, int quantity,
+            Optional<String> notes) {
+        this.opService.addObjectDescription(operationID, lineNumber, type, quantity, notes);
+    }
+
 }

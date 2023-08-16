@@ -3,6 +3,7 @@ package it.unibo.trashware;
 import java.io.IOException;
 
 import it.unibo.populator.Populator;
+import it.unibo.populator.PopulatorImpl;
 import it.unibo.trashware.controller.Controller;
 import it.unibo.trashware.controller.ControllerImpl;
 
@@ -22,6 +23,7 @@ public final class App {
      */
     public static void main(final String... args) throws IOException {
         final Controller controller = new ControllerImpl();
-        Populator.populateDB(controller);
+        final Populator populator = new PopulatorImpl(controller);
+        populator.populateDB();
     }
 }

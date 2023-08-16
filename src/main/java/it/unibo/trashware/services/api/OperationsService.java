@@ -70,7 +70,15 @@ public interface OperationsService {
             int registeredOfficeStreetNumber);
 
 	/**
-	 * Stores data about a new object descriptio.
+	 * Stores data about a new representation relationship between a society and its representative.
+	 * @param societyVATNumber
+	 * @param representativeFiscalCode
+	 * @param representativeTitle
+	 */
+	void addRepresentation(String societyVATNumber, String representativeFiscalCode, String representativeTitle);
+	
+	/**
+	 * Stores data about a new object description.
 	 * @param operationID
 	 * @param lineNumber
 	 * @param type

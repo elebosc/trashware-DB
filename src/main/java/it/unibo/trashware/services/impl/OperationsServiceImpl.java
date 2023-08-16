@@ -7,7 +7,12 @@ import java.util.Optional;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Operation;
+import it.unibo.trashware.model.entities.OperationObjectDescription;
+import it.unibo.trashware.model.entities.OperationObjectDescriptionId;
+import it.unibo.trashware.model.entities.Representation;
+import it.unibo.trashware.model.entities.RepresentationId;
 import it.unibo.trashware.model.entities.Representative;
+import it.unibo.trashware.model.entities.Request;
 import it.unibo.trashware.model.entities.Society;
 import it.unibo.trashware.services.api.OperationsService;
 
@@ -16,9 +21,14 @@ import it.unibo.trashware.services.api.OperationsService;
  */
 public class OperationsServiceImpl implements OperationsService {
 
+    private static String DEFAULT_REQUEST_STATUS = "In lavorazione";
+
     private GenericDAO<Operation, String> operationsDAO;
+    private GenericDAO<Request, String> requestsDAO;
     private GenericDAO<Representative, String> representativesDAO;
     private GenericDAO<Society, String> societiesDAO;
+    private GenericDAO<Representation, RepresentationId> representationsDAO;
+    private GenericDAO<OperationObjectDescription, String> objectDescriptionsDAO;
 
     /**
      * Creates a new instance of {@link OperationsService}.
@@ -26,27 +36,48 @@ public class OperationsServiceImpl implements OperationsService {
      */
     public OperationsServiceImpl() throws IOException {
         this.operationsDAO = new GenericDAOImpl<>(Operation.class);
+        this.requestsDAO = new GenericDAOImpl<>(Request.class);
         this.representativesDAO = new GenericDAOImpl<>(Representative.class);
         this.societiesDAO = new GenericDAOImpl<>(Society.class);
+        this.representationsDAO = new GenericDAOImpl<>(Representation.class);
+        this.objectDescriptionsDAO = new GenericDAOImpl<>(OperationObjectDescription.class);
     }
 
     @Override
     public void addDonation(String id, LocalDate date, Optional<String> notes, String representativeID) {
-        final Operation op = new Operation();
-        op.setOperationID(id);
-        op.setType("Donazione");
-        op.setDate(date);
-        // op.setRepresentativeFiscalCode(this.representativesDAO.getByID(representativeID));
-        notes.ifPresent((value) -> op.setNotes(value));
+        final Operation op = createOperationObj(id, "Donazione", date, notes, representativeID);
         // Request operation insertion
         this.operationsDAO.add(op);
     }
 
     @Override
-    public void addRequest(String id, String type, String reason, LocalDate date, LocalDate deadline, int priorityLevel,
+    public void addRequest(String id, String requestType, String reason, LocalDate date, LocalDate deadline, int priorityLevel,
             Optional<String> notes, String representativeID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addRequest'");
+        final Operation operation = createOperationObj(id, "Richiesta", date, notes, representativeID);
+        final Request request = new Request();
+        request.setOperationID(operation);  // sets the reference to the Operation object containing the general info about the operation
+        request.setType(requestType);
+        request.setReason(reason);
+        request.setDeadlineDate(deadline);
+        request.setStatus(DEFAULT_REQUEST_STATUS);
+        request.setPriorityLevel(priorityLevel);
+        // Request operation insertion
+        this.operationsDAO.add(operation);
+        this.requestsDAO.add(request);
+    }
+
+    private Operation createOperationObj(String id, String type, LocalDate date, Optional<String> notes, String representativeID) {
+        final Operation op = new Operation();
+        op.setOperationID(id);
+        op.setType("Donazione");
+        op.setDate(date);
+        notes.ifPresent((value) -> op.setNotes(value));
+        final Optional<Representative> representative = this.representativesDAO.getByID(representativeID);
+        if (representative.isEmpty()) {
+            throw new IllegalArgumentException("Error: a representative with the specified ID does not exist.");
+        }
+        op.setRepresentativeFiscalCode(representative.get());
+        return op;
     }
 
     @Override
@@ -92,10 +123,30 @@ public class OperationsServiceImpl implements OperationsService {
     }
 
     @Override
+    public void addRepresentation(String societyVATNumber, String representativeFiscalCode, String representativeTitle) {
+        final RepresentationId representationID = new RepresentationId();
+        representationID.setSocietyVATNumber(societyVATNumber);
+        representationID.setRepresentativeFiscalCode(representativeFiscalCode);
+        final Representation representation = new Representation();
+        representation.setId(representationID);
+        representation.setRepresentativeTitle(representativeTitle);
+        // Request representation insertion
+        this.representationsDAO.add(representation);
+    }
+
+    @Override
     public void addObjectDescription(String operationID, int lineNumber, String type, int quantity,
             Optional<String> notes) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addObjectDescription'");
+        final OperationObjectDescription objDescription = new OperationObjectDescription();
+        final OperationObjectDescriptionId objDescriptionID = new OperationObjectDescriptionId();
+        objDescriptionID.setOperationID(operationID);
+        objDescriptionID.setLineNumber(lineNumber);
+        objDescription.setId(objDescriptionID);
+        objDescription.setType(type);
+        objDescription.setQuantity(quantity);
+        notes.ifPresent(value -> objDescription.setNotes(value));
+        // Request object description insertion
+        this.objectDescriptionsDAO.add(objDescription);
     }
     
 }

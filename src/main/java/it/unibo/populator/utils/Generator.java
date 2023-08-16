@@ -3,6 +3,8 @@ package it.unibo.populator.utils;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import it.unibo.populator.utils.fiscalcode.ComputeFiscalCode;
 
@@ -40,4 +42,40 @@ public final class Generator {
                 .append(ComputeFiscalCode.computeControlChar(incompleteFiscalCode))
                 .toString();
     }
+
+	/**
+	 * Generates a random numeric code.
+	 * @param length the length of the code to generate.
+	 * @return the generated code
+	 */
+	public static String generateNumericCode(final int length) {
+		final int DIGIT_BOUND_EXCLUSIVE = 10;
+		return IntStream.generate(() -> new Random().nextInt(DIGIT_BOUND_EXCLUSIVE))
+				.limit(length)
+				.mapToObj(digit -> String.valueOf(digit))
+				.collect(Collectors.joining());
+	}
+
+	/**
+	 * Generates a random ID for a donation.
+	 * @return the generated donation ID
+	 */
+	public static String generateDonationID() {
+		final String prefix = "DON";
+		final int NUMERIC_CODE_LENGTH = 7;
+		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
+		return prefix + number;
+	}
+
+	/**
+	 * Generates a random ID for a request.
+	 * @return the generated request ID
+	 */
+	public static String generateRequestID() {
+		final String prefix = "REQ";
+		final int NUMERIC_CODE_LENGTH = 7;
+		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
+		return prefix + number;
+	}
+
 }
