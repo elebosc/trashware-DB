@@ -7,8 +7,8 @@ import java.util.Random;
  */
 public enum CommonPeripheralTypes {
 
-    MONITOR("MONITOR"),
-    KEYBOARD("Keyboard"),
+    MONITOR("Monitor"),
+    KEYBOARD("Tastiera"),
     MOUSE("Mouse"),
     SPEAKERS("Casse Audio");
 

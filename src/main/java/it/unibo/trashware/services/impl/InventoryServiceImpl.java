@@ -118,7 +118,7 @@ public class InventoryServiceImpl implements InventoryService {
     public void addMonitor(String peripheralID, String type, String brand, String model, String connectivity,
             Optional<String> notes, String monitorType, int size, String aspectRatio, boolean isVGASupported,
             boolean isDVISupported, boolean hasEmbeddedAudio) {
-        final Peripheral peripheral = createPeripheralObject(peripheralID, monitorType, brand, model, connectivity, notes);
+        final Peripheral peripheral = createPeripheralObject(peripheralID, type, brand, model, connectivity, notes);
         final Monitor monitor = new Monitor();
         monitor.setPeripheral(peripheral);
         monitor.setType(monitorType);
