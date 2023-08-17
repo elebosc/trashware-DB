@@ -13,7 +13,7 @@ import it.unibo.populator.utils.fiscalcode.ComputeFiscalCode;
  */
 public final class Generator {
 
-	private final static Random RANDOM = new Random();
+	private static final Random RANDOM = new Random();
     
 	/**
 	 * Generates the fiscal code according to the given name, surname, birthplace and birthday.
@@ -78,6 +78,10 @@ public final class Generator {
 		final int NUMERIC_CODE_LENGTH = 7;
 		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
 		return prefix + number;
+	}
+
+	public static String getRandomDeviceType() {
+		return CommonDeviceTypes.getRandomDeviceType();
 	}
 
 }

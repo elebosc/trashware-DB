@@ -23,6 +23,10 @@ public final class PopulatorImpl implements Populator {
     private static final int N_SOCIETIES = 25;
     private static final int N_DONATIONS = 25;
     private static final int N_REQUESTS = 25;
+    // an upper bound to the number of objects descriptions generated for each operation
+    private static final int MAX_OPERATION_OBJECTS = 5;
+
+    private static final Random RANDOM = new Random();
 
     private Controller controller;
     private Faker faker;
@@ -44,6 +48,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> societiesVATNumbers = createSocieties();
         createRepresentations(repFiscalCodes, societiesVATNumbers);
         final List<String> operationIDs = createOperations(repFiscalCodes);
+        createObjectDescriptions(operationIDs);
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -150,6 +155,21 @@ public final class PopulatorImpl implements Populator {
             operationIDs.add(requestID);
         }
         return operationIDs;
+    }
+
+    private void createObjectDescriptions(final List<String> operationsIDs) {
+        for (int i = 0; i < N_DONATIONS; i++) {
+            // Link a random number of objects descriptions to the operation
+            for (int j = 0; j < RANDOM.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
+                controller.addObjectDescription(
+                    operationsIDs.get(i),
+                    j + 1,
+                    Generator.getRandomDeviceType(),
+                    1,
+                    Optional.empty()
+                );
+            }
+        }
     }
     
 }
