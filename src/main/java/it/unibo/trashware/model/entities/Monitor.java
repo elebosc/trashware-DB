@@ -23,14 +23,14 @@ public class Monitor {
     @Column(name = "AspectRatio", nullable = false, length = 6)
     private String aspectRatio;
 
-    @Column(name = "VGA", nullable = false)
-    private Byte isVGASupported;
+    @Column(name = "VGA", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean isVGASupported;
 
-    @Column(name = "DVI", nullable = false)
-    private Byte isDVISupported;
+    @Column(name = "DVI", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean isDVISupported;
 
-    @Column(name = "AudioIntegrato", nullable = false)
-    private Byte hasEmbeddedAudio;
+    @Column(name = "AudioIntegrato", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean hasEmbeddedAudio;
 
     public String getPeripheralID() {
         return peripheralID;
@@ -72,27 +72,27 @@ public class Monitor {
         this.aspectRatio = aspectRatio;
     }
 
-    public Byte getIsVGASupported() {
+    public boolean getIsVGASupported() {
         return isVGASupported;
     }
 
-    public void setIsVGASupported(Byte isVGASupported) {
+    public void setIsVGASupported(boolean isVGASupported) {
         this.isVGASupported = isVGASupported;
     }
 
-    public Byte getIsDVISupported() {
+    public boolean getIsDVISupported() {
         return isDVISupported;
     }
 
-    public void setIsDVISupported(Byte isDVISupported) {
+    public void setIsDVISupported(boolean isDVISupported) {
         this.isDVISupported = isDVISupported;
     }
 
-    public Byte getHasEmbeddedAudio() {
+    public boolean getHasEmbeddedAudio() {
         return hasEmbeddedAudio;
     }
 
-    public void setHasEmbeddedAudio(Byte hasEmbeddedAudio) {
+    public void setHasEmbeddedAudio(boolean hasEmbeddedAudio) {
         this.hasEmbeddedAudio = hasEmbeddedAudio;
     }
 
