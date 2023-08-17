@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import it.unibo.trashware.services.api.InventoryService;
 import it.unibo.trashware.services.api.OperationsService;
+import it.unibo.trashware.services.impl.InventoryServiceImpl;
 import it.unibo.trashware.services.impl.OperationsServiceImpl;
 
 /**
@@ -13,6 +15,7 @@ import it.unibo.trashware.services.impl.OperationsServiceImpl;
 public class ControllerImpl implements Controller {
     
     private OperationsService opService;
+    private InventoryService inventoryService;
 
     /**
      * Creates a new controller.
@@ -20,6 +23,7 @@ public class ControllerImpl implements Controller {
      */
     public ControllerImpl() throws IOException {
         this.opService = new OperationsServiceImpl();
+        this.inventoryService = new InventoryServiceImpl();
     }
 
     @Override
@@ -63,6 +67,12 @@ public class ControllerImpl implements Controller {
     public void addObjectDescription(String operationID, int lineNumber, String type, int quantity,
             Optional<String> notes) {
         this.opService.addObjectDescription(operationID, lineNumber, type, quantity, notes);
+    }
+
+    @Override
+    public void addCPU(String componentID, String type, String brand, String model, Optional<String> notes,
+            int architecture) {
+        this.inventoryService.addCPU(componentID, type, brand, model, notes, architecture);
     }
 
 }

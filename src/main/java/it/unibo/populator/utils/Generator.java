@@ -84,4 +84,15 @@ public final class Generator {
 		return CommonDeviceTypes.getRandomDeviceType();
 	}
 
+	/**
+	 * Generates a random ID for a component.
+	 * @return the generated request ID
+	 */
+	public static String generateComponentID() {
+		final String prefix = "CMP";
+		final int NUMERIC_CODE_LENGTH = 7;
+		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
+		return prefix + number;
+	}
+
 }

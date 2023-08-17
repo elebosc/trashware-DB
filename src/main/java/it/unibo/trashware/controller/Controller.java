@@ -85,4 +85,15 @@ public interface Controller {
 	 * @param notes
 	 */
     void addObjectDescription(String operationID, int lineNumber, String type, int quantity, Optional<String> notes);
+
+	/**
+	 * Stores data about a new CPU.
+	 * @param componentID
+	 * @param type
+	 * @param brand
+	 * @param model
+	 * @param notes
+	 * @param architecture
+	 */
+	void addCPU(String componentID, String type, String brand, String model, Optional<String> notes, int architecture);
 }

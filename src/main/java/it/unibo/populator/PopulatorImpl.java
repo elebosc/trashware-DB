@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import it.unibo.populator.utils.CommonDeviceTypes;
 import it.unibo.populator.utils.Generator;
 import it.unibo.trashware.controller.Controller;
 import net.datafaker.Faker;
@@ -25,8 +26,10 @@ public final class PopulatorImpl implements Populator {
     private static final int N_REQUESTS = 25;
     // an upper bound to the number of objects descriptions generated for each operation
     private static final int MAX_OPERATION_OBJECTS = 5;
-
-    private static final Random RANDOM = new Random();
+    private static final int N_CPU = 50;
+    private static final int N_RAM = 100;
+    private static final int N_MASS_STORAGES = 70;
+    private static final int N_CHASSIS = 50;
 
     private Controller controller;
     private Faker faker;
@@ -49,6 +52,7 @@ public final class PopulatorImpl implements Populator {
         createRepresentations(repFiscalCodes, societiesVATNumbers);
         final List<String> operationIDs = createOperations(repFiscalCodes);
         createObjectDescriptions(operationIDs);
+        createCPUs();
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -160,7 +164,7 @@ public final class PopulatorImpl implements Populator {
     private void createObjectDescriptions(final List<String> operationsIDs) {
         for (int i = 0; i < N_DONATIONS; i++) {
             // Link a random number of objects descriptions to the operation
-            for (int j = 0; j < RANDOM.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
+            for (int j = 0; j < this.random.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
                 controller.addObjectDescription(
                     operationsIDs.get(i),
                     j + 1,
@@ -169,6 +173,20 @@ public final class PopulatorImpl implements Populator {
                     Optional.empty()
                 );
             }
+        }
+    }
+
+    private void createCPUs() {
+        final int BITS = 32; 
+        for (int i = 0; i < N_CPU; i++) {
+            controller.addCPU(
+                Generator.generateComponentID(), 
+                CommonDeviceTypes.CPU.getType(),
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate for CPUs 
+                "",     // should find a way to generate CPU models names
+                Optional.empty(),
+                BITS
+            );
         }
     }
     
