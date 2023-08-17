@@ -9,6 +9,8 @@ import it.unibo.trashware.model.entities.Chassis;
 import it.unibo.trashware.model.entities.Component;
 import it.unibo.trashware.model.entities.Cpu;
 import it.unibo.trashware.model.entities.MassStorageDevice;
+import it.unibo.trashware.model.entities.Monitor;
+import it.unibo.trashware.model.entities.Peripheral;
 import it.unibo.trashware.model.entities.RAMModule;
 import it.unibo.trashware.services.api.InventoryService;
 
@@ -19,6 +21,8 @@ public class InventoryServiceImpl implements InventoryService {
     private GenericDAO<MassStorageDevice, String> massStorageDAO;
     private GenericDAO<Chassis, String> chassisDAO;
     private GenericDAO<Component, String> otherComponentsDAO;
+    private GenericDAO<Peripheral, String> peripheralsDAO;
+    private GenericDAO<Monitor, String> monitorsDAO;
 
     public InventoryServiceImpl() throws IOException {
         this.cpuDAO = new GenericDAOImpl<>(Cpu.class);
@@ -26,6 +30,8 @@ public class InventoryServiceImpl implements InventoryService {
         this.massStorageDAO = new GenericDAOImpl<>(MassStorageDevice.class);
         this.chassisDAO = new GenericDAOImpl<>(Chassis.class);
         this.otherComponentsDAO = new GenericDAOImpl<>(Component.class);
+        this.peripheralsDAO = new GenericDAOImpl<>(Peripheral.class);
+        this.monitorsDAO = new GenericDAOImpl<>(Monitor.class);
     }
 
     private Component createComponentObject(String componentID, String type, String brand, String model,
@@ -87,6 +93,42 @@ public class InventoryServiceImpl implements InventoryService {
     public void addComponent(String componentID, String type, String brand, String model, Optional<String> notes) {
         // Component insertion
         this.otherComponentsDAO.add(createComponentObject(componentID, type, brand, model, notes));
+    }
+
+    private Peripheral createPeripheralObject(String peripheralID, String type, String brand, String model, String connectivity,
+            Optional<String> notes) {
+        final Peripheral peripheral = new Peripheral();
+        peripheral.setPeripheralID(peripheralID);
+        peripheral.setType(type);
+        peripheral.setBrand(brand);
+        peripheral.setModel(model);
+        peripheral.setConnectivity(connectivity);
+        notes.ifPresent(value -> peripheral.setNotes(value));
+        return peripheral;
+    }
+
+    @Override
+    public void addPeripheral(String peripheralID, String type, String brand, String model, String connectivity,
+            Optional<String> notes) {
+        // Peripheral insertion
+        this.peripheralsDAO.add(createPeripheralObject(peripheralID, type, brand, model, connectivity, notes));
+    }
+
+    @Override
+    public void addMonitor(String peripheralID, String type, String brand, String model, String connectivity,
+            Optional<String> notes, String monitorType, int size, String aspectRatio, boolean isVGASupported,
+            boolean isDVISupported, boolean hasEmbeddedAudio) {
+        final Peripheral peripheral = createPeripheralObject(peripheralID, monitorType, brand, model, connectivity, notes);
+        final Monitor monitor = new Monitor();
+        monitor.setPeripheral(peripheral);
+        monitor.setType(monitorType);
+        monitor.setSize(size);
+        monitor.setAspectRatio(aspectRatio);
+        monitor.setIsVGASupported(isVGASupported);
+        monitor.setIsDVISupported(isDVISupported);
+        monitor.setHasEmbeddedAudio(hasEmbeddedAudio);
+        // Monitor insertion
+        this.monitorsDAO.add(monitor);
     }
 
 }

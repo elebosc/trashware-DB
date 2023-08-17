@@ -107,4 +107,18 @@ public class ControllerImpl implements Controller {
         this.inventoryService.addComponent(componentID, type, brand, model, notes);
     }
 
+    @Override
+    public void addPeripheral(String peripheralID, String type, String brand, String model, String connectivity,
+            Optional<String> notes) {
+        this.inventoryService.addPeripheral(peripheralID, type, brand, model, connectivity, notes);
+    }
+
+    @Override
+    public void addMonitor(String peripheralID, String type, String brand, String model, String connectivity,
+            Optional<String> notes, String monitorType, int size, String aspectRatio, boolean isVGASupported,
+            boolean isDVISupported, boolean hasEmbeddedAudio) {
+        this.inventoryService.addMonitor(peripheralID, type, brand, model, connectivity, notes, monitorType,
+                size, aspectRatio, isVGASupported, isDVISupported, hasEmbeddedAudio);
+    }
+
 }
