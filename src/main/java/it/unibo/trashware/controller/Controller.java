@@ -87,6 +87,20 @@ public interface Controller {
     void addObjectDescription(String operationID, int lineNumber, String type, int quantity, Optional<String> notes);
 
 	/**
+	 * Registers the completion of the request.
+	 * @param requestID
+	 * @param date
+	 */
+	void registerRequestCompletion(String requestID, LocalDate date);
+
+	/**
+	 * Registers the delivery of the devices involved in the specified request.
+	 * @param requestID
+	 * @param date
+	 */
+	void registerDevicesDelivery(String requestID, LocalDate date);
+
+	/**
 	 * Stores data about a new CPU.
 	 * @param componentID
 	 * @param type

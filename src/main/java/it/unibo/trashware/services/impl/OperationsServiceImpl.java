@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
+import it.unibo.trashware.model.entities.Completion;
+import it.unibo.trashware.model.entities.Delivery;
 import it.unibo.trashware.model.entities.Operation;
 import it.unibo.trashware.model.entities.OperationObjectDescription;
 import it.unibo.trashware.model.entities.OperationObjectDescriptionId;
@@ -22,6 +24,8 @@ import it.unibo.trashware.services.api.OperationsService;
 public class OperationsServiceImpl implements OperationsService {
 
     private static String DEFAULT_REQUEST_STATUS = "In lavorazione";
+    private static String REQUEST_COMPLETED = "Pronto per la consegna";
+    private static String DEVICES_DELIVERED = "Consegna effettuata";
 
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Request, String> requestsDAO;
@@ -29,6 +33,8 @@ public class OperationsServiceImpl implements OperationsService {
     private GenericDAO<Society, String> societiesDAO;
     private GenericDAO<Representation, RepresentationId> representationsDAO;
     private GenericDAO<OperationObjectDescription, String> objectDescriptionsDAO;
+    private GenericDAO<Completion, String> completionsDAO;
+    private GenericDAO<Delivery, String> deliveriesDAO;
 
     /**
      * Creates a new instance of {@link OperationsService}.
@@ -41,6 +47,8 @@ public class OperationsServiceImpl implements OperationsService {
         this.societiesDAO = new GenericDAOImpl<>(Society.class);
         this.representationsDAO = new GenericDAOImpl<>(Representation.class);
         this.objectDescriptionsDAO = new GenericDAOImpl<>(OperationObjectDescription.class);
+        this.completionsDAO = new GenericDAOImpl<>(Completion.class);
+        this.deliveriesDAO = new GenericDAOImpl<>(Delivery.class);
     }
 
     @Override
@@ -146,6 +154,45 @@ public class OperationsServiceImpl implements OperationsService {
         notes.ifPresent(value -> objDescription.setNotes(value));
         // Object description insertion
         this.objectDescriptionsDAO.add(objDescription);
+    }
+
+    @Override
+    public void registerRequestCompletion(String requestID, LocalDate date) {
+        final Completion completion = new Completion();
+        final Optional<Request> response = this.requestsDAO.getByID(requestID);
+        if (response.isEmpty()) {
+            throw new IllegalArgumentException("Error: no request with such ID exists.");
+        }
+        final Request request = response.get();
+        // Update request state
+        request.setStatus(REQUEST_COMPLETED);
+        this.requestsDAO.update(request);
+        // Register completion
+        completion.setRequest(request);
+        completion.setDate(date);
+        this.completionsDAO.add(completion);
+    }
+
+    @Override
+    public void registerDevicesDelivery(String requestID, LocalDate date) {
+        final Delivery delivery = new Delivery();
+        final Optional<Completion> searchedCompletion = this.completionsDAO.getByID(requestID);
+        final Optional<Request> searchedRequest = this.requestsDAO.getByID(requestID);
+        if (searchedRequest.isEmpty()) {
+            throw new IllegalArgumentException("Error: no request with such ID exists.");
+        }
+        if (searchedCompletion.isEmpty()) {
+            throw new IllegalArgumentException("Error: no request with such ID has been completed.");
+        }
+        final Request request = searchedRequest.get();
+        final Completion completion = searchedCompletion.get();
+        // Update request state
+        request.setStatus(DEVICES_DELIVERED);
+        this.requestsDAO.update(request);
+        // Register delivery
+        delivery.setCompletion(completion);
+        delivery.setDate(date);
+        this.deliveriesDAO.add(delivery);
     }
     
 }

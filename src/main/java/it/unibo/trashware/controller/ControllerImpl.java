@@ -70,6 +70,16 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void registerRequestCompletion(String requestID, LocalDate date) {
+        this.opService.registerRequestCompletion(requestID, date);
+    }
+
+    @Override
+    public void registerDevicesDelivery(String requestID, LocalDate date) {
+        this.opService.registerDevicesDelivery(requestID, date);
+    }
+
+    @Override
     public void addCPU(String componentID, String type, String brand, String model, Optional<String> notes,
             int architecture) {
         this.inventoryService.addCPU(componentID, type, brand, model, notes, architecture);
