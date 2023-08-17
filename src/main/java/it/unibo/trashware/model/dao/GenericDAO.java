@@ -30,8 +30,17 @@ public interface GenericDAO<T, ID> {
      */
     void add(T entity);
     
-    void update(T entity, String[] params);
+    /**
+     * Updates the row of the database table mapped to the passed entity.
+     * @param entity the entity object carrying the updated state
+     * @return the reference to a new entity object carrying the updated state
+     */
+    T update(T entity);
     
+    /**
+     * Deletes the row of the database table mapped to the passed entity.
+     * @param entity the entity mapped to the row to delete
+     */
     void delete(T entity);
 
 }

@@ -1,6 +1,7 @@
 package it.unibo.trashware;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -54,6 +55,26 @@ public class TestDAO {
         dao.delete(newRep);
         // Check if the entity has been removed
         assertTrue(dao.getByID(newRep.getFiscalCode()).isEmpty());
+    }
+
+    /**
+     * Tests a basic update operation, implemented by the {@link GenericDAO#update} method.
+     */
+    @Test
+    void testUpdate() {
+        final Representative rep = createRepresentativeObj();
+        // Add representative to the table
+        dao.add(rep);
+        // Update one of the representative's properties
+        final String newEmail = "mario.rossi22@outlook.com"; // old email is mario.rossi@outlook.com
+        assertNotEquals(newEmail, rep.getEmail());
+        rep.setEmail(newEmail);
+        // Update entity
+        final Representative updatedRep = dao.update(rep);
+        // An updated instance of the entity should have been returned
+        assertEquals(newEmail, updatedRep.getEmail());
+        // Remove entity
+        dao.delete(updatedRep);
     }
 
     private Representative createRepresentativeObj() {  
