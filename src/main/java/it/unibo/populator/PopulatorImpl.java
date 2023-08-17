@@ -20,16 +20,17 @@ import net.datafaker.providers.base.Address;
  */
 public final class PopulatorImpl implements Populator {
 
-    private static final int N_REP = 50;
-    private static final int N_SOCIETIES = 25;
-    private static final int N_DONATIONS = 25;
-    private static final int N_REQUESTS = 25;
+    private static final int N_REP = 40;
+    private static final int N_SOCIETIES = 15;
+    private static final int N_DONATIONS = 20;
+    private static final int N_REQUESTS = 20;
     // an upper bound to the number of objects descriptions generated for each operation
     private static final int MAX_OPERATION_OBJECTS = 5;
-    private static final int N_CPU = 50;
-    private static final int N_RAM = 100;
-    private static final int N_MASS_STORAGES = 70;
-    private static final int N_CHASSIS = 50;
+    private static final int N_CPU = 40;
+    private static final int N_RAM = 80;
+    private static final int N_MASS_STORAGES = 50;
+    private static final int N_CHASSIS_UNITS = 40;
+    private static final int N_OTHER_COMPONENTS_TYPES = 5;
 
     private Controller controller;
     private Faker faker;
@@ -53,6 +54,10 @@ public final class PopulatorImpl implements Populator {
         final List<String> operationIDs = createOperations(repFiscalCodes);
         createObjectDescriptions(operationIDs);
         createCPUs();
+        createRAMModules();
+        createMassStorageDevices();
+        createChassisUnits();
+        createOtherTypesOfComponents();
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -177,15 +182,70 @@ public final class PopulatorImpl implements Populator {
     }
 
     private void createCPUs() {
-        final int BITS = 32; 
+        final int DEFAULT_BITS = 32; 
         for (int i = 0; i < N_CPU; i++) {
             controller.addCPU(
                 Generator.generateComponentID(), 
                 CommonDeviceTypes.CPU.getType(),
-                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate for CPUs 
-                "",     // should find a way to generate CPU models names
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
+                "",     // should find a way to generate models names
                 Optional.empty(),
-                BITS
+                DEFAULT_BITS
+            );
+        }
+    }
+
+    private void createRAMModules() {
+        final int DEFAULT_MB_SIZE = 1024;
+        for (int i = 0; i < N_RAM; i++) {
+            controller.addRAM(
+                Generator.generateComponentID(), 
+                CommonDeviceTypes.RAM.getType(),
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
+                "",     // should find a way to generate models names
+                Optional.empty(),
+                DEFAULT_MB_SIZE
+            );
+        }
+    }
+
+    private void createMassStorageDevices() {
+        final int DEFAULT_GB_SIZE = 512;
+        for (int i = 0; i < N_MASS_STORAGES; i++) {
+            controller.addMassStorage(
+                Generator.generateComponentID(), 
+                CommonDeviceTypes.MASS_STORAGE.getType(),
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
+                "",     // should find a way to generate models names
+                Optional.empty(),
+                Generator.getRandomMassStorageType(),
+                DEFAULT_GB_SIZE
+            );
+        }
+    }
+
+    private void createChassisUnits() {
+        for (int i = 0; i < N_CHASSIS_UNITS; i++) {
+            controller.addChassis(
+                Generator.generateComponentID(), 
+                CommonDeviceTypes.CHASSIS.getType(),
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
+                "",     // should find a way to generate models names
+                Optional.empty(),
+                faker.color().name()
+            );
+        }
+    }
+
+    private void createOtherTypesOfComponents() {
+        final String NETWORK_ADAPTER = "Scheda di rete";    // example of another type of component
+        for (int i = 0; i < N_OTHER_COMPONENTS_TYPES; i++) {
+            controller.addComponent(
+                Generator.generateComponentID(), 
+                NETWORK_ADAPTER,
+                faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
+                "",     // should find a way to generate models names
+                Optional.empty()
             );
         }
     }

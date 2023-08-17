@@ -84,6 +84,10 @@ public final class Generator {
 		return CommonDeviceTypes.getRandomDeviceType();
 	}
 
+	public static String getRandomMassStorageType() {
+		return MassStorageTypes.getRandomMassStorageType();
+	}
+
 	/**
 	 * Generates a random ID for a component.
 	 * @return the generated request ID

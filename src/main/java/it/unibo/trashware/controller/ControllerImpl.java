@@ -75,4 +75,26 @@ public class ControllerImpl implements Controller {
         this.inventoryService.addCPU(componentID, type, brand, model, notes, architecture);
     }
 
+    @Override
+    public void addRAM(String componentID, String type, String brand, String model, Optional<String> notes, int size) {
+        this.inventoryService.addRAM(componentID, type, brand, model, notes, size);
+    }
+
+    @Override
+    public void addMassStorage(String componentID, String type, String brand, String model, Optional<String> notes,
+            String massStorageType, int size) {
+        this.inventoryService.addMassStorage(componentID, type, brand, model, notes, massStorageType, size);
+    }
+
+    @Override
+    public void addChassis(String componentID, String type, String brand, String model, Optional<String> notes,
+            String color) {
+        this.inventoryService.addChassis(componentID, type, brand, model, notes, color);
+    }
+
+    @Override
+    public void addComponent(String componentID, String type, String brand, String model, Optional<String> notes) {
+        this.inventoryService.addComponent(componentID, type, brand, model, notes);
+    }
+
 }
