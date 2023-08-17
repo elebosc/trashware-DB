@@ -9,7 +9,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.populator.utils.CommonDeviceTypes;
+import it.unibo.populator.utils.CommonComponentTypes;
+import it.unibo.populator.utils.CommonPeripheralTypes;
 import it.unibo.populator.utils.Generator;
 import it.unibo.trashware.controller.Controller;
 import net.datafaker.Faker;
@@ -31,6 +32,8 @@ public final class PopulatorImpl implements Populator {
     private static final int N_MASS_STORAGES = 50;
     private static final int N_CHASSIS_UNITS = 40;
     private static final int N_OTHER_COMPONENTS_TYPES = 5;
+    private static final int N_MONITORS = 40;
+    private static final int N_OTHER_PERIPHERALS = 50;
 
     private Controller controller;
     private Faker faker;
@@ -53,11 +56,13 @@ public final class PopulatorImpl implements Populator {
         createRepresentations(repFiscalCodes, societiesVATNumbers);
         final List<String> operationIDs = createOperations(repFiscalCodes);
         createObjectDescriptions(operationIDs);
-        createCPUs();
-        createRAMModules();
-        createMassStorageDevices();
-        createChassisUnits();
-        createOtherTypesOfComponents();
+        final List<String> cpuIDs = createCPUs();
+        final List<String> ramIDs = createRAMModules();
+        final List<String> massStorageIDs = createMassStorageDevices();
+        final List<String> chassisIDs = createChassisUnits();
+        final List<String> otherComponentIDs = createOtherTypesOfComponents();
+        final List<String> monitorIDs = createMonitors();
+        final List<String> otherPeripheralIDs = createOtherPeripherals();
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -181,73 +186,145 @@ public final class PopulatorImpl implements Populator {
         }
     }
 
-    private void createCPUs() {
-        final int DEFAULT_BITS = 32; 
+    private List<String> createCPUs() {
+        final int DEFAULT_BITS = 32;
+        final List<String> cpuIDs = new LinkedList<>();
         for (int i = 0; i < N_CPU; i++) {
+            final String cpuID = Generator.generateComponentID();
             controller.addCPU(
-                Generator.generateComponentID(), 
-                CommonDeviceTypes.CPU.getType(),
+                cpuID, 
+                CommonComponentTypes.CPU.getType(),
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
                 DEFAULT_BITS
             );
+            cpuIDs.add(cpuID);
         }
+        return cpuIDs;
     }
 
-    private void createRAMModules() {
+    private List<String> createRAMModules() {
         final int DEFAULT_MB_SIZE = 1024;
+        final List<String> ramIDs = new LinkedList<>();
         for (int i = 0; i < N_RAM; i++) {
+            final String ramID = Generator.generateComponentID();
             controller.addRAM(
-                Generator.generateComponentID(), 
-                CommonDeviceTypes.RAM.getType(),
+                ramID, 
+                CommonComponentTypes.RAM.getType(),
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
                 DEFAULT_MB_SIZE
             );
+            ramIDs.add(ramID);
         }
+        return ramIDs;
     }
 
-    private void createMassStorageDevices() {
+    private List<String> createMassStorageDevices() {
         final int DEFAULT_GB_SIZE = 512;
+        final List<String> massStorageIDs = new LinkedList<>();
         for (int i = 0; i < N_MASS_STORAGES; i++) {
+            final String massStorageID = Generator.generateComponentID();
             controller.addMassStorage(
-                Generator.generateComponentID(), 
-                CommonDeviceTypes.MASS_STORAGE.getType(),
+                massStorageID, 
+                CommonComponentTypes.MASS_STORAGE.getType(),
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
                 Generator.getRandomMassStorageType(),
                 DEFAULT_GB_SIZE
             );
+            massStorageIDs.add(massStorageID);
         }
+        return massStorageIDs;
     }
 
-    private void createChassisUnits() {
+    private List<String> createChassisUnits() {
+        final List<String> chassisIDs = new LinkedList<>();
         for (int i = 0; i < N_CHASSIS_UNITS; i++) {
+            final String chassisID = Generator.generateComponentID();
             controller.addChassis(
-                Generator.generateComponentID(), 
-                CommonDeviceTypes.CHASSIS.getType(),
+                chassisID, 
+                CommonComponentTypes.CHASSIS.getType(),
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
                 faker.color().name()
             );
+            chassisIDs.add(chassisID);
         }
+        return chassisIDs;
     }
 
-    private void createOtherTypesOfComponents() {
+    private List<String> createOtherTypesOfComponents() {
         final String NETWORK_ADAPTER = "Scheda di rete";    // example of another type of component
+        final List<String> componentIDs = new LinkedList<>();
         for (int i = 0; i < N_OTHER_COMPONENTS_TYPES; i++) {
+            final String componentID = Generator.generateComponentID();
             controller.addComponent(
-                Generator.generateComponentID(), 
+                componentID, 
                 NETWORK_ADAPTER,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty()
             );
+            componentIDs.add(componentID);
         }
+        return componentIDs;
+    }
+
+    private List<String> createMonitors() {
+        final String DEFAULT_CONNECTIVITY = "Wired";
+        final String DEFAULT_MONITOR_TYPE = "LCD";
+        final int MIN_MONITOR_SIZE = 15;
+        final int MAX_MONITOR_SIZE = 19;
+        final String DEFAULT_ASPECT_RATIO = "16:9";
+        final List<String> monitorIDs = new LinkedList<>();
+        for (int i = 0; i < N_MONITORS; i++) {
+            final String monitorID = Generator.generateMonitorID();
+            controller.addMonitor(
+                monitorID, 
+                CommonPeripheralTypes.MONITOR.getType(), 
+                faker.device().manufacturer(), 
+                "",     // should find a way to generate models names
+                DEFAULT_CONNECTIVITY,
+                Optional.empty(),
+                DEFAULT_MONITOR_TYPE,
+                this.random.nextInt(MIN_MONITOR_SIZE, MAX_MONITOR_SIZE + 1),
+                DEFAULT_ASPECT_RATIO,
+                this.random.nextBoolean(),
+                this.random.nextBoolean(),
+                this.random.nextBoolean()
+            );
+            monitorIDs.add(monitorID);
+        }
+        return monitorIDs;
+    }
+
+    private List<String> createOtherPeripherals() {
+        final String DEFAULT_CONNECTIVITY = "Wired";
+        final List<String> peripheralIDs = new LinkedList<>();
+        for (int i = 0; i < N_OTHER_PERIPHERALS; i++) {
+            final String peripheralID = Generator.generatePeripheralID();
+            String peripheralType = CommonPeripheralTypes.getRandomPeripheralType();
+            // Exclude monitors since they require to generate more info which are not generated in this method
+            while (peripheralType.equals(CommonPeripheralTypes.MONITOR.getType())) {
+                // Regenerate peripheral type
+                peripheralType = CommonPeripheralTypes.getRandomPeripheralType();
+            }
+            controller.addPeripheral(
+                peripheralID, 
+                peripheralType, 
+                faker.device().manufacturer(), 
+                "",     // should find a way to generate models names
+                DEFAULT_CONNECTIVITY,
+                Optional.empty()
+            );
+            peripheralIDs.add(peripheralID);
+        }
+        return peripheralIDs;
     }
     
 }

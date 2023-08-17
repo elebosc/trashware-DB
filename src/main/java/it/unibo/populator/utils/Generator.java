@@ -2,6 +2,8 @@ package it.unibo.populator.utils;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,6 +16,7 @@ import it.unibo.populator.utils.fiscalcode.ComputeFiscalCode;
 public final class Generator {
 
 	private static final Random RANDOM = new Random();
+	private static final int DEFAULT_CODE_LENGTH = 7;
     
 	/**
 	 * Generates the fiscal code according to the given name, surname, birthplace and birthday.
@@ -58,15 +61,17 @@ public final class Generator {
 				.collect(Collectors.joining());
 	}
 
+	private static String generateID(String prefix, int numericCodeLength) {
+		final String number = generateNumericCode(numericCodeLength);
+		return prefix + number;
+	}
+
 	/**
 	 * Generates a random ID for a donation.
 	 * @return the generated donation ID
 	 */
 	public static String generateDonationID() {
-		final String prefix = "DON";
-		final int NUMERIC_CODE_LENGTH = 7;
-		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
-		return prefix + number;
+		return generateID("DON", DEFAULT_CODE_LENGTH);
 	}
 
 	/**
@@ -74,29 +79,64 @@ public final class Generator {
 	 * @return the generated request ID
 	 */
 	public static String generateRequestID() {
-		final String prefix = "REQ";
-		final int NUMERIC_CODE_LENGTH = 7;
-		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
-		return prefix + number;
+		return generateID("REQ", DEFAULT_CODE_LENGTH);
 	}
 
+	/**
+	 * @return a random component type
+	 */
+	public static String getRandomComponentType() {
+		return CommonComponentTypes.getRandomComponentType();
+	}
+
+	/**
+	 * @return a random peripheral type
+	 */
+	public static String getRandomPeripheralType() {
+		return CommonPeripheralTypes.getRandomPeripheralType();
+	}
+
+	/**
+	 * @return a random device type
+	 */
 	public static String getRandomDeviceType() {
-		return CommonDeviceTypes.getRandomDeviceType();
+		final List<String> devices = new LinkedList<>();
+		final String peripheral = CommonPeripheralTypes.getRandomPeripheralType();
+		final String component = CommonComponentTypes.getRandomComponentType();
+		devices.add(peripheral);
+		devices.add(component);
+		return devices.get(RANDOM.nextInt(devices.size()));
 	}
 
+	/**
+	 * @return a random mass storage type
+	 */
 	public static String getRandomMassStorageType() {
 		return MassStorageTypes.getRandomMassStorageType();
 	}
 
 	/**
 	 * Generates a random ID for a component.
-	 * @return the generated request ID
+	 * @return the generated component ID
 	 */
 	public static String generateComponentID() {
-		final String prefix = "CMP";
-		final int NUMERIC_CODE_LENGTH = 7;
-		final String number = generateNumericCode(NUMERIC_CODE_LENGTH);
-		return prefix + number;
+		return generateID("CMP", DEFAULT_CODE_LENGTH);
+	}
+
+	/**
+	 * Generates a random ID for a peripheral.
+	 * @return the generated peripheral ID
+	 */
+	public static String generatePeripheralID() {
+		return generateID("PRF", DEFAULT_CODE_LENGTH);
+	}
+
+	/**
+	 * Generates a random ID for a monitor.
+	 * @return the generated monitor ID
+	 */
+	public static String generateMonitorID() {
+		return generateID("MTR", DEFAULT_CODE_LENGTH);
 	}
 
 }

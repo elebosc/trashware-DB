@@ -3,16 +3,10 @@ package it.unibo.populator.utils;
 import java.util.Random;
 
 /**
- * This enum provides constants for the most common types of donated/requested devices.
+ * This enum provides constants for the most common types of donated/requested components.
  */
-public enum CommonDeviceTypes {
+public enum CommonComponentTypes {
 
-    DESKTOP_PC("PC Desktop"),
-    LAPTOP("PC Portatile"),
-    MONITOR("Monitor"),
-    KEYBOARD("Tastiera"),
-    MOUSE("Mouse"),
-    SPEAKERS("Casse Audio"),
     CPU("CPU"),
     RAM("RAM"),
     MASS_STORAGE("Memoria di massa"),
@@ -22,7 +16,7 @@ public enum CommonDeviceTypes {
 
     private final String type;
     
-    private CommonDeviceTypes(final String deviceType) {
+    private CommonComponentTypes(final String deviceType) {
         this.type = deviceType;
     }
 
@@ -30,7 +24,7 @@ public enum CommonDeviceTypes {
         return this.type;
     }
 
-    public static String getRandomDeviceType() {
+    public static String getRandomComponentType() {
         return values()[RANDOM.nextInt(values().length)].getType();
     }
 
