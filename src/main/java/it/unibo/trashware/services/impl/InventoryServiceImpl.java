@@ -46,9 +46,9 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addCPU(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addCPU(String componentID, String brand, String model, Optional<String> notes,
             int architecture) {
-        final Component component = createComponentObject(componentID, type, brand, model, notes);
+        final Component component = createComponentObject(componentID, "CPU", brand, model, notes);
         final Cpu cpu = new Cpu();
         cpu.setComponent(component);
         cpu.setArchitecture(architecture);
@@ -57,8 +57,8 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addRAM(String componentID, String type, String brand, String model, Optional<String> notes, int size) {
-        final Component component = createComponentObject(componentID, type, brand, model, notes);
+    public void addRAM(String componentID, String brand, String model, Optional<String> notes, int size) {
+        final Component component = createComponentObject(componentID, "RAM", brand, model, notes);
         final RAMModule ramModule = new RAMModule();
         ramModule.setComponent(component);
         ramModule.setSize(size);
@@ -67,9 +67,9 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addMassStorage(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addMassStorage(String componentID, String brand, String model, Optional<String> notes,
             String massStorageType, int size) {
-        final Component component = createComponentObject(componentID, type, brand, model, notes);
+        final Component component = createComponentObject(componentID, "Memoria di massa", brand, model, notes);
         final MassStorageDevice massStorage = new MassStorageDevice();
         massStorage.setComponent(component);
         massStorage.setType(massStorageType);
@@ -79,9 +79,9 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addChassis(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addChassis(String componentID, String brand, String model, Optional<String> notes,
             String color) {
-        final Component component = createComponentObject(componentID, type, brand, model, notes);
+        final Component component = createComponentObject(componentID, "Case", brand, model, notes);
         final Chassis chassis = new Chassis();
         chassis.setComponent(component);
         chassis.setColor(color);
@@ -115,10 +115,10 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void addMonitor(String peripheralID, String type, String brand, String model, String connectivity,
+    public void addMonitor(String peripheralID, String brand, String model, String connectivity,
             Optional<String> notes, String monitorType, int size, String aspectRatio, boolean isVGASupported,
             boolean isDVISupported, boolean hasEmbeddedAudio) {
-        final Peripheral peripheral = createPeripheralObject(peripheralID, type, brand, model, connectivity, notes);
+        final Peripheral peripheral = createPeripheralObject(peripheralID, "Monitor", brand, model, connectivity, notes);
         final Monitor monitor = new Monitor();
         monitor.setPeripheral(peripheral);
         monitor.setType(monitorType);

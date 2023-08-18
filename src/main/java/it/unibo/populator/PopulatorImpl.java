@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.populator.utils.CommonComponentTypes;
 import it.unibo.populator.utils.CommonPeripheralTypes;
 import it.unibo.populator.utils.Generator;
 import it.unibo.trashware.controller.Controller;
@@ -192,8 +191,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_CPU; i++) {
             final String cpuID = Generator.generateComponentID();
             controller.addCPU(
-                cpuID, 
-                CommonComponentTypes.CPU.getType(),
+                cpuID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
@@ -210,8 +208,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_RAM; i++) {
             final String ramID = Generator.generateComponentID();
             controller.addRAM(
-                ramID, 
-                CommonComponentTypes.RAM.getType(),
+                ramID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
@@ -228,8 +225,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_MASS_STORAGES; i++) {
             final String massStorageID = Generator.generateComponentID();
             controller.addMassStorage(
-                massStorageID, 
-                CommonComponentTypes.MASS_STORAGE.getType(),
+                massStorageID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
@@ -246,8 +242,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_CHASSIS_UNITS; i++) {
             final String chassisID = Generator.generateComponentID();
             controller.addChassis(
-                chassisID, 
-                CommonComponentTypes.CHASSIS.getType(),
+                chassisID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
                 Optional.empty(),
@@ -285,8 +280,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_MONITORS; i++) {
             final String monitorID = Generator.generateMonitorID();
             controller.addMonitor(
-                monitorID, 
-                CommonPeripheralTypes.MONITOR.getType(), 
+                monitorID,
                 faker.device().manufacturer(), 
                 "",     // should find a way to generate models names
                 DEFAULT_CONNECTIVITY,

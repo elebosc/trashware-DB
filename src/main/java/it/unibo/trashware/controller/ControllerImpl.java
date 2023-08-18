@@ -80,26 +80,26 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCPU(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addCPU(String componentID, String brand, String model, Optional<String> notes,
             int architecture) {
-        this.inventoryService.addCPU(componentID, type, brand, model, notes, architecture);
+        this.inventoryService.addCPU(componentID, brand, model, notes, architecture);
     }
 
     @Override
-    public void addRAM(String componentID, String type, String brand, String model, Optional<String> notes, int size) {
-        this.inventoryService.addRAM(componentID, type, brand, model, notes, size);
+    public void addRAM(String componentID, String brand, String model, Optional<String> notes, int size) {
+        this.inventoryService.addRAM(componentID, brand, model, notes, size);
     }
 
     @Override
-    public void addMassStorage(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addMassStorage(String componentID, String brand, String model, Optional<String> notes,
             String massStorageType, int size) {
-        this.inventoryService.addMassStorage(componentID, type, brand, model, notes, massStorageType, size);
+        this.inventoryService.addMassStorage(componentID, brand, model, notes, massStorageType, size);
     }
 
     @Override
-    public void addChassis(String componentID, String type, String brand, String model, Optional<String> notes,
+    public void addChassis(String componentID, String brand, String model, Optional<String> notes,
             String color) {
-        this.inventoryService.addChassis(componentID, type, brand, model, notes, color);
+        this.inventoryService.addChassis(componentID, brand, model, notes, color);
     }
 
     @Override
@@ -114,10 +114,10 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addMonitor(String peripheralID, String type, String brand, String model, String connectivity,
+    public void addMonitor(String peripheralID, String brand, String model, String connectivity,
             Optional<String> notes, String monitorType, int size, String aspectRatio, boolean isVGASupported,
             boolean isDVISupported, boolean hasEmbeddedAudio) {
-        this.inventoryService.addMonitor(peripheralID, type, brand, model, connectivity, notes, monitorType,
+        this.inventoryService.addMonitor(peripheralID, brand, model, connectivity, notes, monitorType,
                 size, aspectRatio, isVGASupported, isDVISupported, hasEmbeddedAudio);
     }
 
