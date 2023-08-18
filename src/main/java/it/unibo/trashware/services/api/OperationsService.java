@@ -101,4 +101,25 @@ public interface OperationsService {
 	 */
 	void registerDevicesDelivery(String requestID, LocalDate date);
 
+	/**
+	 * Creates a link an operation and a PC which is involved in the operation.
+	 * @param pcID
+	 * @param operationID
+	 */
+	void associatePCToOperation(String pcID, String operationID);
+
+	/**
+	 * Creates a link an operation and a peripheral which is involved in the operation.
+	 * @param peripheralID
+	 * @param operationID
+	 */
+	void associatePeripheralToOperation(String peripheralID, String operationID);
+
+	/**
+	 * Creates a link an operation and a component which is involved in the operation.
+	 * @param componentID
+	 * @param operationID
+	 */
+	void associateComponentToOperation(String componentID, String operationID);
+
 }

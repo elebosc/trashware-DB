@@ -9,8 +9,14 @@ import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Completion;
 import it.unibo.trashware.model.entities.Delivery;
 import it.unibo.trashware.model.entities.Operation;
+import it.unibo.trashware.model.entities.OperationObjectComponent;
+import it.unibo.trashware.model.entities.OperationObjectComponentId;
 import it.unibo.trashware.model.entities.OperationObjectDescription;
 import it.unibo.trashware.model.entities.OperationObjectDescriptionId;
+import it.unibo.trashware.model.entities.OperationObjectPC;
+import it.unibo.trashware.model.entities.OperationObjectPCId;
+import it.unibo.trashware.model.entities.OperationObjectPeripheral;
+import it.unibo.trashware.model.entities.OperationObjectPeripheralId;
 import it.unibo.trashware.model.entities.Representation;
 import it.unibo.trashware.model.entities.RepresentationId;
 import it.unibo.trashware.model.entities.Representative;
@@ -35,6 +41,9 @@ public class OperationsServiceImpl implements OperationsService {
     private GenericDAO<OperationObjectDescription, String> objectDescriptionsDAO;
     private GenericDAO<Completion, String> completionsDAO;
     private GenericDAO<Delivery, String> deliveriesDAO;
+    private GenericDAO<OperationObjectPC, OperationObjectPCId> pcOperationLinksDAO;
+    private GenericDAO<OperationObjectPeripheral, OperationObjectPeripheralId> peripheralOperationLinksDAO;
+    private GenericDAO<OperationObjectComponent, OperationObjectComponentId> componentOperationLinksDAO;
 
     /**
      * Creates a new instance of {@link OperationsService}.
@@ -49,6 +58,9 @@ public class OperationsServiceImpl implements OperationsService {
         this.objectDescriptionsDAO = new GenericDAOImpl<>(OperationObjectDescription.class);
         this.completionsDAO = new GenericDAOImpl<>(Completion.class);
         this.deliveriesDAO = new GenericDAOImpl<>(Delivery.class);
+        this.pcOperationLinksDAO = new GenericDAOImpl<>(OperationObjectPC.class);
+        this.peripheralOperationLinksDAO = new GenericDAOImpl<>(OperationObjectPeripheral.class);
+        this.componentOperationLinksDAO = new GenericDAOImpl<>(OperationObjectComponent.class);
     }
 
     @Override
@@ -193,6 +205,36 @@ public class OperationsServiceImpl implements OperationsService {
         delivery.setCompletion(completion);
         delivery.setDate(date);
         this.deliveriesDAO.add(delivery);
+    }
+
+    @Override
+    public void associatePCToOperation(String pcID, String operationID) {
+        final OperationObjectPCId id = new OperationObjectPCId();
+        id.setOperationID(operationID);
+        id.setPcID(pcID);
+        final OperationObjectPC link = new OperationObjectPC();
+        link.setId(id);
+        this.pcOperationLinksDAO.add(link);
+    }
+
+    @Override
+    public void associatePeripheralToOperation(String peripheralID, String operationID) {
+        final OperationObjectPeripheralId id = new OperationObjectPeripheralId();
+        id.setOperationID(operationID);
+        id.setPeripheralID(peripheralID);
+        final OperationObjectPeripheral link = new OperationObjectPeripheral();
+        link.setId(id);
+        this.peripheralOperationLinksDAO.add(link);
+    }
+
+    @Override
+    public void associateComponentToOperation(String componentID, String operationID) {
+        final OperationObjectComponentId id = new OperationObjectComponentId();
+        id.setOperationID(operationID);
+        id.setComponentID(componentID);
+        final OperationObjectComponent link = new OperationObjectComponent();
+        link.setId(id);
+        this.componentOperationLinksDAO.add(link);
     }
     
 }

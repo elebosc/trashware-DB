@@ -151,4 +151,19 @@ public class ControllerImpl implements Controller {
         this.inventoryService.addOperatingSystem(pcID, name, version, lastUpdateDate);
     }
 
+    @Override
+    public void associatePCToOperation(String pcID, String operationID) {
+        this.opService.associatePCToOperation(pcID, operationID);
+    }
+
+    @Override
+    public void associatePeripheralToOperation(String peripheralID, String operationID) {
+        this.opService.associatePeripheralToOperation(peripheralID, operationID);
+    }
+
+    @Override
+    public void associateComponentToOperation(String componentID, String operationID) {
+        this.opService.associateComponentToOperation(componentID, operationID);
+    }
+
 }
