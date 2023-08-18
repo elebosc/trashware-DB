@@ -29,9 +29,9 @@ import it.unibo.trashware.services.api.OperationsService;
  */
 public class OperationsServiceImpl implements OperationsService {
 
-    private static String DEFAULT_REQUEST_STATUS = "In lavorazione";
-    private static String REQUEST_COMPLETED = "Pronto per la consegna";
-    private static String DEVICES_DELIVERED = "Consegna effettuata";
+    private static final String DEFAULT_REQUEST_STATUS = "In lavorazione";
+    private static final String REQUEST_COMPLETED = "Pronto per la consegna";
+    private static final String DEVICES_DELIVERED = "Consegna effettuata";
 
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Request, String> requestsDAO;

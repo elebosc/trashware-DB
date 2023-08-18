@@ -1,13 +1,16 @@
 package it.unibo.trashware.controller;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import it.unibo.trashware.services.api.InventoryService;
 import it.unibo.trashware.services.api.OperationsService;
+import it.unibo.trashware.services.api.WorkShiftsService;
 import it.unibo.trashware.services.impl.InventoryServiceImpl;
 import it.unibo.trashware.services.impl.OperationsServiceImpl;
+import it.unibo.trashware.services.impl.WorkShiftsServiceImpl;
 
 /**
  * This class implements the controller of the application.
@@ -16,6 +19,7 @@ public class ControllerImpl implements Controller {
     
     private OperationsService opService;
     private InventoryService inventoryService;
+    private WorkShiftsService workShiftsService;
 
     /**
      * Creates a new controller.
@@ -24,6 +28,7 @@ public class ControllerImpl implements Controller {
     public ControllerImpl() throws IOException {
         this.opService = new OperationsServiceImpl();
         this.inventoryService = new InventoryServiceImpl();
+        this.workShiftsService = new WorkShiftsServiceImpl();
     }
 
     @Override
@@ -164,6 +169,26 @@ public class ControllerImpl implements Controller {
     @Override
     public void associateComponentToOperation(String componentID, String operationID) {
         this.opService.associateComponentToOperation(componentID, operationID);
+    }
+
+    @Override
+    public void addOperator(String fiscalCode, String name, String surname, String birthplace, LocalDate birthday,
+            String residenceCity, String residenceCAP, String residenceProvince, String residenceStreet,
+            int residenceStreetNumber, String telephoneNumber1, Optional<String> telephoneNumber2,
+            Optional<String> email) {
+        this.workShiftsService.addOperator(fiscalCode, name, surname, birthplace, birthday, residenceCity, residenceCAP,
+                residenceProvince, residenceStreet, residenceStreetNumber, telephoneNumber1, telephoneNumber2, email);
+    }
+
+    @Override
+    public void registerWorkShift(String operatorFiscalCode, LocalDate date, Instant startTime, Instant endTime) {
+        this.workShiftsService.registerWorkShift(operatorFiscalCode, date, startTime, endTime);
+    }
+
+    @Override
+    public void registerTask(String operatorFiscalCode, LocalDate date, Instant startTime, int taskNumber,
+            String description, Optional<String> operationID) {
+        this.workShiftsService.registerTask(operatorFiscalCode, date, startTime, taskNumber, description, operationID);
     }
 
 }
