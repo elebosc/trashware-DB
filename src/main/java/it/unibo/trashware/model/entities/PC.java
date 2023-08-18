@@ -40,14 +40,14 @@ public class PC {
     @Column(name = "Tipo", nullable = false, length = 35)
     private String type;
 
-    @Column(name = "Ethernet", nullable = false)
-    private Byte isEthernetSupported;
+    @Column(name = "Ethernet", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean isEthernetSupported;
 
-    @Column(name = "WiFi", nullable = false)
-    private Byte isWiFiSupported;
+    @Column(name = "WiFi", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean isWiFiSupported;
 
-    @Column(name = "Bluetooth", nullable = false)
-    private Byte isBluetoothSupported;
+    @Column(name = "Bluetooth", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean isBluetoothSupported;
 
     @Column(name = "Note", length = 2000)
     private String notes;
@@ -124,27 +124,27 @@ public class PC {
         this.type = type;
     }
 
-    public Byte getIsEthernetSupported() {
+    public boolean getIsEthernetSupported() {
         return isEthernetSupported;
     }
 
-    public void setIsEthernetSupported(Byte isEthernetSupported) {
+    public void setIsEthernetSupported(boolean isEthernetSupported) {
         this.isEthernetSupported = isEthernetSupported;
     }
 
-    public Byte getIsWiFiSupported() {
+    public boolean getIsWiFiSupported() {
         return isWiFiSupported;
     }
 
-    public void setIsWiFiSupported(Byte isWiFiSupported) {
+    public void setIsWiFiSupported(boolean isWiFiSupported) {
         this.isWiFiSupported = isWiFiSupported;
     }
 
-    public Byte getIsBluetoothSupported() {
+    public boolean getIsBluetoothSupported() {
         return isBluetoothSupported;
     }
 
-    public void setIsBluetoothSupported(Byte isBluetoothSupported) {
+    public void setIsBluetoothSupported(boolean isBluetoothSupported) {
         this.isBluetoothSupported = isBluetoothSupported;
     }
 

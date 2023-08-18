@@ -182,4 +182,62 @@ public interface Controller {
 			String monitorType, int size, String aspectRatio, boolean isVGASupported, boolean isDVISupported,
 			boolean hasEmbeddedAudio);
 
+	/**
+	 * Stores data about a new desktop PC.
+	 * @param pcID
+	 * @param cpuID
+	 * @param massStorage01ID
+	 * @param massStorage02ID
+	 * @param ramModule01ID
+	 * @param ramModule02ID
+	 * @param ramModule03ID
+	 * @param ramModule04ID
+	 * @param isEthernetSupported
+	 * @param isWiFiSupported
+	 * @param isBluetoothSupported
+	 * @param chassisID
+	 * @param monitorID
+	 * @param keyboardID
+	 * @param mouseID
+	 * @param speakersID
+	 * @param notes
+	 */
+	void addDesktopPC(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID, String ramModule01ID,
+			Optional<String> ramModule02ID, Optional<String> ramModule03ID, Optional<String> ramModule04ID, boolean isEthernetSupported,
+			boolean isWiFiSupported, boolean isBluetoothSupported, String chassisID, Optional<String> monitorID,
+			Optional<String> keyboardID, Optional<String> mouseID, Optional<String> speakersID, Optional<String> notes);
+
+	/**
+	* Stores data about a new laptop.
+	* @param pcID
+	* @param cpuID
+	* @param massStorage01ID
+	* @param massStorage02ID
+	* @param ramModule01ID
+	* @param ramModule02ID
+	* @param ramModule03ID
+	* @param ramModule04ID
+	* @param isEthernetSupported
+	* @param isWiFiSupported
+	* @param isBluetoothSupported
+	* @param brand
+	* @param model
+	* @param size
+	* @param color
+	* @param notes
+	*/
+	void addLaptop(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID, String ramModule01ID,
+			Optional<String> ramModule02ID, Optional<String> ramModule03ID, Optional<String> ramModule04ID, boolean isEthernetSupported,
+			boolean isWiFiSupported, boolean isBluetoothSupported, String brand, String model, int size, String color,
+			Optional<String> notes);
+
+	/**
+	* Stores data about a new installation of an operating system.
+	* @param pcID
+	* @param name
+	* @param version
+	* @param lastUpdateDate
+	*/
+	void addOperatingSystem(String pcID, String name, String version, LocalDate lastUpdateDate);
+
 }

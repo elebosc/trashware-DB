@@ -121,4 +121,34 @@ public class ControllerImpl implements Controller {
                 size, aspectRatio, isVGASupported, isDVISupported, hasEmbeddedAudio);
     }
 
+    @Override
+    public void addDesktopPC(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID,
+            String ramModule01ID, Optional<String> ramModule02ID, Optional<String> ramModule03ID,
+            Optional<String> ramModule04ID, boolean isEthernetSupported, boolean isWiFiSupported,
+            boolean isBluetoothSupported, String chassisID, Optional<String> monitorID, Optional<String> keyboardID,
+            Optional<String> mouseID, Optional<String> speakersID, Optional<String> notes) {
+
+        this.inventoryService.addDesktopPC(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
+                ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, chassisID, monitorID,
+                keyboardID, mouseID, speakersID, notes);
+
+    }
+
+    @Override
+    public void addLaptop(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID,
+            String ramModule01ID, Optional<String> ramModule02ID, Optional<String> ramModule03ID,
+            Optional<String> ramModule04ID, boolean isEthernetSupported, boolean isWiFiSupported,
+            boolean isBluetoothSupported, String brand, String model, int size, String color, Optional<String> notes) {
+
+        this.inventoryService.addLaptop(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
+                ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, brand, model,
+                size, color, notes);
+
+    }
+
+    @Override
+    public void addOperatingSystem(String pcID, String name, String version, LocalDate lastUpdateDate) {
+        this.inventoryService.addOperatingSystem(pcID, name, version, lastUpdateDate);
+    }
+
 }

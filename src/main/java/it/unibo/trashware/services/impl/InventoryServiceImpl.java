@@ -1,6 +1,7 @@
 package it.unibo.trashware.services.impl;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import it.unibo.trashware.model.dao.GenericDAO;
@@ -8,8 +9,13 @@ import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Chassis;
 import it.unibo.trashware.model.entities.Component;
 import it.unibo.trashware.model.entities.Cpu;
+import it.unibo.trashware.model.entities.DesktopPC;
+import it.unibo.trashware.model.entities.Laptop;
 import it.unibo.trashware.model.entities.MassStorageDevice;
 import it.unibo.trashware.model.entities.Monitor;
+import it.unibo.trashware.model.entities.OperatingSystem;
+import it.unibo.trashware.model.entities.OperatingSystemId;
+import it.unibo.trashware.model.entities.PC;
 import it.unibo.trashware.model.entities.Peripheral;
 import it.unibo.trashware.model.entities.RAMModule;
 import it.unibo.trashware.services.api.InventoryService;
@@ -23,6 +29,9 @@ public class InventoryServiceImpl implements InventoryService {
     private GenericDAO<Component, String> otherComponentsDAO;
     private GenericDAO<Peripheral, String> peripheralsDAO;
     private GenericDAO<Monitor, String> monitorsDAO;
+    private GenericDAO<DesktopPC, String> desktopPCsDAO;
+    private GenericDAO<Laptop, String> laptopsDAO;
+    private GenericDAO<OperatingSystem, OperatingSystemId> operatingSystemsDAO;
 
     public InventoryServiceImpl() throws IOException {
         this.cpuDAO = new GenericDAOImpl<>(Cpu.class);
@@ -32,6 +41,9 @@ public class InventoryServiceImpl implements InventoryService {
         this.otherComponentsDAO = new GenericDAOImpl<>(Component.class);
         this.peripheralsDAO = new GenericDAOImpl<>(Peripheral.class);
         this.monitorsDAO = new GenericDAOImpl<>(Monitor.class);
+        this.desktopPCsDAO = new GenericDAOImpl<>(DesktopPC.class);
+        this.laptopsDAO = new GenericDAOImpl<>(Laptop.class);
+        this.operatingSystemsDAO = new GenericDAOImpl<>(OperatingSystem.class);
     }
 
     private Component createComponentObject(String componentID, String type, String brand, String model,
@@ -129,6 +141,145 @@ public class InventoryServiceImpl implements InventoryService {
         monitor.setHasEmbeddedAudio(hasEmbeddedAudio);
         // Monitor insertion
         this.monitorsDAO.add(monitor);
+    }
+
+    @Override
+    public void addDesktopPC(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID,
+            String ramModule01ID, Optional<String> ramModule02ID, Optional<String> ramModule03ID,
+            Optional<String> ramModule04ID, boolean isEthernetSupported, boolean isWiFiSupported,
+            boolean isBluetoothSupported, String chassisID, Optional<String> monitorID, Optional<String> keyboardID,
+            Optional<String> mouseID, Optional<String> speakersID, Optional<String> notes) {
+
+        final PC pc = createPCObject(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
+                ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, notes);
+
+        final DesktopPC desktopPC = new DesktopPC();
+        desktopPC.setPc(pc);
+        Optional<Chassis> searchedchassis = this.chassisDAO.getByID(chassisID);
+        searchedchassis.ifPresentOrElse(
+            (chassis) -> desktopPC.setChassisID(chassis),
+            () -> new IllegalArgumentException("A chassis with such ID does not exist.")
+        );
+        if (monitorID.isPresent()) {
+            Optional<Monitor> searchedMonitor = this.monitorsDAO.getByID(monitorID.get());
+            searchedMonitor.ifPresentOrElse(
+                (monitor) -> desktopPC.setMonitorID(monitor),
+                () -> new IllegalArgumentException("A monitor with such ID does not exist.")
+            );
+        }
+        if (keyboardID.isPresent()) {
+            Optional<Peripheral> searchedKeyboard = this.peripheralsDAO.getByID(keyboardID.get());
+            searchedKeyboard.ifPresentOrElse(
+                (keyboard) -> desktopPC.setKeyboardID(keyboard),
+                () -> new IllegalArgumentException("A keyboard with such ID does not exist.")
+            );
+        }
+        if (mouseID.isPresent()) {
+            Optional<Peripheral> searchedMouse = this.peripheralsDAO.getByID(mouseID.get());
+            searchedMouse.ifPresentOrElse(
+                (mouse) -> desktopPC.setMouseID(mouse),
+                () -> new IllegalArgumentException("A mouse with such ID does not exist.")
+            );
+        }
+        if (speakersID.isPresent()) {
+            Optional<Peripheral> searchedSpeakers = this.peripheralsDAO.getByID(speakersID.get());
+            searchedSpeakers.ifPresentOrElse(
+                (speakers) -> desktopPC.setAudioSpeakersID(speakers),
+                () -> new IllegalArgumentException("Speakers with such ID do not exist.")
+            );
+        }
+
+        // Desktop PC insertion
+        this.desktopPCsDAO.add(desktopPC);
+    }
+
+    @Override
+    public void addLaptop(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID,
+            String ramModule01ID, Optional<String> ramModule02ID, Optional<String> ramModule03ID,
+            Optional<String> ramModule04ID, boolean isEthernetSupported, boolean isWiFiSupported,
+            boolean isBluetoothSupported, String brand, String model, int size, String color, Optional<String> notes) {
+        
+        final PC pc = createPCObject(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
+                ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, notes);
+        
+        final Laptop laptop = new Laptop();
+        laptop.setPc(pc);
+        laptop.setBrand(brand);
+        laptop.setModel(model);
+        laptop.setSize(size);
+        laptop.setColor(color);
+
+        // Laptop insertion
+        this.laptopsDAO.add(laptop);
+    }
+
+    private PC createPCObject(String pcID, String cpuID, String massStorage01ID, Optional<String> massStorage02ID,
+            String ramModule01ID, Optional<String> ramModule02ID, Optional<String> ramModule03ID,
+            Optional<String> ramModule04ID, boolean isEthernetSupported, boolean isWiFiSupported,
+            boolean isBluetoothSupported, Optional<String> notes) {
+        final PC pc = new PC();
+        pc.setPcID(pcID);
+        final Optional<Cpu> searchedCPU = this.cpuDAO.getByID(cpuID);
+        searchedCPU.ifPresentOrElse(
+            (cpu) -> pc.setCpuID(cpu),
+            () -> new IllegalArgumentException("A CPU with such ID does not exist.")
+        );
+        Optional<RAMModule> searchedRAM = this.ramDAO.getByID(ramModule01ID);
+        searchedRAM.ifPresentOrElse(
+            (ram) -> pc.setRAMModule01ID(ram),
+            () -> new IllegalArgumentException("A RAM module with such ID does not exist.")
+        );
+        if (ramModule02ID.isPresent()) {
+            searchedRAM = this.ramDAO.getByID(ramModule02ID.get());
+            searchedRAM.ifPresentOrElse(
+                (ram) -> pc.setRAMModule02ID(ram),
+                () -> new IllegalArgumentException("A RAM module with such ID does not exist.")
+            );
+        }
+        if (ramModule03ID.isPresent()) {
+            searchedRAM = this.ramDAO.getByID(ramModule03ID.get());
+            searchedRAM.ifPresentOrElse(
+                (ram) -> pc.setRAMModule03ID(ram),
+                () -> new IllegalArgumentException("A RAM module with such ID does not exist.")
+            );
+        }
+        if (ramModule04ID.isPresent()) {
+            searchedRAM = this.ramDAO.getByID(ramModule04ID.get());
+            searchedRAM.ifPresentOrElse(
+                (ram) -> pc.setRAMModule04ID(ram),
+                () -> new IllegalArgumentException("A RAM module with such ID does not exist.")
+            );
+        }
+        Optional<MassStorageDevice> searchedMassStorage = this.massStorageDAO.getByID(massStorage01ID);
+        searchedMassStorage.ifPresentOrElse(
+            (massStorage) -> pc.setMassStorage01ID(massStorage),
+            () -> new IllegalArgumentException("A mass storage device with such ID does not exist.")
+        );
+        if (massStorage02ID.isPresent()) {
+            searchedMassStorage = this.massStorageDAO.getByID(massStorage02ID.get());
+            searchedMassStorage.ifPresentOrElse(
+                (massStorage) -> pc.setMassStorage02ID(massStorage),
+                () -> new IllegalArgumentException("A mass storage device with such ID does not exist.")
+            );
+        }
+        pc.setIsEthernetSupported(isEthernetSupported);
+        pc.setIsWiFiSupported(isWiFiSupported);
+        pc.setIsBluetoothSupported(isBluetoothSupported);
+        notes.ifPresent((value) -> pc.setNotes(value));
+        return pc;
+    }
+
+    @Override
+    public void addOperatingSystem(String pcID, String name, String version, LocalDate lastUpdateDate) {
+        final OperatingSystemId osID = new OperatingSystemId();
+        osID.setPcID(pcID);
+        osID.setName(name);
+        osID.setVersion(version);
+        final OperatingSystem os = new OperatingSystem();
+        os.setId(osID);
+        os.setLastUpdateDate(lastUpdateDate);
+        // OS insertion
+        this.operatingSystemsDAO.add(os);
     }
 
 }
