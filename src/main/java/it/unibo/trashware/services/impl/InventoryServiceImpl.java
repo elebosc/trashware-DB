@@ -152,6 +152,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         final PC pc = createPCObject(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
                 ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, notes);
+        pc.setType("Desktop");
 
         final DesktopPC desktopPC = new DesktopPC();
         desktopPC.setPc(pc);
@@ -201,6 +202,7 @@ public class InventoryServiceImpl implements InventoryService {
         
         final PC pc = createPCObject(pcID, cpuID, massStorage01ID, massStorage02ID, ramModule01ID, ramModule02ID,
                 ramModule03ID, ramModule04ID, isEthernetSupported, isWiFiSupported, isBluetoothSupported, notes);
+        pc.setType("Laptop");
         
         final Laptop laptop = new Laptop();
         laptop.setPc(pc);

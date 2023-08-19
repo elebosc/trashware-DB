@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 import it.unibo.populator.utils.CommonPeripheralTypes;
 import it.unibo.populator.utils.Generator;
@@ -33,6 +35,9 @@ public final class PopulatorImpl implements Populator {
     private static final int N_OTHER_COMPONENTS_TYPES = 5;
     private static final int N_MONITORS = 40;
     private static final int N_OTHER_PERIPHERALS = 50;
+    private static final int N_DESKTOP_PC = 30;
+    private static final int N_LAPTOPS = 10;
+    private static final int N_OS_INSTALLATIONS = 40;
 
     private Controller controller;
     private Faker faker;
@@ -50,11 +55,7 @@ public final class PopulatorImpl implements Populator {
 
     @Override
     public void populateDB() throws IOException {
-        final List<String> repFiscalCodes = createRepresentatives();
-        final List<String> societiesVATNumbers = createSocieties();
-        createRepresentations(repFiscalCodes, societiesVATNumbers);
-        final List<String> operationIDs = createOperations(repFiscalCodes);
-        createObjectDescriptions(operationIDs);
+        // Insert devices
         final List<String> cpuIDs = createCPUs();
         final List<String> ramIDs = createRAMModules();
         final List<String> massStorageIDs = createMassStorageDevices();
@@ -62,6 +63,18 @@ public final class PopulatorImpl implements Populator {
         final List<String> otherComponentIDs = createOtherTypesOfComponents();
         final List<String> monitorIDs = createMonitors();
         final List<String> otherPeripheralIDs = createOtherPeripherals();
+        final List<String> desktopPCIDs = createDesktopPCs(cpuIDs, ramIDs, massStorageIDs, chassisIDs, monitorIDs);
+        final List<String> laptopIDs = createLaptops(cpuIDs, ramIDs, massStorageIDs);
+        final List<String> pcIDs = new LinkedList<>(desktopPCIDs);
+        pcIDs.addAll(laptopIDs);
+        createOSInstallations(pcIDs);
+        // Insert data related to operations
+        final List<String> repFiscalCodes = createRepresentatives();
+        final List<String> societiesVATNumbers = createSocieties();
+        createRepresentations(repFiscalCodes, societiesVATNumbers);
+        final List<String> operationIDs = createOperations(repFiscalCodes);
+        createDescriptionsAndLinkDevicesToOperations(operationIDs, cpuIDs, ramIDs, massStorageIDs, chassisIDs,
+                otherComponentIDs, monitorIDs, otherPeripheralIDs);
     }
 
     private List<String> createRepresentatives() throws IOException {
@@ -170,7 +183,16 @@ public final class PopulatorImpl implements Populator {
         return operationIDs;
     }
 
-    private void createObjectDescriptions(final List<String> operationsIDs) {
+    private void createDescriptionsAndLinkDevicesToOperations(
+        final List<String> operationsIDs,
+        final List<String> cpuIDs, 
+        final List<String> ramIDs,
+        final List<String> massStorageIDs,
+        final List<String> chassisIDs,
+        final List<String> otherComponentIDs,
+        final List<String> monitorIDs,
+        final List<String> otherPeripheralIDs
+    ) {
         for (int i = 0; i < N_DONATIONS; i++) {
             // Link a random number of objects descriptions to the operation
             for (int j = 0; j < this.random.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
@@ -320,5 +342,97 @@ public final class PopulatorImpl implements Populator {
         }
         return peripheralIDs;
     }
-    
+
+    private List<String> createDesktopPCs(
+        final List<String> cpuIDs,
+        final List<String> ramIDs,
+        final List<String> massStorageIDs,
+        final List<String> chassisIDs,
+        final List<String> monitorIDs
+    ) {
+        final List<String> pcIDs = new LinkedList<>();
+        for (int i = 0; i < N_DESKTOP_PC; i++) {
+            final String pcID = Generator.generatePcID();
+            controller.addDesktopPC(
+                pcID,
+                cpuIDs.get(this.random.nextInt(cpuIDs.size())),
+                massStorageIDs.get(this.random.nextInt(massStorageIDs.size())),
+                Optional.empty(),
+                ramIDs.get(this.random.nextInt(ramIDs.size())),
+                Optional.of(ramIDs.get(this.random.nextInt(ramIDs.size()))),
+                Optional.empty(),
+                Optional.empty(),
+                this.random.nextBoolean(),
+                this.random.nextBoolean(),
+                this.random.nextBoolean(),
+                chassisIDs.get(this.random.nextInt(chassisIDs.size())),
+                Optional.of(monitorIDs.get(this.random.nextInt(monitorIDs.size()))),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty()
+            );
+            pcIDs.add(pcID);
+        }
+        return pcIDs;
+    }
+
+    private List<String> createLaptops(
+        final List<String> cpuIDs,
+        final List<String> ramIDs,
+        final List<String> massStorageIDs
+    ) {
+        final int MIN_LAPTOP_SIZE = 11;
+        final int MAX_LAPTOP_SIZE = 17;
+        final List<String> pcIDs = new LinkedList<>();
+        for (int i = 0; i < N_LAPTOPS; i++) {
+            final String pcID = Generator.generatePcID();
+            controller.addLaptop(
+                pcID,
+                cpuIDs.get(this.random.nextInt(cpuIDs.size())),
+                massStorageIDs.get(this.random.nextInt(massStorageIDs.size())),
+                Optional.empty(),
+                ramIDs.get(this.random.nextInt(ramIDs.size())),
+                Optional.of(ramIDs.get(this.random.nextInt(ramIDs.size()))),
+                Optional.empty(),
+                Optional.empty(),
+                this.random.nextBoolean(),
+                this.random.nextBoolean(),
+                this.random.nextBoolean(),
+                faker.computer().brand(),
+                "",     // should find a way to generate models names
+                this.random.nextInt(MIN_LAPTOP_SIZE, MAX_LAPTOP_SIZE + 1),
+                faker.color().name(),
+                Optional.empty()
+            );
+            pcIDs.add(pcID);
+        }
+        return pcIDs;
+    }
+
+    private void createOSInstallations(final List<String> pcIDs) {
+        // Create a copy of the list. Since the variety of generated OS names and versions is not very wide,
+        // each pcID inserted will be removed by the copy of the list to avoid duplicate tuples more easily.
+        final List<String> pcIDsCopy = new LinkedList<>(pcIDs);
+        for (int i = 0; i < N_OS_INSTALLATIONS; i++) {
+            // The generated OS name also contains the OS version
+            // Remove parenthesis that are eventually present in the generated OS name
+            final String osNameAndVersion = faker.computer().operatingSystem().replaceAll("[\\[\\]()]", "");
+            // Parse generated OS name + version to split name and version into two strings
+            final OptionalInt firstDigitIndex = IntStream.range(0, osNameAndVersion.length())
+                    .filter(j -> Character.isDigit(osNameAndVersion.charAt(j)))
+                    .findFirst();
+            final String osName = osNameAndVersion.substring(0, firstDigitIndex.getAsInt());
+            final String osVersion = osNameAndVersion.substring(firstDigitIndex.getAsInt());
+            final String pcID = pcIDsCopy.get(this.random.nextInt(pcIDs.size()));
+            controller.addOperatingSystem(
+                pcID,
+                osName,
+                osVersion,
+                faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate()
+            );
+            pcIDsCopy.remove(pcID);
+        }
+    }
+
 }

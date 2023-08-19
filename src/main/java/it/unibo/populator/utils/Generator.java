@@ -139,4 +139,12 @@ public final class Generator {
 		return generateID("MTR", DEFAULT_CODE_LENGTH);
 	}
 
+	/**
+	 * Generates a random ID for a PC.
+	 * @return the generated PC ID
+	 */
+	public static String generatePcID() {
+		return generateID("PC", DEFAULT_CODE_LENGTH + 1);
+	}
+
 }
