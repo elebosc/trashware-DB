@@ -1,10 +1,11 @@
-package it.unibo.trashware.services.impl;
+package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import it.unibo.trashware.controller.api.WorkShiftsController;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Operation;
@@ -13,16 +14,15 @@ import it.unibo.trashware.model.entities.Task;
 import it.unibo.trashware.model.entities.TaskId;
 import it.unibo.trashware.model.entities.WorkShift;
 import it.unibo.trashware.model.entities.WorkShiftId;
-import it.unibo.trashware.services.api.WorkShiftsService;
 
-public class WorkShiftsServiceImpl implements WorkShiftsService {
+public class WorkShiftsControllerImpl implements WorkShiftsController {
 
     private GenericDAO<Operator, String> operatorsDAO;
     private GenericDAO<WorkShift, WorkShiftId> workShiftsDAO;
     private GenericDAO<Task, TaskId> tasksDAO;
     private GenericDAO<Operation, String> operationsDAO;
 
-    public WorkShiftsServiceImpl() throws IOException {
+    public WorkShiftsControllerImpl() throws IOException {
         this.operatorsDAO = new GenericDAOImpl<>(Operator.class);
         this.workShiftsDAO = new GenericDAOImpl<>(WorkShift.class);
         this.tasksDAO = new GenericDAOImpl<>(Task.class);

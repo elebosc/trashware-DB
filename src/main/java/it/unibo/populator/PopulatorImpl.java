@@ -13,7 +13,9 @@ import java.util.stream.IntStream;
 
 import it.unibo.populator.utils.CommonPeripheralTypes;
 import it.unibo.populator.utils.Generator;
-import it.unibo.trashware.controller.Controller;
+import it.unibo.trashware.controller.api.InventoryController;
+import it.unibo.trashware.controller.api.OperationsController;
+import it.unibo.trashware.controller.api.WorkShiftsController;
 import net.datafaker.Faker;
 import net.datafaker.providers.base.Address;
 
@@ -39,7 +41,9 @@ public final class PopulatorImpl implements Populator {
     private static final int N_LAPTOPS = 10;
     private static final int N_OS_INSTALLATIONS = 40;
 
-    private Controller controller;
+    private OperationsController operationsController;
+    private InventoryController inventoryController;
+    private WorkShiftsController workShiftsController;
     private Faker faker;
     private Random random;
 
@@ -47,8 +51,14 @@ public final class PopulatorImpl implements Populator {
      * Creates a new database populator.
      * @param controller the controller of the application
      */
-    public PopulatorImpl(final Controller controller) {
-        this.controller = controller;
+    public PopulatorImpl(
+        final OperationsController operationsController,
+        final InventoryController inventoryController,
+        final WorkShiftsController workShiftsController
+    ) {
+        this.operationsController = operationsController;
+        this.inventoryController = inventoryController;
+        this.workShiftsController = workShiftsController;
         this.faker = new Faker(Locale.ITALY);
         this.random = new Random();
     }
@@ -87,7 +97,7 @@ public final class PopulatorImpl implements Populator {
             Address address = faker.address();
             String emailLocalPart = name.toLowerCase() + "." + surname.toLowerCase();
             String fiscalCode = Generator.generateFiscalCode(name, surname, birthplace, birthday);
-            controller.addRepresentative(
+            operationsController.addRepresentative(
                 fiscalCode,
                 name,
                 surname,
@@ -121,7 +131,7 @@ public final class PopulatorImpl implements Populator {
             LocalDate ownerBirthday = faker.date().birthday().toLocalDateTime().toLocalDate();
             Address address = faker.address();
             String VATNumber = Generator.generateNumericCode(VAT_NUMBER_LENGTH);
-            controller.addSociety(
+            operationsController.addSociety(
                 // The validity of the VAT number is not relevant to the purpose of tha generated fake data,
                 // so a random 11 digits long code will be generated for simplicity.
                 VATNumber,
@@ -142,7 +152,7 @@ public final class PopulatorImpl implements Populator {
 
     private void createRepresentations(final List<String> repFiscalCodes, final List<String> societiesVATNumbers) {
         for (final String societyID : societiesVATNumbers) {
-            controller.addRepresentation(
+            operationsController.addRepresentation(
                 societyID,
                 repFiscalCodes.get(this.random.nextInt(N_REP)),
                 faker.company().profession()
@@ -155,7 +165,7 @@ public final class PopulatorImpl implements Populator {
         // Create donations
         for (int i = 0; i < N_DONATIONS; i++) {
             String donationID = Generator.generateDonationID();
-            controller.addDonation(
+            operationsController.addDonation(
                 donationID,
                 faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a past date within one year from now
                 Optional.empty(),   // empty notes
@@ -168,7 +178,7 @@ public final class PopulatorImpl implements Populator {
         final int MAX_PRIORITY_LEVEL = 5;
         for (int i = 0; i < N_REQUESTS; i++) {
             String requestID = Generator.generateRequestID();
-            controller.addRequest(
+            operationsController.addRequest(
                 requestID,
                 "Ordine",
                 "",
@@ -196,7 +206,7 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_DONATIONS; i++) {
             // Link a random number of objects descriptions to the operation
             for (int j = 0; j < this.random.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
-                controller.addObjectDescription(
+                operationsController.addObjectDescription(
                     operationsIDs.get(i),
                     j + 1,
                     Generator.getRandomDeviceType(),
@@ -212,7 +222,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> cpuIDs = new LinkedList<>();
         for (int i = 0; i < N_CPU; i++) {
             final String cpuID = Generator.generateComponentID();
-            controller.addCPU(
+            inventoryController.addCPU(
                 cpuID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
@@ -229,7 +239,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> ramIDs = new LinkedList<>();
         for (int i = 0; i < N_RAM; i++) {
             final String ramID = Generator.generateComponentID();
-            controller.addRAM(
+            inventoryController.addRAM(
                 ramID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
@@ -246,7 +256,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> massStorageIDs = new LinkedList<>();
         for (int i = 0; i < N_MASS_STORAGES; i++) {
             final String massStorageID = Generator.generateComponentID();
-            controller.addMassStorage(
+            inventoryController.addMassStorage(
                 massStorageID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
@@ -263,7 +273,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> chassisIDs = new LinkedList<>();
         for (int i = 0; i < N_CHASSIS_UNITS; i++) {
             final String chassisID = Generator.generateComponentID();
-            controller.addChassis(
+            inventoryController.addChassis(
                 chassisID,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
                 "",     // should find a way to generate models names
@@ -280,7 +290,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> componentIDs = new LinkedList<>();
         for (int i = 0; i < N_OTHER_COMPONENTS_TYPES; i++) {
             final String componentID = Generator.generateComponentID();
-            controller.addComponent(
+            inventoryController.addComponent(
                 componentID, 
                 NETWORK_ADAPTER,
                 faker.device().manufacturer(),  // generated manufacturers names are not very appropriate
@@ -301,7 +311,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> monitorIDs = new LinkedList<>();
         for (int i = 0; i < N_MONITORS; i++) {
             final String monitorID = Generator.generateMonitorID();
-            controller.addMonitor(
+            inventoryController.addMonitor(
                 monitorID,
                 faker.device().manufacturer(), 
                 "",     // should find a way to generate models names
@@ -330,7 +340,7 @@ public final class PopulatorImpl implements Populator {
                 // Regenerate peripheral type
                 peripheralType = CommonPeripheralTypes.getRandomPeripheralType();
             }
-            controller.addPeripheral(
+            inventoryController.addPeripheral(
                 peripheralID, 
                 peripheralType, 
                 faker.device().manufacturer(), 
@@ -353,7 +363,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> pcIDs = new LinkedList<>();
         for (int i = 0; i < N_DESKTOP_PC; i++) {
             final String pcID = Generator.generatePcID();
-            controller.addDesktopPC(
+            inventoryController.addDesktopPC(
                 pcID,
                 cpuIDs.get(this.random.nextInt(cpuIDs.size())),
                 massStorageIDs.get(this.random.nextInt(massStorageIDs.size())),
@@ -387,7 +397,7 @@ public final class PopulatorImpl implements Populator {
         final List<String> pcIDs = new LinkedList<>();
         for (int i = 0; i < N_LAPTOPS; i++) {
             final String pcID = Generator.generatePcID();
-            controller.addLaptop(
+            inventoryController.addLaptop(
                 pcID,
                 cpuIDs.get(this.random.nextInt(cpuIDs.size())),
                 massStorageIDs.get(this.random.nextInt(massStorageIDs.size())),
@@ -424,8 +434,8 @@ public final class PopulatorImpl implements Populator {
                     .findFirst();
             final String osName = osNameAndVersion.substring(0, firstDigitIndex.getAsInt());
             final String osVersion = osNameAndVersion.substring(firstDigitIndex.getAsInt());
-            final String pcID = pcIDsCopy.get(this.random.nextInt(pcIDs.size()));
-            controller.addOperatingSystem(
+            final String pcID = pcIDsCopy.get(this.random.nextInt(pcIDsCopy.size()));
+           inventoryController.addOperatingSystem(
                 pcID,
                 osName,
                 osVersion,

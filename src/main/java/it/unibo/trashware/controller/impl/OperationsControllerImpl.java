@@ -1,9 +1,10 @@
-package it.unibo.trashware.services.impl;
+package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Completion;
@@ -22,12 +23,8 @@ import it.unibo.trashware.model.entities.RepresentationId;
 import it.unibo.trashware.model.entities.Representative;
 import it.unibo.trashware.model.entities.Request;
 import it.unibo.trashware.model.entities.Society;
-import it.unibo.trashware.services.api.OperationsService;
 
-/**
- * Implementation of {@link OperationsService}.
- */
-public class OperationsServiceImpl implements OperationsService {
+public class OperationsControllerImpl implements OperationsController {
 
     private static final String DEFAULT_REQUEST_STATUS = "In lavorazione";
     private static final String REQUEST_COMPLETED = "Pronto per la consegna";
@@ -45,11 +42,7 @@ public class OperationsServiceImpl implements OperationsService {
     private GenericDAO<OperationObjectPeripheral, OperationObjectPeripheralId> peripheralOperationLinksDAO;
     private GenericDAO<OperationObjectComponent, OperationObjectComponentId> componentOperationLinksDAO;
 
-    /**
-     * Creates a new instance of {@link OperationsService}.
-     * @throws IOException if an error occurs while trying to create a connection to the database.
-     */
-    public OperationsServiceImpl() throws IOException {
+    public OperationsControllerImpl() throws IOException {
         this.operationsDAO = new GenericDAOImpl<>(Operation.class);
         this.requestsDAO = new GenericDAOImpl<>(Request.class);
         this.representativesDAO = new GenericDAOImpl<>(Representative.class);

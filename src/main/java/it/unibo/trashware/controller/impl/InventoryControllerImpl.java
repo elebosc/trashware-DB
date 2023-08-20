@@ -1,9 +1,10 @@
-package it.unibo.trashware.services.impl;
+package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import it.unibo.trashware.controller.api.InventoryController;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Chassis;
@@ -18,10 +19,9 @@ import it.unibo.trashware.model.entities.OperatingSystemId;
 import it.unibo.trashware.model.entities.PC;
 import it.unibo.trashware.model.entities.Peripheral;
 import it.unibo.trashware.model.entities.RAMModule;
-import it.unibo.trashware.services.api.InventoryService;
 
-public class InventoryServiceImpl implements InventoryService {
-
+public class InventoryControllerImpl implements InventoryController {
+    
     private GenericDAO<Cpu, String> cpuDAO;
     private GenericDAO<RAMModule, String> ramDAO;
     private GenericDAO<MassStorageDevice, String> massStorageDAO;
@@ -33,7 +33,7 @@ public class InventoryServiceImpl implements InventoryService {
     private GenericDAO<Laptop, String> laptopsDAO;
     private GenericDAO<OperatingSystem, OperatingSystemId> operatingSystemsDAO;
 
-    public InventoryServiceImpl() throws IOException {
+    public InventoryControllerImpl() throws IOException {
         this.cpuDAO = new GenericDAOImpl<>(Cpu.class);
         this.ramDAO = new GenericDAOImpl<>(RAMModule.class);
         this.massStorageDAO = new GenericDAOImpl<>(MassStorageDevice.class);
@@ -283,5 +283,5 @@ public class InventoryServiceImpl implements InventoryService {
         // OS insertion
         this.operatingSystemsDAO.add(os);
     }
-
+    
 }

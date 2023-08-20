@@ -1,10 +1,10 @@
-package it.unibo.trashware.services.api;
+package it.unibo.trashware.controller.api;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface WorkShiftsService {
+public interface WorkShiftsController {
     
     /**
      * Stores data about a new operator.

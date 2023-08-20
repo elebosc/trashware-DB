@@ -1,15 +1,11 @@
-package it.unibo.trashware.services.api;
+package it.unibo.trashware.controller.api;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-/**
- * This interface gives access to the services that enable the management
- * of the data related to the operations that involve the Trashware project.
- */
-public interface OperationsService {
-
-	/**
+public interface OperationsController {
+    
+    /**
 	 * Stores data about a new donation.
 	 * @param id
 	 * @param date
@@ -76,7 +72,7 @@ public interface OperationsService {
 	 * @param representativeTitle
 	 */
 	void addRepresentation(String societyVATNumber, String representativeFiscalCode, String representativeTitle);
-	
+
 	/**
 	 * Stores data about a new object description.
 	 * @param operationID
