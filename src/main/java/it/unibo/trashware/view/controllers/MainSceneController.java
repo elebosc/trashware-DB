@@ -21,7 +21,7 @@ public class MainSceneController {
     public void init(final View view) {
         insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
             try {
-                view.setPane(PagesConfig.DONATION_FORM);
+                view.setPage(PagesConfig.DONATION_FORM);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

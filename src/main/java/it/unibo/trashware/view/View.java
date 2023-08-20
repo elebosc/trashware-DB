@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface View {
 
-    void setPane(PagesConfig pane) throws IOException ;
+    void setPage(PagesConfig page) throws IOException;
 
     void show();
 

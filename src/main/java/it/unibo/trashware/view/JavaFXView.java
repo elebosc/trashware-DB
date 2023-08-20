@@ -29,9 +29,9 @@ public class JavaFXView implements View {
     }
 
     @Override
-    public void setPane(final PagesConfig pane) throws IOException {
+    public void setPage(final PagesConfig page) throws IOException {
         final FXMLLoader loader = new FXMLLoader();
-        final Node node = loader.load(ClassLoader.getSystemResourceAsStream(PagesConfig.DONATION_FORM.getFXMLFilePath()));
+        final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
         this.controller.getSidePage().getChildren().add(node);
     }
 
