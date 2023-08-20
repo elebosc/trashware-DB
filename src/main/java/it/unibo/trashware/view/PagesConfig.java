@@ -1,13 +1,13 @@
 package it.unibo.trashware.view;
 
-public enum PanesConfig {
+public enum PagesConfig {
     
     DONATION_FORM("donation_form.fxml");
 
     private static final String DIR = "layouts/";
     private final String fxmlFileName;
 
-    private PanesConfig(final String fxmlFileName) {
+    private PagesConfig(final String fxmlFileName) {
         this.fxmlFileName = fxmlFileName;
     }
 

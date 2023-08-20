@@ -2,30 +2,34 @@ package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
 
-import it.unibo.trashware.view.PanesConfig;
+import it.unibo.trashware.view.PagesConfig;
 import it.unibo.trashware.view.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
-public class MainSceneController implements SceneController {
+public class MainSceneController {
 
-    private View view;
+    @FXML
+    private AnchorPane sidePage;
     
     @FXML
     private Button insertDonationBtn;
 
-    @Override
     public void init(final View view) {
-        this.view = view;
-        // this.insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
-        //     try {
-        //         this.view.setPane(PanesConfig.DONATION_FORM);
-        //     } catch (IOException e1) {
-        //         // TODO Auto-generated catch block
-        //         e1.printStackTrace();
-        //     }
-        // });
+        insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
+            try {
+                view.setPane(PagesConfig.DONATION_FORM);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+    }
+
+    public Pane getSidePage() {
+        return this.sidePage;
     }
 
 }
