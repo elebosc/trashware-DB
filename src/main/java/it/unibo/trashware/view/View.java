@@ -6,6 +6,8 @@ public interface View {
     
     void setScene(ScenesConfig scene) throws IOException;
 
+    void setPane(PanesConfig pane) throws IOException;
+
     void show();
 
 }
