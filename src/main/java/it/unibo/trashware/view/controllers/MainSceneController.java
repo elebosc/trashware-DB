@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 public class MainSceneController implements SceneController {
 
     private View view;
-    // private Controller controller;
     
     @FXML
     private Button insertDonationBtn;
@@ -19,14 +18,14 @@ public class MainSceneController implements SceneController {
     @Override
     public void init(final View view) {
         this.view = view;
-        this.insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
-            try {
-                this.view.setPane(PanesConfig.DONATION_FORM);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
+        // this.insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
+        //     try {
+        //         this.view.setPane(PanesConfig.DONATION_FORM);
+        //     } catch (IOException e1) {
+        //         // TODO Auto-generated catch block
+        //         e1.printStackTrace();
+        //     }
+        // });
     }
 
 }
