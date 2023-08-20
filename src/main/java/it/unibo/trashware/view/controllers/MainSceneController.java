@@ -18,14 +18,20 @@ public class MainSceneController {
     @FXML
     private Button insertDonationBtn;
 
+    @FXML
+    private Button insertRequestBtn;
+
     public void init(final View view) {
-        insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> {
-            try {
-                view.setPage(PagesConfig.DONATION_FORM);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATION_FORM));
+        insertRequestBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUEST_FORM));
+    }
+
+    private void setPageCommand(final View view, final PagesConfig page) {
+        try {
+            view.setPage(page);
+        } catch (final IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public Pane getSidePage() {

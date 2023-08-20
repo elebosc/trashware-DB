@@ -2,7 +2,8 @@ package it.unibo.trashware.view;
 
 public enum PagesConfig {
     
-    DONATION_FORM("donation_form.fxml");
+    DONATION_FORM("donation_form.fxml"),
+    REQUEST_FORM("request_form.fxml");
 
     private static final String DIR = "layouts/";
     private final String fxmlFileName;
