@@ -21,9 +21,13 @@ public class MainSceneController {
     @FXML
     private Button insertRequestBtn;
 
+    @FXML
+    private Button insertOperatorBtn;
+
     public void init(final View view) {
         insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATION_FORM));
         insertRequestBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUEST_FORM));
+        insertOperatorBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.OPERATOR_FORM));
     }
 
     private void setPageCommand(final View view, final PagesConfig page) {
