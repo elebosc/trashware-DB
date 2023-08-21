@@ -14,90 +14,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class InsertDonationPageController {
-
-    @FXML
-    private TextField donationIDField;
-
-    @FXML
-    private TextField effectuationDateField;
-
-    @FXML
-    private TextField notesField;
-
-    @FXML
-    private TextField officeCAPField;
-
-    @FXML
-    private TextField officeCityField;
-
-    @FXML
-    private TextField officeProvinceField;
-
-    @FXML
-    private TextField officeStreetField;
-
-    @FXML
-    private TextField officeStreetNumberField;
-
-    @FXML
-    private TextField repBirthdayField;
-
-    @FXML
-    private TextField repBirthplaceField;
-
-    @FXML
-    private TextField repEmailField;
-
-    @FXML
-    private TextField repFaxField;
-
-    @FXML
-    private TextField repFiscalCodeField;
-
-    @FXML
-    private TextField repNameField;
-
-    @FXML
-    private TextField repResidenceCAPField;
-
-    @FXML
-    private TextField repResidenceCityField;
-
-    @FXML
-    private TextField repResidenceNumberField;
-
-    @FXML
-    private TextField repResidenceProvinceField;
-
-    @FXML
-    private TextField repResidenceStreetField;
-
-    @FXML
-    private TextField repSurnameField;
-
-    @FXML
-    private TextField repTelephoneNumber1Field;
-
-    @FXML
-    private TextField repTelephoneNumber2Field;
-
-    @FXML
-    private CheckBox societyCheckbox;
-
-    @FXML
-    private TextField repTitleField;
-
-    @FXML
-    private TextField societyFiscalCodeField;
-
-    @FXML
-    private TextField societyNameField;
-
-    @FXML
-    private TextField societyVATNumberField;
+public class InsertRequestPageController {
 
     @FXML
     private TextField articleField1;
@@ -145,7 +65,100 @@ public class InsertDonationPageController {
     private TextField articleQuantityField5;
 
     @FXML
+    private TextField deadlineField;
+
+    @FXML
+    private TextField effectuationDateField;
+
+    @FXML
     private Button insertBtn;
+
+    @FXML
+    private TextField notesField;
+
+    @FXML
+    private TextField officeCAPField;
+
+    @FXML
+    private TextField officeCityField;
+
+    @FXML
+    private TextField officeProvinceField;
+
+    @FXML
+    private TextField officeStreetField;
+
+    @FXML
+    private TextField officeStreetNumberField;
+
+    @FXML
+    private TextField priorityLevelField;
+
+    @FXML
+    private TextArea reasonField;
+
+    @FXML
+    private TextField repBirthdayField;
+
+    @FXML
+    private TextField repBirthplaceField;
+
+    @FXML
+    private TextField repEmailField;
+
+    @FXML
+    private TextField repFaxField;
+
+    @FXML
+    private TextField repFiscalCodeField;
+
+    @FXML
+    private TextField repNameField;
+
+    @FXML
+    private TextField repResidenceCAPField;
+
+    @FXML
+    private TextField repResidenceCityField;
+
+    @FXML
+    private TextField repResidenceNumberField;
+
+    @FXML
+    private TextField repResidenceProvinceField;
+
+    @FXML
+    private TextField repResidenceStreetField;
+
+    @FXML
+    private TextField repSurnameField;
+
+    @FXML
+    private TextField repTelephoneNumber1Field;
+
+    @FXML
+    private TextField repTelephoneNumber2Field;
+
+    @FXML
+    private TextField repTitleField;
+
+    @FXML
+    private TextField requestIDField;
+
+    @FXML
+    private TextField requestTypeField;
+
+    @FXML
+    private CheckBox societyCheckbox;
+
+    @FXML
+    private TextField societyFiscalCodeField;
+
+    @FXML
+    private TextField societyNameField;
+
+    @FXML
+    private TextField societyVATNumberField;
 
     private OperationsController controller; 
 
@@ -162,7 +175,7 @@ public class InsertDonationPageController {
                 insertSocietyData();
                 insertRepresentation();
             }
-            insertDonation();
+            insertRequest();
             insertObjectDescriptions();
         });
     }
@@ -207,10 +220,14 @@ public class InsertDonationPageController {
         );
     }
 
-    private void insertDonation() {
-        this.controller.addDonation(
-            this.donationIDField.getText(), 
-            getLocalDateFromString(this.effectuationDateField.getText()), 
+    private void insertRequest() {
+        this.controller.addRequest(
+            this.requestIDField.getText(),
+            this.requestTypeField.getText(),
+            this.reasonField.getText(),
+            getLocalDateFromString(this.effectuationDateField.getText()),
+            getLocalDateFromString(this.deadlineField.getText()),
+            Integer.parseInt(this.priorityLevelField.getText()),
             (this.notesField.getText() == null) ? Optional.of(this.notesField.getText()) : Optional.empty(),
             this.repFiscalCodeField.getText()
         );
@@ -272,7 +289,7 @@ public class InsertDonationPageController {
                 errorAlert.showAndWait();
             }
             this.controller.addObjectDescription(
-                this.donationIDField.getText(),
+                this.requestIDField.getText(),
                 i + 1, 
                 articles.get(i), 
                 Integer.parseInt(articlesQuantity.get(i)), 
@@ -288,5 +305,6 @@ public class InsertDonationPageController {
         final int day = Integer.parseInt(parsedDate[2]);
         return LocalDate.of(year, month, day);
     }
+
 
 }
