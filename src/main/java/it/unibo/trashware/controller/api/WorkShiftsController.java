@@ -1,6 +1,6 @@
 package it.unibo.trashware.controller.api;
 
-import java.time.Instant;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public interface WorkShiftsController {
      * @param startTime
      * @param endTime
      */
-    void registerWorkShift(String operatorFiscalCode, LocalDate date, Instant startTime, Instant endTime);
+    void registerWorkShift(String operatorFiscalCode, LocalDate date, Time startTime, Time endTime);
 
     /**
      * Stores data about a new task done in a work shift.
@@ -45,7 +45,7 @@ public interface WorkShiftsController {
      * @param description
      * @param operationID
      */
-    void registerTask(String operatorFiscalCode, LocalDate date, Instant startTime, int taskNumber,
+    void registerTask(String operatorFiscalCode, LocalDate date, Time startTime, int taskNumber,
             String description, Optional<String> operationID);
 
 }

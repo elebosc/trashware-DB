@@ -2,44 +2,59 @@ package it.unibo.trashware.model.entities;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
+import java.sql.Time;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "turni_lavoro")
+@IdClass(WorkShiftId.class)
 public class WorkShift {
-    @EmbeddedId
-    private WorkShiftId id;
 
-    @MapsId("codiceFiscaleOperatore")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CodiceFiscaleOperatore", nullable = false)
-    private it.unibo.trashware.model.entities.Operator operatorFiscalCode;
+    @Id
+    @Column(name = "CodiceFiscaleOperatore", nullable = false, length = 10, columnDefinition = "char")
+    private String operatorFiscalCode;
+
+    @Id
+    @Column(name = "Data", nullable = false)
+    private LocalDate workShiftDate;
+
+    @Id
+    @Column(name = "OraInizio", nullable = false)
+    private Time workShiftStartTime;
 
     @Column(name = "OraFine", nullable = false)
-    private Instant endTime;
+    private Time workShiftEndTime;
 
-    public WorkShiftId getId() {
-        return id;
-    }
-
-    public void setId(WorkShiftId id) {
-        this.id = id;
-    }
-
-    public it.unibo.trashware.model.entities.Operator getOperatorFiscalCode() {
+    public String getOperatorFiscalCode() {
         return operatorFiscalCode;
     }
 
-    public void setOperatorFiscalCode(it.unibo.trashware.model.entities.Operator operatorFiscalCode) {
-        this.operatorFiscalCode = operatorFiscalCode;
+    public void setOperatorFiscalCode(String operator) {
+        this.operatorFiscalCode = operator;
     }
 
-    public Instant getEndTime() {
-        return endTime;
+    public LocalDate getWorkShiftDate() {
+        return workShiftDate;
     }
 
-    public void setEndTime(Instant endTime) {
-        this.endTime = endTime;
+    public void setWorkShiftDate(LocalDate date) {
+        this.workShiftDate = date;
+    }
+
+    public Time getWorkShiftStartTime() {
+        return workShiftStartTime;
+    }
+
+    public void setWorkShiftStartTime(Time startTime) {
+        this.workShiftStartTime = startTime;
+    }
+
+    public Time getWorkShiftEndTime() {
+        return workShiftEndTime;
+    }
+
+    public void setWorkShiftEndTime(Time endTime) {
+        this.workShiftEndTime = endTime;
     }
 
 }

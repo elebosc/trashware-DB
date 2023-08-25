@@ -1,7 +1,7 @@
 package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
-import java.time.Instant;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -53,27 +53,36 @@ public class WorkShiftsControllerImpl implements WorkShiftsController {
     }
 
     @Override
-    public void registerWorkShift(String operatorFiscalCode, LocalDate date, Instant startTime, Instant endTime) {
-        final WorkShiftId id = new WorkShiftId();
-        id.setOperatorFiscalCode(operatorFiscalCode);
-        id.setWorkShiftDate(date);
-        id.setWorkShiftStartTime(startTime);
+    public void registerWorkShift(String operatorFiscalCode, LocalDate date, Time startTime, Time endTime) {
         final WorkShift workShift = new WorkShift();
-        workShift.setId(id);
-        workShift.setEndTime(endTime);
+        if (this.operatorsDAO.getByID(operatorFiscalCode).isPresent()) {
+            workShift.setOperatorFiscalCode(operatorFiscalCode);
+        } else {
+            throw new IllegalArgumentException("An operator with such fiscal code does not exist.");
+        };
+        workShift.setWorkShiftDate(date);
+        workShift.setWorkShiftStartTime(startTime);
+        workShift.setWorkShiftEndTime(endTime);
         // Work shift insertion
         this.workShiftsDAO.add(workShift);
     }
 
     @Override
-    public void registerTask(String operatorFiscalCode, LocalDate date, Instant startTime, int taskNumber,
+    public void registerTask(String operatorFiscalCode, LocalDate date, Time startTime, int taskNumber,
             String description, Optional<String> operationID) {
-        final TaskId id = new TaskId();
-        id.setOperatorFiscalCode(operatorFiscalCode);
-        id.setWorkShiftDate(date);
-        id.setWorkShiftStartTime(startTime);
-        id.setTaskNumber(taskNumber);
         final Task task = new Task();
+        final WorkShiftId workShiftID = new WorkShiftId();
+        workShiftID.setOperatorFiscalCode(operatorFiscalCode);
+        workShiftID.setWorkShiftDate(date);
+        workShiftID.setWorkShiftStartTime(startTime);
+        if(this.workShiftsDAO.getByID(workShiftID).isPresent()) {
+            task.setOperatorFiscalCode(operatorFiscalCode);
+            task.setWorkShiftDate(date);
+            task.setWorkShiftStartTime(startTime);
+            task.setTaskNumber(taskNumber);
+        } else {
+            throw new IllegalArgumentException("A work shift at the specified date and time has not been registred.");
+        }
         task.setDescription(description);
         if (operationID.isPresent()) {
             final Optional<Operation> searchedOp = this.operationsDAO.getByID(operationID.get());
