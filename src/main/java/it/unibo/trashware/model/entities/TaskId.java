@@ -1,27 +1,21 @@
 package it.unibo.trashware.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Embeddable
 public class TaskId implements Serializable {
     private static final long serialVersionUID = 7935673349876242184L;
-    @Column(name = "CodiceFiscaleOperatore", nullable = false, length = 16)
+
     private String operatorFiscalCode;
 
-    @Column(name = "DataTurno", nullable = false)
     private LocalDate workShiftDate;
 
-    @Column(name = "OraInizioTurno", nullable = false)
-    private Instant workShiftStartTime;
+    private Time workShiftStartTime;
 
-    @Column(name = "NumElenco", nullable = false)
     private Integer taskNumber;
 
     public String getOperatorFiscalCode() {
@@ -40,11 +34,11 @@ public class TaskId implements Serializable {
         this.workShiftDate = workShiftDate;
     }
 
-    public Instant getWorkShiftStartTime() {
+    public Time getWorkShiftStartTime() {
         return workShiftStartTime;
     }
 
-    public void setWorkShiftStartTime(Instant workShiftStartTime) {
+    public void setWorkShiftStartTime(Time workShiftStartTime) {
         this.workShiftStartTime = workShiftStartTime;
     }
 

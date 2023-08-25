@@ -1,21 +1,30 @@
 package it.unibo.trashware.model.entities;
 
+import java.sql.Time;
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "mansioni")
+@IdClass(TaskId.class)
 public class Task {
-    @EmbeddedId
-    private TaskId id;
 
-    @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "CodiceFiscaleOperatore", referencedColumnName = "CodiceFiscaleOperatore", nullable = false, columnDefinition = "char"),
-            @JoinColumn(name = "DataTurno", referencedColumnName = "Data", nullable = false),
-            @JoinColumn(name = "OraInizioTurno", referencedColumnName = "OraInizio", nullable = false)
-    })
-    private it.unibo.trashware.model.entities.WorkShift workShift;
+    @Id
+    @Column(name = "CodiceFiscaleOperatore", nullable = false, length = 16, columnDefinition = "char")
+    private String operatorFiscalCode;
+
+    @Id
+    @Column(name = "DataTurno", nullable = false)
+    private LocalDate workShiftDate;
+
+    @Id
+    @Column(name = "OraInizioTurno", nullable = false)
+    private Time workShiftStartTime;
+
+    @Id
+    @Column(name = "NumElenco", nullable = false)
+    private Integer taskNumber;
 
     @Column(name = "Descrizione", nullable = false, length = 2000)
     private String description;
@@ -24,20 +33,36 @@ public class Task {
     @JoinColumn(name = "IDOperazione")
     private it.unibo.trashware.model.entities.Operation operationID;
 
-    public TaskId getId() {
-        return id;
+    public String getOperatorFiscalCode() {
+        return operatorFiscalCode;
     }
 
-    public void setId(TaskId id) {
-        this.id = id;
+    public void setOperatorFiscalCode(String opeatorFiscalCode) {
+        this.operatorFiscalCode = opeatorFiscalCode;
     }
 
-    public it.unibo.trashware.model.entities.WorkShift getWorkShift() {
-        return workShift;
+    public LocalDate getWorkShiftDate() {
+        return workShiftDate;
     }
 
-    public void setWorkShift(it.unibo.trashware.model.entities.WorkShift workShift) {
-        this.workShift = workShift;
+    public void setWorkShiftDate(LocalDate workShiftDate) {
+        this.workShiftDate = workShiftDate;
+    }
+
+    public Time getWorkShiftStartTime() {
+        return workShiftStartTime;
+    }
+
+    public void setWorkShiftStartTime(Time workShiftStartTime) {
+        this.workShiftStartTime = workShiftStartTime;
+    }
+
+    public Integer getTaskNumber() {
+        return taskNumber;
+    }
+
+    public void setTaskNumber(Integer taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     public String getDescription() {
