@@ -25,6 +25,15 @@ public class MainSceneController {
     private Button insertRequestBtn;
 
     @FXML
+    private Button showRequestsToCompleteBtn;
+
+    @FXML
+    private Button showRequestsToDeliverBtn;
+
+    @FXML
+    private Button showDeliveredRequestsBtn;
+
+    @FXML
     private Button insertOperatorBtn;
 
     @FXML
@@ -34,6 +43,9 @@ public class MainSceneController {
         insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATION_FORM));
         showDonationsBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATIONS_VIEW));
         insertRequestBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUEST_FORM));
+        showRequestsToCompleteBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
+        showRequestsToDeliverBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
+        showDeliveredRequestsBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
         insertOperatorBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.OPERATOR_FORM));
         insertWorkShiftBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.WORKSHIFT_FORM));
     }

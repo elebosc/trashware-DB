@@ -6,7 +6,8 @@ public enum PagesConfig {
     REQUEST_FORM("request_form.fxml"),
     OPERATOR_FORM("operator_form.fxml"),
     WORKSHIFT_FORM("workshift_form.fxml"),
-    DONATIONS_VIEW("donations_view.fxml");
+    DONATIONS_VIEW("donations_view.fxml"),
+    REQUESTS_VIEW("requests_view.fxml");
 
     private static final String DIR = "layouts/";
     private final String fxmlFileName;
