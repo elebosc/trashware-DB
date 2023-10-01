@@ -3,6 +3,7 @@ package it.unibo.trashware.view;
 import java.io.IOException;
 
 import it.unibo.trashware.view.controllers.MainSceneController;
+import it.unibo.trashware.view.controllers.Pages;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -29,10 +30,14 @@ public class JavaFXView implements View {
     }
 
     @Override
-    public void setPage(final PagesConfig page) throws IOException {
+    public void setPage(final Pages page) {
         final FXMLLoader loader = new FXMLLoader();
-        final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
-        this.controller.getSidePage().getChildren().add(node);
+        try {
+            final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
+            this.controller.getSidePage().getChildren().add(node);
+        } catch (final IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

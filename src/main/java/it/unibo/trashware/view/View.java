@@ -1,10 +1,10 @@
 package it.unibo.trashware.view;
 
-import java.io.IOException;
+import it.unibo.trashware.view.controllers.Pages;
 
 public interface View {
 
-    void setPage(PagesConfig page) throws IOException;
+    void setPage(Pages page);
 
     void show();
 

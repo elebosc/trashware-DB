@@ -2,9 +2,7 @@ package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
 
-import it.unibo.trashware.view.PagesConfig;
 import it.unibo.trashware.view.View;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -34,28 +32,24 @@ public class MainSceneController {
     private Button showDeliveredRequestsBtn;
 
     @FXML
+    private Button insertDeviceBtn;
+
+    @FXML
     private Button insertOperatorBtn;
 
     @FXML
     private Button insertWorkShiftBtn;
 
     public void init(final View view) {
-        insertDonationBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATION_FORM));
-        showDonationsBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.DONATIONS_VIEW));
-        insertRequestBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUEST_FORM));
-        showRequestsToCompleteBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
-        showRequestsToDeliverBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
-        showDeliveredRequestsBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.REQUESTS_VIEW));
-        insertOperatorBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.OPERATOR_FORM));
-        insertWorkShiftBtn.addEventHandler(ActionEvent.ACTION, e -> setPageCommand(view, PagesConfig.WORKSHIFT_FORM));
-    }
-
-    private void setPageCommand(final View view, final PagesConfig page) {
-        try {
-            view.setPage(page);
-        } catch (final IOException ex) {
-            ex.printStackTrace();
-        }
+        insertDonationBtn.setOnAction(e -> view.setPage(Pages.DONATION_FORM));
+        showDonationsBtn.setOnAction(e -> view.setPage(Pages.DONATIONS_VIEW));
+        insertRequestBtn.setOnAction(e -> view.setPage(Pages.REQUEST_FORM));
+        showRequestsToCompleteBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
+        showRequestsToDeliverBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
+        showDeliveredRequestsBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
+        insertDeviceBtn.setOnAction(e -> view.setPage(Pages.DEVICE_FORM));
+        insertOperatorBtn.setOnAction(e -> view.setPage(Pages.OPERATOR_FORM));
+        insertWorkShiftBtn.setOnAction(e -> view.setPage(Pages.WORKSHIFT_FORM));
     }
 
     public Pane getSidePage() {

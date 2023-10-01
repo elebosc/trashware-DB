@@ -39,7 +39,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.DonationsViewPageController">
   <children>
-      <ScrollPane prefHeight="534.0" prefWidth="640.0">
+      <ScrollPane prefHeight="534.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
             <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="838.0">
               <columns>
