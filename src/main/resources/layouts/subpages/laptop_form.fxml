@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+         <content>
+          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="566.0" prefWidth="638.0">
+            <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="116.0" text="PC Portatile" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="PCIDField" layoutX="15.0" layoutY="51.0" prefHeight="26.0" prefWidth="126.0" promptText="ID PC" />
+                  <Button fx:id="insertBtn" defaultButton="true" layoutX="523.0" layoutY="522.0" mnemonicParsing="false" text="Inserisci">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <TextArea fx:id="notesField" layoutX="17.0" layoutY="317.0" prefHeight="94.0" prefWidth="362.0" promptText="Note (opzionale)" />
+                  <TextField fx:id="CPUIDField" layoutX="18.0" layoutY="165.0" prefHeight="26.0" prefWidth="127.0" promptText="ID CPU" />
+                  <TextField fx:id="RAM01IDField" layoutX="18.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 1" />
+                  <TextField fx:id="RAM02IDField" layoutX="154.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 2 (opzionale)" />
+                  <TextField fx:id="RAM03IDField" layoutX="291.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 3 (opzionale)" />
+                  <TextField fx:id="RAM04IDField" layoutX="429.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 4 (opzionale)" />
+                  <TextField fx:id="ms02IDField" layoutX="198.0" layoutY="240.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Mem. Massa 2 (opzionale)" />
+                  <TextField fx:id="ms01IDField" layoutX="18.0" layoutY="240.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Mem. Massa 1" />
+                  <CheckBox fx:id="ethernetCheckBox" layoutX="18.0" layoutY="283.0" mnemonicParsing="false" text="Ethernet" />
+                  <CheckBox fx:id="wifiCheckBox" layoutX="102.0" layoutY="283.0" mnemonicParsing="false" text="Wi-Fi" />
+                  <CheckBox fx:id="bluetoothCheckBox" layoutX="171.0" layoutY="283.0" mnemonicParsing="false" text="Bluetooth" />
+                  <Label layoutX="17.0" layoutY="422.0" text="Sistema Operativo" underline="true" />
+                  <TextField fx:id="OSNameField" layoutX="19.0" layoutY="453.0" prefHeight="26.0" prefWidth="191.0" promptText="Nome" />
+                  <TextField fx:id="OSVersionField" layoutX="218.0" layoutY="453.0" prefHeight="26.0" prefWidth="106.0" promptText="Versione" />
+                  <DatePicker fx:id="lastOSUpdateDatePicker" layoutX="19.0" layoutY="490.0" prefHeight="26.0" prefWidth="194.0" promptText="Data Ultimo Aggiornamento" />
+                  <TextField fx:id="brandField" layoutX="15.0" layoutY="90.0" prefHeight="26.0" prefWidth="146.0" promptText="Marca" />
+                  <TextField fx:id="modelField" layoutX="176.0" layoutY="90.0" prefHeight="26.0" prefWidth="190.0" promptText="Modello" />
+                  <TextField fx:id="sizeField" layoutX="15.0" layoutY="126.0" prefHeight="26.0" prefWidth="146.0" promptText="Dimensione" />
+                  <TextField fx:id="colorField" layoutX="176.0" layoutY="126.0" prefHeight="26.0" prefWidth="146.0" promptText="Colore" />
+            </children>
+          </AnchorPane>
+         </content>
+      </ScrollPane>
+  </children>
+</VBox>

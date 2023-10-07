@@ -64,6 +64,8 @@ public class InsertDevicePageController {
         this.massMemoryItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.MASS_STORAGE_FORM));
         this.chassisItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.CHASSIS_FORM));
         this.otherComponentItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.OTHER_COMPONENT_FORM));
+        this.desktopPCItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.DESKTOP_PC_FORM));
+        this.LaptopItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.LAPTOP_FORM));
     }
 
     private void setSubpage(final DeviceFormSubpages page) {
