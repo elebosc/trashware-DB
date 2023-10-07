@@ -1,7 +1,5 @@
 package it.unibo.trashware.view.controllers;
 
-import java.io.IOException;
-
 import it.unibo.trashware.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
