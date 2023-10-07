@@ -59,6 +59,11 @@ public class InsertDevicePageController {
     public void initialize() {
         this.monitorItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.MONITOR_FORM));
         this.otherPeripheralItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.OTHER_PERIPHERAL_FORM));
+        this.CPUItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.CPU_FORM));
+        this.RAMItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.RAM_FORM));
+        this.massMemoryItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.MASS_STORAGE_FORM));
+        this.chassisItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.CHASSIS_FORM));
+        this.otherComponentItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.OTHER_COMPONENT_FORM));
     }
 
     private void setSubpage(final DeviceFormSubpages page) {

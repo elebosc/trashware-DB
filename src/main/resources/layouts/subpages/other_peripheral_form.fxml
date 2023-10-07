@@ -52,7 +52,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="peripheralIDField" layoutX="14.0" layoutY="53.0" prefHeight="26.0" prefWidth="170.0" promptText="ID Periferica" />
+                  <TextField fx:id="IDField" layoutX="14.0" layoutY="53.0" prefHeight="26.0" prefWidth="170.0" promptText="ID Periferica" />
                   <Button fx:id="insertBtn" defaultButton="true" layoutX="523.0" layoutY="307.0" mnemonicParsing="false" text="Inserisci">
                      <font>
                         <Font size="14.0" />
