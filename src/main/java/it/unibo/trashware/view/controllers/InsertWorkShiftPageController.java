@@ -59,7 +59,7 @@ public class InsertWorkShiftPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        insertBtn.addEventHandler(ActionEvent.ACTION, e -> {
+        insertBtn.setOnAction(e -> {
             insertWorkShift();
             insertTasks();
         });
@@ -82,18 +82,18 @@ public class InsertWorkShiftPageController {
         final List<Optional<String>> operationsIDs = new LinkedList<>();
         operationsIDs.add(
             this.operationIDField1.getText().equals("")
-            ? Optional.of(this.operationIDField1.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.operationIDField1.getText())
         );
         operationsIDs.add(
             this.operationIDField2.getText().equals("")
-            ? Optional.of(this.operationIDField2.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.operationIDField2.getText())
         );
         operationsIDs.add(
             this.operationIDField3.getText().equals("")
-            ? Optional.of(this.operationIDField3.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.operationIDField3.getText())
         );
         for (int i = 0; i < tasksDescriptions.size(); i++) {
             if (tasksDescriptions.get(i).equals("")) {

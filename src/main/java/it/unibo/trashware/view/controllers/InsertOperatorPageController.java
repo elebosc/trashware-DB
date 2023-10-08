@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import it.unibo.trashware.controller.api.WorkShiftsController;
 import it.unibo.trashware.controller.impl.WorkShiftsControllerImpl;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -64,9 +63,7 @@ public class InsertOperatorPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        insertBtn.addEventHandler(ActionEvent.ACTION, e -> {
-            insertOperatorData();
-        });
+        insertBtn.setOnAction(e -> insertOperatorData());
     }
 
     private void insertOperatorData() {
@@ -86,8 +83,12 @@ public class InsertOperatorPageController {
             this.operatorResidenceStreetField.getText(),
             Integer.parseInt(this.operatorResidenceNumberField.getText()), 
             this.operatorTelephoneNumber1Field.getText(), 
-            Optional.of(this.operatorTelephoneNumber2Field.getText()),
-            Optional.of(this.operatorEmailField.getText())
+            this.operatorTelephoneNumber2Field.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.operatorTelephoneNumber2Field.getText()),
+            this.operatorEmailField.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.operatorEmailField.getText())
         );
     }
 

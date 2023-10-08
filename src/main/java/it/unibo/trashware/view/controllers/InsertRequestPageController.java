@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.controller.impl.OperationsControllerImpl;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -169,7 +168,7 @@ public class InsertRequestPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        insertBtn.addEventHandler(ActionEvent.ACTION, e -> {
+        insertBtn.setOnAction(e -> {
             insertRepresentativeData();
             if (this.societyCheckbox.isSelected()) {
                 insertSocietyData();
@@ -193,9 +192,15 @@ public class InsertRequestPageController {
             this.repResidenceStreetField.getText(),
             Integer.parseInt(this.repResidenceNumberField.getText()), 
             this.repTelephoneNumber1Field.getText(), 
-            Optional.of(this.repTelephoneNumber2Field.getText()), 
-            Optional.of(this.repFaxField.getText()),
-            Optional.of(this.repEmailField.getText())
+            this.repTelephoneNumber2Field.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.repTelephoneNumber2Field.getText()),
+            this.repFaxField.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.repFaxField.getText()),
+            this.repEmailField.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.repEmailField.getText())
         );
     }
 
@@ -228,7 +233,9 @@ public class InsertRequestPageController {
             getLocalDateFromString(this.effectuationDateField.getText()),
             getLocalDateFromString(this.deadlineField.getText()),
             Integer.parseInt(this.priorityLevelField.getText()),
-            (this.notesField.getText() == null) ? Optional.of(this.notesField.getText()) : Optional.empty(),
+            this.notesField.getText().equals("")
+                ? Optional.empty()
+                : Optional.of(this.notesField.getText()),
             this.repFiscalCodeField.getText()
         );
     }
@@ -252,28 +259,28 @@ public class InsertRequestPageController {
         final List<Optional<String>> articlesNotes = new LinkedList<>();
         articlesNotes.add(
             this.articleNotesField1.getText().equals("")
-            ? Optional.of(this.articleNotesField1.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.articleNotesField1.getText())
         );
         articlesNotes.add(
             this.articleNotesField2.getText().equals("")
-            ? Optional.of(this.articleNotesField2.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.articleNotesField2.getText())
         );
         articlesNotes.add(
             this.articleNotesField3.getText().equals("")
-            ? Optional.of(this.articleNotesField3.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.articleNotesField3.getText())
         );
         articlesNotes.add(
             this.articleNotesField4.getText().equals("")
-            ? Optional.of(this.articleNotesField4.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.articleNotesField4.getText())
         );
         articlesNotes.add(
             this.articleNotesField5.getText().equals("")
-            ? Optional.of(this.articleNotesField5.getText())
-            : Optional.empty()
+            ? Optional.empty()
+            : Optional.of(this.articleNotesField5.getText())
         );
         // Check list entries and, if filled and valid, insert them
         for (int i = 0; i < articles.size(); i++) {
