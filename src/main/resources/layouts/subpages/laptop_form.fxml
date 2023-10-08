@@ -43,11 +43,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.subpages.LaptopFormController">
   <children>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="526.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
-          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="566.0" prefWidth="638.0">
+          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="649.0" prefWidth="638.0">
             <children>
                   <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="116.0" text="PC Portatile" underline="true">
                      <font>
@@ -55,12 +55,12 @@
                      </font>
                   </Label>
                   <TextField fx:id="PCIDField" layoutX="15.0" layoutY="51.0" prefHeight="26.0" prefWidth="126.0" promptText="ID PC" />
-                  <Button fx:id="insertBtn" defaultButton="true" layoutX="523.0" layoutY="522.0" mnemonicParsing="false" text="Inserisci">
+                  <Button fx:id="insertBtn" defaultButton="true" layoutX="523.0" layoutY="564.0" mnemonicParsing="false" text="Inserisci">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextArea fx:id="notesField" layoutX="17.0" layoutY="317.0" prefHeight="94.0" prefWidth="362.0" promptText="Note (opzionale)" />
+                  <TextArea fx:id="notesField" layoutX="17.0" layoutY="355.0" prefHeight="94.0" prefWidth="362.0" promptText="Note (opzionale)" />
                   <TextField fx:id="CPUIDField" layoutX="18.0" layoutY="165.0" prefHeight="26.0" prefWidth="127.0" promptText="ID CPU" />
                   <TextField fx:id="RAM01IDField" layoutX="18.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 1" />
                   <TextField fx:id="RAM02IDField" layoutX="154.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 2 (opzionale)" />
@@ -68,17 +68,18 @@
                   <TextField fx:id="RAM04IDField" layoutX="429.0" layoutY="202.0" prefHeight="26.0" prefWidth="128.0" promptText="ID RAM 4 (opzionale)" />
                   <TextField fx:id="ms02IDField" layoutX="198.0" layoutY="240.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Mem. Massa 2 (opzionale)" />
                   <TextField fx:id="ms01IDField" layoutX="18.0" layoutY="240.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Mem. Massa 1" />
-                  <CheckBox fx:id="ethernetCheckBox" layoutX="18.0" layoutY="283.0" mnemonicParsing="false" text="Ethernet" />
-                  <CheckBox fx:id="wifiCheckBox" layoutX="102.0" layoutY="283.0" mnemonicParsing="false" text="Wi-Fi" />
-                  <CheckBox fx:id="bluetoothCheckBox" layoutX="171.0" layoutY="283.0" mnemonicParsing="false" text="Bluetooth" />
-                  <Label layoutX="17.0" layoutY="422.0" text="Sistema Operativo" underline="true" />
-                  <TextField fx:id="OSNameField" layoutX="19.0" layoutY="453.0" prefHeight="26.0" prefWidth="191.0" promptText="Nome" />
-                  <TextField fx:id="OSVersionField" layoutX="218.0" layoutY="453.0" prefHeight="26.0" prefWidth="106.0" promptText="Versione" />
-                  <DatePicker fx:id="lastOSUpdateDatePicker" layoutX="19.0" layoutY="490.0" prefHeight="26.0" prefWidth="194.0" promptText="Data Ultimo Aggiornamento" />
+                  <CheckBox fx:id="ethernetCheckBox" layoutX="17.0" layoutY="325.0" mnemonicParsing="false" text="Ethernet" />
+                  <CheckBox fx:id="wifiCheckBox" layoutX="105.0" layoutY="325.0" mnemonicParsing="false" text="Wi-Fi" />
+                  <CheckBox fx:id="bluetoothCheckBox" layoutX="172.0" layoutY="325.0" mnemonicParsing="false" text="Bluetooth" />
+                  <Label layoutX="17.0" layoutY="458.0" text="Sistema Operativo" underline="true" />
+                  <TextField fx:id="OSNameField" layoutX="18.0" layoutY="485.0" prefHeight="26.0" prefWidth="191.0" promptText="Nome" />
+                  <TextField fx:id="OSVersionField" layoutX="218.0" layoutY="485.0" prefHeight="26.0" prefWidth="106.0" promptText="Versione" />
+                  <DatePicker fx:id="lastOSUpdateDatePicker" layoutX="17.0" layoutY="520.0" prefHeight="26.0" prefWidth="194.0" promptText="Data Ultimo Aggiornamento" />
                   <TextField fx:id="brandField" layoutX="15.0" layoutY="90.0" prefHeight="26.0" prefWidth="146.0" promptText="Marca" />
                   <TextField fx:id="modelField" layoutX="176.0" layoutY="90.0" prefHeight="26.0" prefWidth="190.0" promptText="Modello" />
                   <TextField fx:id="sizeField" layoutX="15.0" layoutY="126.0" prefHeight="26.0" prefWidth="146.0" promptText="Dimensione" />
                   <TextField fx:id="colorField" layoutX="176.0" layoutY="126.0" prefHeight="26.0" prefWidth="146.0" promptText="Colore" />
+                  <TextField fx:id="otherComponentIDField" layoutX="18.0" layoutY="282.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Altro Comp. (opzionale)" />
             </children>
           </AnchorPane>
          </content>

@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import it.unibo.trashware.controller.api.WorkShiftsController;
 import it.unibo.trashware.controller.impl.WorkShiftsControllerImpl;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;

@@ -77,7 +77,7 @@
                   <DatePicker fx:id="lastOSUpdateDatePicker" layoutX="14.0" layoutY="625.0" prefHeight="26.0" prefWidth="194.0" promptText="Data Ultimo Aggiornamento" />
                   <TextField fx:id="chassisIDField" layoutX="14.0" layoutY="201.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Chassis" />
                   <TextField fx:id="monitorIDField" layoutX="14.0" layoutY="237.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Monitor (opzionale)" />
-                  <TextField fx:id="keyoboardIDField" layoutX="14.0" layoutY="276.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Tastiera (opzionale)" />
+                  <TextField fx:id="keyboardIDField" layoutX="14.0" layoutY="276.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Tastiera (opzionale)" />
                   <TextField fx:id="mouseIDField" layoutX="14.0" layoutY="312.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Mouse (opzionale)" />
                   <TextField fx:id="speakersIDField" layoutX="14.0" layoutY="351.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Casse (opzionale)" />
                   <TextField fx:id="otherComponentIDField" layoutX="14.0" layoutY="387.0" prefHeight="26.0" prefWidth="167.0" promptText="ID Altro Comp. (opzionale)" />

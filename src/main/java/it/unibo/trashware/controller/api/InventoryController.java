@@ -145,4 +145,11 @@ public interface InventoryController {
 	*/
 	void addOperatingSystem(String pcID, String name, String version, LocalDate lastUpdateDate);
 
+	/**
+	 * Binds a component to a PC.
+	 * @param componentID
+	 * @param pcID
+	 */
+	void bindComponentToPC(String componentID, String pcID);
+
 }

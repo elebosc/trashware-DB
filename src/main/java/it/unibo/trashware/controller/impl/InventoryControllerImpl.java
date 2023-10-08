@@ -16,6 +16,7 @@ import it.unibo.trashware.model.entities.MassStorageDevice;
 import it.unibo.trashware.model.entities.Monitor;
 import it.unibo.trashware.model.entities.OperatingSystem;
 import it.unibo.trashware.model.entities.OperatingSystemId;
+import it.unibo.trashware.model.entities.OtherPCComponent;
 import it.unibo.trashware.model.entities.PC;
 import it.unibo.trashware.model.entities.Peripheral;
 import it.unibo.trashware.model.entities.RAMModule;
@@ -29,9 +30,11 @@ public class InventoryControllerImpl implements InventoryController {
     private GenericDAO<Component, String> otherComponentsDAO;
     private GenericDAO<Peripheral, String> peripheralsDAO;
     private GenericDAO<Monitor, String> monitorsDAO;
+    private GenericDAO<PC, String> pcsDAO; 
     private GenericDAO<DesktopPC, String> desktopPCsDAO;
     private GenericDAO<Laptop, String> laptopsDAO;
     private GenericDAO<OperatingSystem, OperatingSystemId> operatingSystemsDAO;
+    private GenericDAO<OtherPCComponent, String> otherPCComponentsDAO;
 
     public InventoryControllerImpl() throws IOException {
         this.cpuDAO = new GenericDAOImpl<>(Cpu.class);
@@ -41,9 +44,11 @@ public class InventoryControllerImpl implements InventoryController {
         this.otherComponentsDAO = new GenericDAOImpl<>(Component.class);
         this.peripheralsDAO = new GenericDAOImpl<>(Peripheral.class);
         this.monitorsDAO = new GenericDAOImpl<>(Monitor.class);
+        this.pcsDAO = new GenericDAOImpl<>(PC.class);
         this.desktopPCsDAO = new GenericDAOImpl<>(DesktopPC.class);
         this.laptopsDAO = new GenericDAOImpl<>(Laptop.class);
         this.operatingSystemsDAO = new GenericDAOImpl<>(OperatingSystem.class);
+        this.otherPCComponentsDAO = new GenericDAOImpl<>(OtherPCComponent.class);
     }
 
     private Component createComponentObject(String componentID, String type, String brand, String model,
@@ -282,6 +287,22 @@ public class InventoryControllerImpl implements InventoryController {
         os.setLastUpdateDate(lastUpdateDate);
         // OS insertion
         this.operatingSystemsDAO.add(os);
+    }
+
+    @Override
+    public void bindComponentToPC(String componentID, String pcID) {
+        final OtherPCComponent pcComponentLink = new OtherPCComponent();
+        final Optional<Component> searchedComponent = this.otherComponentsDAO.getByID(componentID);
+        searchedComponent.ifPresentOrElse(
+            (component) -> pcComponentLink.setComponent(component), 
+            () -> new IllegalArgumentException("A component with such ID does not exist.")
+        );
+        final Optional<PC> searchedPC = this.pcsDAO.getByID(pcID);
+        searchedPC.ifPresentOrElse(
+            (pc) -> pcComponentLink.setPcID(pc), 
+            () -> new IllegalArgumentException("A PC with such ID does not exist.")
+        );
+        this.otherPCComponentsDAO.add(pcComponentLink);
     }
     
 }
