@@ -1,7 +1,6 @@
 package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class InsertDonationPageController {
@@ -21,7 +21,7 @@ public class InsertDonationPageController {
     private TextField donationIDField;
 
     @FXML
-    private TextField effectuationDateField;
+    private DatePicker effectuationDatePicker;
 
     @FXML
     private TextField notesField;
@@ -42,7 +42,7 @@ public class InsertDonationPageController {
     private TextField officeStreetNumberField;
 
     @FXML
-    private TextField repBirthdayField;
+    private DatePicker repBirthdayDatePicker;
 
     @FXML
     private TextField repBirthplaceField;
@@ -172,7 +172,7 @@ public class InsertDonationPageController {
             this.repNameField.getText(), 
             this.repSurnameField.getText(), 
             this.repBirthplaceField.getText(), 
-            getLocalDateFromString(this.repBirthdayField.getText()),
+            this.repBirthdayDatePicker.getValue(),
             this.repResidenceCityField.getText(), 
             this.repResidenceCAPField.getText(), 
             this.repResidenceProvinceField.getText(), 
@@ -215,7 +215,7 @@ public class InsertDonationPageController {
     private void insertDonation() {
         this.controller.addDonation(
             this.donationIDField.getText(), 
-            getLocalDateFromString(this.effectuationDateField.getText()), 
+            this.effectuationDatePicker.getValue(), 
             this.notesField.getText().equals("")
                 ? Optional.empty()
                 : Optional.of(this.notesField.getText()),
@@ -286,14 +286,6 @@ public class InsertDonationPageController {
                 articlesNotes.get(i)
             );
         }
-    }
-
-    private LocalDate getLocalDateFromString(final String stringDate) {
-        final String[] parsedDate = stringDate.split("-");
-        final int year = Integer.parseInt(parsedDate[0]);
-        final int month = Integer.parseInt(parsedDate[1]);
-        final int day = Integer.parseInt(parsedDate[2]);
-        return LocalDate.of(year, month, day);
     }
 
 }

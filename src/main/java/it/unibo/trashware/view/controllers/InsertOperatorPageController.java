@@ -1,13 +1,13 @@
 package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import it.unibo.trashware.controller.api.WorkShiftsController;
 import it.unibo.trashware.controller.impl.WorkShiftsControllerImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class InsertOperatorPageController {
@@ -16,7 +16,7 @@ public class InsertOperatorPageController {
     private Button insertBtn;
 
     @FXML
-    private TextField operatorBirthdayField;
+    private DatePicker operatorBirthdayDataPicker;
 
     @FXML
     private TextField operatorBirthplaceField;
@@ -67,16 +67,12 @@ public class InsertOperatorPageController {
     }
 
     private void insertOperatorData() {
-        final String[] parsedDate = this.operatorBirthdayField.getText().split("-");
-        final int year = Integer.parseInt(parsedDate[0]);
-        final int month = Integer.parseInt(parsedDate[1]);
-        final int day = Integer.parseInt(parsedDate[2]);
         this.controller.addOperator(
             this.operatorFiscalCodeField.getText(), 
             this.operatorNameField.getText(), 
             this.operatorSurnameField.getText(), 
             this.operatorBirthplaceField.getText(), 
-            LocalDate.of(year, month, day),
+            this.operatorBirthdayDataPicker.getValue(),
             this.operatorResidenceCityField.getText(), 
             this.operatorResidenceCAPField.getText(), 
             this.operatorResidenceProvinceField.getText(), 

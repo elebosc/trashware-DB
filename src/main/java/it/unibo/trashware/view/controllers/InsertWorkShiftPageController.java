@@ -2,7 +2,6 @@ package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -11,13 +10,14 @@ import it.unibo.trashware.controller.api.WorkShiftsController;
 import it.unibo.trashware.controller.impl.WorkShiftsControllerImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class InsertWorkShiftPageController {
     
     @FXML
-    private TextField dateField;
+    private DatePicker effectuationDatePicker;
 
     @FXML
     private TextField endTimeField;
@@ -67,7 +67,7 @@ public class InsertWorkShiftPageController {
     private void insertWorkShift() {
         this.controller.registerWorkShift(
             this.operatorFiscalCodeField.getText(), 
-            getLocalDateFromString(this.dateField.getText()), 
+            this.effectuationDatePicker.getValue(), 
             Time.valueOf(this.startTimeField.getText() + ":00"),
             Time.valueOf(this.endTimeField.getText() + ":00")
         );
@@ -101,21 +101,13 @@ public class InsertWorkShiftPageController {
             }
             this.controller.registerTask(
                 this.operatorFiscalCodeField.getText(), 
-                getLocalDateFromString(this.dateField.getText()),
+                this.effectuationDatePicker.getValue(),
                 Time.valueOf(this.startTimeField.getText() + ":00"),
                 i + 1, 
                 tasksDescriptions.get(i),
                 operationsIDs.get(i)
             );
         }
-    }
-
-    private LocalDate getLocalDateFromString(final String stringDate) {
-        final String[] parsedDate = stringDate.split("-");
-        final int year = Integer.parseInt(parsedDate[0]);
-        final int month = Integer.parseInt(parsedDate[1]);
-        final int day = Integer.parseInt(parsedDate[2]);
-        return LocalDate.of(year, month, day);
     }
 
 }
