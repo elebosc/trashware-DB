@@ -45,7 +45,7 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.InsertRequestPageController">
   <children>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="506.0" prefWidth="640.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="506.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
           <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="1123.0" prefWidth="619.0">
             <children>
@@ -148,7 +148,7 @@
                   </Label>
                   <TextField fx:id="requestIDField" layoutX="12.0" layoutY="20.0" prefHeight="26.0" prefWidth="171.0" promptText="ID richiesta" />
                   <DatePicker fx:id="effectuationDatePicker" layoutX="195.0" layoutY="20.0" promptText="Data di effettuazione" />
-                  <DatePicker fx:id="birthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
+                  <DatePicker fx:id="repBirthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
                   <DatePicker fx:id="deadlineDataPicker" layoutX="23.0" layoutY="1005.0" promptText="Data limite" />
             </children>
           </AnchorPane>

@@ -65,14 +65,14 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" prefHeight="255.0" prefWidth="202.0" text="Richieste">
+                      <TitledPane animated="false" prefHeight="238.0" prefWidth="202.0" text="Richieste">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="201.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="194.0" prefWidth="201.0">
                                  <children>
                                     <Button fx:id="insertRequestBtn" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci richiesta" />
-                                    <TitledPane alignment="CENTER" animated="false" layoutX="-1.0" layoutY="27.0" prefHeight="153.0" prefWidth="202.0" text="Visualizza richieste">
+                                    <TitledPane alignment="CENTER" animated="false" layoutX="-1.0" layoutY="27.0" prefHeight="107.0" prefWidth="202.0" text="Visualizza richieste">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="201.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="81.0" prefWidth="201.0">
                                              <children>
                                                 <Button fx:id="showRequestsToCompleteBtn" layoutX="44.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" text="Da completare" />
                                                 <Button fx:id="showRequestsToDeliverBtn" layoutX="45.0" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Da consegnare" />
@@ -81,17 +81,19 @@
                                           </AnchorPane>
                                       </content>
                                     </TitledPane>
-                                    <Button fx:id="showRequestsStatisticsBtn" layoutX="-1.0" layoutY="181.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza statistiche" />
+                                    <Button fx:id="showRequestsStatisticsBtn" layoutX="-1.0" layoutY="160.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza statistiche" />
+                                    <Button fx:id="requestStateUpdateBtn" layoutX="-1.0" layoutY="134.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Registra completamento/consegna" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" prefHeight="100.0" prefWidth="202.0" text="Inventario">
+                      <TitledPane animated="false" prefHeight="109.0" prefWidth="202.0" text="Inventario">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Button fx:id="insertDeviceBtn" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci dispostiivo" />
                                     <Button fx:id="showInventaryBtn" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza inventario" />
+                                    <Button fx:id="linkDeviceToOperationBtn" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Associa dispositivo ad operazione" />
                                  </children>
                               </AnchorPane>
                         </content>

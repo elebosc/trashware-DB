@@ -36,34 +36,30 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.subpages.MassStorageFormController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.AssociationPageController">
   <children>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="640.0" vvalue="0.89" VBox.vgrow="ALWAYS">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
-          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="466.0" prefWidth="638.0">
+          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="308.0" prefWidth="619.0">
             <children>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="116.0" text="Memoria di massa" underline="true">
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="256.0" text="Associa un dispositivo ad un'operazione" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="IDField" layoutX="14.0" layoutY="53.0" prefHeight="26.0" prefWidth="170.0" promptText="ID Memoria" />
-                  <Button fx:id="insertBtn" defaultButton="true" layoutX="517.0" layoutY="270.0" mnemonicParsing="false" text="Inserisci">
+                  <Button fx:id="insertBtn" defaultButton="true" layoutX="523.0" layoutY="124.0" mnemonicParsing="false" text="Inserisci">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="brandField" layoutX="14.0" layoutY="91.0" prefHeight="26.0" prefWidth="170.0" promptText="Marca" />
-                  <TextField fx:id="modelField" layoutX="195.0" layoutY="91.0" prefHeight="26.0" prefWidth="170.0" promptText="Modello" />
-                  <TextArea fx:id="notesField" layoutX="14.0" layoutY="168.0" prefHeight="94.0" prefWidth="362.0" promptText="Note (opzionale)" />
-                  <TextField fx:id="sizeField" layoutX="121.0" layoutY="127.0" prefHeight="26.0" prefWidth="126.0" promptText="Dimensione (GB)" />
-                  <ComboBox fx:id="msTypeComboBox" layoutX="14.0" layoutY="127.0" opacity="0.7" prefHeight="26.0" prefWidth="98.0" promptText="Tipologia" />
+                  <TextField fx:id="operationIDField" layoutX="14.0" layoutY="47.0" prefHeight="26.0" prefWidth="170.0" promptText="ID operazione" />
+                  <TextField fx:id="deviceIDField" layoutX="14.0" layoutY="83.0" prefHeight="26.0" prefWidth="170.0" promptText="ID dispositivo" />
+                  <ComboBox fx:id="deviceTypeComboBox" layoutX="198.0" layoutY="83.0" prefHeight="26.0" prefWidth="170.0" promptText="Tipo dispositivo" />
             </children>
           </AnchorPane>
          </content>

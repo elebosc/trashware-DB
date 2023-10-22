@@ -144,7 +144,7 @@
                      </font>
                   </Label>
                   <DatePicker fx:id="effectuationDatePicker" layoutX="195.0" layoutY="15.0" promptText="Data di effettuazione" />
-                  <DatePicker fx:id="birthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
+                  <DatePicker fx:id="repBirthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
             </children>
           </AnchorPane>
          </content>

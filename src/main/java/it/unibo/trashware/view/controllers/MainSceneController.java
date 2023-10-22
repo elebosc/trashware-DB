@@ -33,6 +33,9 @@ public class MainSceneController {
     private Button insertDeviceBtn;
 
     @FXML
+    private Button linkDeviceToOperationBtn;
+
+    @FXML
     private Button insertOperatorBtn;
 
     @FXML
@@ -46,6 +49,7 @@ public class MainSceneController {
         showRequestsToDeliverBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
         showDeliveredRequestsBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
         insertDeviceBtn.setOnAction(e -> view.setPage(Pages.DEVICE_FORM));
+        linkDeviceToOperationBtn.setOnAction(e -> view.setPage(Pages.ASSOCIATION_FORM));
         insertOperatorBtn.setOnAction(e -> view.setPage(Pages.OPERATOR_FORM));
         insertWorkShiftBtn.setOnAction(e -> view.setPage(Pages.WORKSHIFT_FORM));
     }

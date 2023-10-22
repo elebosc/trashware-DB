@@ -8,7 +8,8 @@ public enum Pages {
     WORKSHIFT_FORM("workshift_form.fxml"),
     DONATIONS_VIEW("donations_view.fxml"),
     REQUESTS_VIEW("requests_view.fxml"),
-    DEVICE_FORM("device_form.fxml");
+    DEVICE_FORM("device_form.fxml"),
+    ASSOCIATION_FORM("association_form.fxml");
 
     private static final String DIR = "layouts/";
     private final String fxmlFileName;
