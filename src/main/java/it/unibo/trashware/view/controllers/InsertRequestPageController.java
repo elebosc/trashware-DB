@@ -7,11 +7,13 @@ import java.util.Optional;
 
 import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.controller.impl.OperationsControllerImpl;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -145,7 +147,7 @@ public class InsertRequestPageController {
     private TextField requestIDField;
 
     @FXML
-    private TextField requestTypeField;
+    private ComboBox<String> requestTypeComboBox;
 
     @FXML
     private CheckBox societyCheckbox;
@@ -168,6 +170,7 @@ public class InsertRequestPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.requestTypeComboBox.setItems(FXCollections.observableArrayList("Ordine", "Manutenzione"));
         insertBtn.setOnAction(e -> {
             insertRepresentativeData();
             if (this.societyCheckbox.isSelected()) {
@@ -228,7 +231,7 @@ public class InsertRequestPageController {
     private void insertRequest() {
         this.controller.addRequest(
             this.requestIDField.getText(),
-            this.requestTypeField.getText(),
+            this.requestTypeComboBox.getValue(),
             this.reasonField.getText(),
             this.effectuationDatePicker.getValue(),
             this.deadlineDataPicker.getValue(),
