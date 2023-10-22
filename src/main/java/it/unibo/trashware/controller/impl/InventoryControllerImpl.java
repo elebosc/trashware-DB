@@ -294,12 +294,12 @@ public class InventoryControllerImpl implements InventoryController {
         final OtherPCComponent pcComponentLink = new OtherPCComponent();
         final Optional<Component> searchedComponent = this.otherComponentsDAO.getByID(componentID);
         searchedComponent.ifPresentOrElse(
-            (component) -> pcComponentLink.setComponent(component), 
+            (component) -> pcComponentLink.setComponentID(componentID), 
             () -> new IllegalArgumentException("A component with such ID does not exist.")
         );
         final Optional<PC> searchedPC = this.pcsDAO.getByID(pcID);
         searchedPC.ifPresentOrElse(
-            (pc) -> pcComponentLink.setPcID(pc), 
+            (pc) -> pcComponentLink.setPcID(pcID), 
             () -> new IllegalArgumentException("A PC with such ID does not exist.")
         );
         this.otherPCComponentsDAO.add(pcComponentLink);

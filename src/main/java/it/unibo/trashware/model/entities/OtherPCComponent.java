@@ -5,18 +5,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "altri_componenti_pc")
 public class OtherPCComponent {
+
     @Id
     @Column(name = "IDComponente", nullable = false, length = 10)
     private String componentID;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDComponente", nullable = false)
-    private it.unibo.trashware.model.entities.Component component;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "IDPC", nullable = false)
-    private it.unibo.trashware.model.entities.PC pcID;
+    @Id
+    @Column(name = "IDPC", nullable = false)
+    private String pcID;
 
     public String getComponentID() {
         return componentID;
@@ -26,19 +22,11 @@ public class OtherPCComponent {
         this.componentID = componentID;
     }
 
-    public it.unibo.trashware.model.entities.Component getComponent() {
-        return component;
-    }
-
-    public void setComponent(it.unibo.trashware.model.entities.Component component) {
-        this.component = component;
-    }
-
-    public it.unibo.trashware.model.entities.PC getPcID() {
+    public String getPcID() {
         return pcID;
     }
 
-    public void setPcID(it.unibo.trashware.model.entities.PC pcID) {
+    public void setPcID(String pcID) {
         this.pcID = pcID;
     }
 
