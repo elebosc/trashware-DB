@@ -34,6 +34,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -121,7 +122,6 @@
                   <TextField fx:id="deadlineField" layoutX="20.0" layoutY="1004.0" prefHeight="26.0" prefWidth="158.0" promptText="Data limite (yy-mm-gg)" />
                   <TextField fx:id="priorityLevelField" layoutX="184.0" layoutY="1004.0" prefHeight="26.0" prefWidth="158.0" promptText="Livello di priorità" />
                   <TextArea fx:id="reasonField" layoutX="22.0" layoutY="928.0" prefHeight="67.0" prefWidth="317.0" promptText="Motivazione della richiesta" />
-                  <TextField fx:id="requestTypeField" layoutX="23.0" layoutY="894.0" prefHeight="26.0" prefWidth="253.0" promptText="Tipo della richiesta (ordine / manutenzione)" />
                   <CheckBox fx:id="societyCheckbox" layoutX="224.0" layoutY="267.0" mnemonicParsing="false" text="Il referente rappresenta una ditta o associazione?" />
                   <Label layoutX="33.0" layoutY="476.0" text="1.">
                      <font>
@@ -149,6 +149,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="requestIDField" layoutX="12.0" layoutY="20.0" prefHeight="26.0" prefWidth="171.0" promptText="ID richiesta" />
+                  <ComboBox fx:id="requestTypeComboBox" layoutX="23.0" layoutY="891.0" opacity="0.8" prefWidth="150.0" promptText="Tipo richiesta" />
             </children>
           </AnchorPane>
          </content>
