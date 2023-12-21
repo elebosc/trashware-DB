@@ -34,8 +34,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -55,6 +53,7 @@
                   <Font size="18.0" />
                 </font>
               </Label>
+                  <TextField fx:id="effectuationDateField" layoutX="200.0" layoutY="20.0" prefHeight="26.0" prefWidth="190.0" promptText="Data di effettuazione (yy-mm-gg)" />
                   <Label layoutX="14.0" layoutY="47.0" prefHeight="26.0" prefWidth="116.0" text="Dati del referente" underline="true">
                      <font>
                         <Font size="14.0" />
@@ -63,6 +62,7 @@
                   <TextField fx:id="repNameField" layoutX="14.0" layoutY="80.0" prefHeight="26.0" prefWidth="170.0" promptText="Nome" />
                   <TextField fx:id="repSurnameField" layoutX="198.0" layoutY="80.0" prefHeight="26.0" prefWidth="170.0" promptText="Cognome" />
                   <TextField fx:id="repBirthplaceField" layoutX="14.0" layoutY="114.0" prefHeight="26.0" prefWidth="170.0" promptText="Luogo di nascita" />
+                  <TextField fx:id="repBirthdayField" layoutX="197.0" layoutY="114.0" prefHeight="26.0" prefWidth="170.0" promptText="Data di nascita" />
                   <TextField fx:id="repResidenceCAPField" layoutX="173.0" layoutY="189.0" prefHeight="26.0" prefWidth="37.0" promptText="CAP" />
                   <TextField fx:id="repResidenceProvinceField" layoutX="220.0" layoutY="189.0" prefHeight="26.0" prefWidth="62.0" promptText="Provincia" />
                   <TextField fx:id="repResidenceStreetField" layoutX="292.0" layoutY="189.0" promptText="Via / Piazza" />
@@ -118,8 +118,10 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="priorityLevelField" layoutX="214.0" layoutY="1004.0" prefHeight="26.0" prefWidth="158.0" promptText="Livello di priorità" />
+                  <TextField fx:id="deadlineField" layoutX="20.0" layoutY="1004.0" prefHeight="26.0" prefWidth="158.0" promptText="Data limite (yy-mm-gg)" />
+                  <TextField fx:id="priorityLevelField" layoutX="184.0" layoutY="1004.0" prefHeight="26.0" prefWidth="158.0" promptText="Livello di priorità" />
                   <TextArea fx:id="reasonField" layoutX="22.0" layoutY="928.0" prefHeight="67.0" prefWidth="317.0" promptText="Motivazione della richiesta" />
+                  <TextField fx:id="requestTypeField" layoutX="23.0" layoutY="894.0" prefHeight="26.0" prefWidth="253.0" promptText="Tipo della richiesta (ordine / manutenzione)" />
                   <CheckBox fx:id="societyCheckbox" layoutX="224.0" layoutY="267.0" mnemonicParsing="false" text="Il referente rappresenta una ditta o associazione?" />
                   <Label layoutX="33.0" layoutY="476.0" text="1.">
                      <font>
@@ -147,10 +149,6 @@
                      </font>
                   </Label>
                   <TextField fx:id="requestIDField" layoutX="12.0" layoutY="20.0" prefHeight="26.0" prefWidth="171.0" promptText="ID richiesta" />
-                  <DatePicker fx:id="effectuationDatePicker" layoutX="195.0" layoutY="20.0" promptText="Data di effettuazione" />
-                  <DatePicker fx:id="repBirthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
-                  <DatePicker fx:id="deadlineDataPicker" layoutX="23.0" layoutY="1005.0" promptText="Data limite" />
-                  <ComboBox fx:id="requestTypeComboBox" layoutX="23.0" layoutY="891.0" opacity="0.7" prefWidth="150.0" promptText="Tipo richiesta" />
             </children>
           </AnchorPane>
          </content>
