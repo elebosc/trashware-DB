@@ -23,12 +23,17 @@ import it.unibo.trashware.model.entities.RepresentationId;
 import it.unibo.trashware.model.entities.Representative;
 import it.unibo.trashware.model.entities.Request;
 import it.unibo.trashware.model.entities.Society;
+import it.unibo.trashware.model.provider.ConnectionProvider;
+import it.unibo.trashware.model.provider.ConnectionProviderImpl;
+import jakarta.persistence.EntityManager;
 
 public class OperationsControllerImpl implements OperationsController {
 
     private static final String DEFAULT_REQUEST_STATUS = "In lavorazione";
     private static final String REQUEST_COMPLETED = "Pronto per la consegna";
     private static final String DEVICES_DELIVERED = "Consegna effettuata";
+
+    private EntityManager em;
 
     private GenericDAO<Operation, String> operationsDAO;
     private GenericDAO<Request, String> requestsDAO;
@@ -43,17 +48,24 @@ public class OperationsControllerImpl implements OperationsController {
     private GenericDAO<OperationObjectComponent, OperationObjectComponentId> componentOperationLinksDAO;
 
     public OperationsControllerImpl() throws IOException {
-        this.operationsDAO = new GenericDAOImpl<>(Operation.class);
-        this.requestsDAO = new GenericDAOImpl<>(Request.class);
-        this.representativesDAO = new GenericDAOImpl<>(Representative.class);
-        this.societiesDAO = new GenericDAOImpl<>(Society.class);
-        this.representationsDAO = new GenericDAOImpl<>(Representation.class);
-        this.objectDescriptionsDAO = new GenericDAOImpl<>(OperationObjectDescription.class);
-        this.completionsDAO = new GenericDAOImpl<>(Completion.class);
-        this.deliveriesDAO = new GenericDAOImpl<>(Delivery.class);
-        this.pcOperationLinksDAO = new GenericDAOImpl<>(OperationObjectPC.class);
-        this.peripheralOperationLinksDAO = new GenericDAOImpl<>(OperationObjectPeripheral.class);
-        this.componentOperationLinksDAO = new GenericDAOImpl<>(OperationObjectComponent.class);
+        // Connect to the database
+        final ConnectionProvider provider = new ConnectionProviderImpl();
+        final Optional<EntityManager> response = provider.getConnection();
+        if (response.isEmpty()) {
+            throw new IOException("Error: operations controller could not establish a connection with the database.");
+        }
+        this.em = response.get();
+        this.operationsDAO = new GenericDAOImpl<>(this.em, Operation.class);
+        this.requestsDAO = new GenericDAOImpl<>(this.em, Request.class);
+        this.representativesDAO = new GenericDAOImpl<>(this.em, Representative.class);
+        this.societiesDAO = new GenericDAOImpl<>(this.em, Society.class);
+        this.representationsDAO = new GenericDAOImpl<>(this.em, Representation.class);
+        this.objectDescriptionsDAO = new GenericDAOImpl<>(this.em, OperationObjectDescription.class);
+        this.completionsDAO = new GenericDAOImpl<>(this.em, Completion.class);
+        this.deliveriesDAO = new GenericDAOImpl<>(this.em, Delivery.class);
+        this.pcOperationLinksDAO = new GenericDAOImpl<>(this.em, OperationObjectPC.class);
+        this.peripheralOperationLinksDAO = new GenericDAOImpl<>(this.em, OperationObjectPeripheral.class);
+        this.componentOperationLinksDAO = new GenericDAOImpl<>(this.em, OperationObjectComponent.class);
     }
 
     @Override
@@ -228,6 +240,11 @@ public class OperationsControllerImpl implements OperationsController {
         final OperationObjectComponent link = new OperationObjectComponent();
         link.setId(id);
         this.componentOperationLinksDAO.add(link);
+    }
+
+    @Override
+    public Object getDonationsList() {
+        return null;
     }
     
 }

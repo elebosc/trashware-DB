@@ -17,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.entities.Representative;
+import it.unibo.trashware.model.provider.ConnectionProvider;
+import it.unibo.trashware.model.provider.ConnectionProviderImpl;
+import jakarta.persistence.EntityManager;
 
 /**
  * Test class for {@link GenericDAO} testing.
@@ -25,12 +28,20 @@ public class TestDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestDAO.class);
 
+    private static EntityManager em;
     private static GenericDAO<Representative, String> dao;
 
     @BeforeAll
     static void initAll() {
         try {
-            dao = new GenericDAOImpl<>(Representative.class);
+            // Connect to the database
+            final ConnectionProvider provider = new ConnectionProviderImpl();
+            final Optional<EntityManager> response = provider.getConnection();
+            if (response.isEmpty()) {
+                throw new IOException("Error: could not establish a connection with the database.");
+            }
+            em = response.get();
+            dao = new GenericDAOImpl<>(em, Representative.class);
         } catch (final IOException ex) {
             final String errorMsg = "Error: could not establish a connection with the database.";
             LOGGER.error(errorMsg, ex);

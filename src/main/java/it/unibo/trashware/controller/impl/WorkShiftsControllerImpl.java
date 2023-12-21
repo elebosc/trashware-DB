@@ -14,8 +14,13 @@ import it.unibo.trashware.model.entities.Task;
 import it.unibo.trashware.model.entities.TaskId;
 import it.unibo.trashware.model.entities.WorkShift;
 import it.unibo.trashware.model.entities.WorkShiftId;
+import it.unibo.trashware.model.provider.ConnectionProvider;
+import it.unibo.trashware.model.provider.ConnectionProviderImpl;
+import jakarta.persistence.EntityManager;
 
 public class WorkShiftsControllerImpl implements WorkShiftsController {
+
+    private EntityManager em;
 
     private GenericDAO<Operator, String> operatorsDAO;
     private GenericDAO<WorkShift, WorkShiftId> workShiftsDAO;
@@ -23,10 +28,17 @@ public class WorkShiftsControllerImpl implements WorkShiftsController {
     private GenericDAO<Operation, String> operationsDAO;
 
     public WorkShiftsControllerImpl() throws IOException {
-        this.operatorsDAO = new GenericDAOImpl<>(Operator.class);
-        this.workShiftsDAO = new GenericDAOImpl<>(WorkShift.class);
-        this.tasksDAO = new GenericDAOImpl<>(Task.class);
-        this.operationsDAO = new GenericDAOImpl<>(Operation.class);
+        // Connect to the database
+        final ConnectionProvider provider = new ConnectionProviderImpl();
+        final Optional<EntityManager> response = provider.getConnection();
+        if (response.isEmpty()) {
+            throw new IOException("Error: work shifts controller could not establish a connection with the database.");
+        }
+        this.em = response.get();
+        this.operatorsDAO = new GenericDAOImpl<>(this.em, Operator.class);
+        this.workShiftsDAO = new GenericDAOImpl<>(this.em, WorkShift.class);
+        this.tasksDAO = new GenericDAOImpl<>(this.em, Task.class);
+        this.operationsDAO = new GenericDAOImpl<>(this.em, Operation.class);
     }
 
     @Override

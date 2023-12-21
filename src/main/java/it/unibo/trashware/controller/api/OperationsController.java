@@ -118,4 +118,6 @@ public interface OperationsController {
 	 */
 	void associateComponentToOperation(String componentID, String operationID);
 
+	Object getDonationsList();
+
 }

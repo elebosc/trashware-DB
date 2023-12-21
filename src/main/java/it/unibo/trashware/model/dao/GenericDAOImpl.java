@@ -7,8 +7,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.unibo.trashware.model.provider.ConnectionProvider;
-import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
 
 /**
@@ -25,15 +23,8 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
      * Creates a new instance of a generic DAO.
      * @throws IOException if an error occurs while trying to create a connection to the database.
      */
-    public GenericDAOImpl(final Class<T> entityClass) throws IOException {
-        // Connect to the database
-        final ConnectionProvider provider = new ConnectionProviderImpl();
-        final Optional<EntityManager> response = provider.getConnection();
-        if (response.isEmpty()) {
-            throw new IOException("Error: DAO could not establish a connection with the database.");
-        }
-        this.em = response.get();
-        // Set entity class
+    public GenericDAOImpl(final EntityManager em, final Class<T> entityClass) throws IOException {
+        this.em = em;
         this.entityClass = entityClass;
     }
 

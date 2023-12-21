@@ -20,9 +20,14 @@ import it.unibo.trashware.model.entities.OtherPCComponent;
 import it.unibo.trashware.model.entities.PC;
 import it.unibo.trashware.model.entities.Peripheral;
 import it.unibo.trashware.model.entities.RAMModule;
+import it.unibo.trashware.model.provider.ConnectionProvider;
+import it.unibo.trashware.model.provider.ConnectionProviderImpl;
+import jakarta.persistence.EntityManager;
 
 public class InventoryControllerImpl implements InventoryController {
     
+    private EntityManager em;
+
     private GenericDAO<Cpu, String> cpuDAO;
     private GenericDAO<RAMModule, String> ramDAO;
     private GenericDAO<MassStorageDevice, String> massStorageDAO;
@@ -37,18 +42,25 @@ public class InventoryControllerImpl implements InventoryController {
     private GenericDAO<OtherPCComponent, String> otherPCComponentsDAO;
 
     public InventoryControllerImpl() throws IOException {
-        this.cpuDAO = new GenericDAOImpl<>(Cpu.class);
-        this.ramDAO = new GenericDAOImpl<>(RAMModule.class);
-        this.massStorageDAO = new GenericDAOImpl<>(MassStorageDevice.class);
-        this.chassisDAO = new GenericDAOImpl<>(Chassis.class);
-        this.otherComponentsDAO = new GenericDAOImpl<>(Component.class);
-        this.peripheralsDAO = new GenericDAOImpl<>(Peripheral.class);
-        this.monitorsDAO = new GenericDAOImpl<>(Monitor.class);
-        this.pcsDAO = new GenericDAOImpl<>(PC.class);
-        this.desktopPCsDAO = new GenericDAOImpl<>(DesktopPC.class);
-        this.laptopsDAO = new GenericDAOImpl<>(Laptop.class);
-        this.operatingSystemsDAO = new GenericDAOImpl<>(OperatingSystem.class);
-        this.otherPCComponentsDAO = new GenericDAOImpl<>(OtherPCComponent.class);
+        // Connect to the database
+        final ConnectionProvider provider = new ConnectionProviderImpl();
+        final Optional<EntityManager> response = provider.getConnection();
+        if (response.isEmpty()) {
+            throw new IOException("Error: inventory controller could not establish a connection with the database.");
+        }
+        this.em = response.get();
+        this.cpuDAO = new GenericDAOImpl<>(this.em, Cpu.class);
+        this.ramDAO = new GenericDAOImpl<>(this.em, RAMModule.class);
+        this.massStorageDAO = new GenericDAOImpl<>(this.em, MassStorageDevice.class);
+        this.chassisDAO = new GenericDAOImpl<>(this.em, Chassis.class);
+        this.otherComponentsDAO = new GenericDAOImpl<>(this.em, Component.class);
+        this.peripheralsDAO = new GenericDAOImpl<>(this.em, Peripheral.class);
+        this.monitorsDAO = new GenericDAOImpl<>(this.em, Monitor.class);
+        this.pcsDAO = new GenericDAOImpl<>(this.em, PC.class);
+        this.desktopPCsDAO = new GenericDAOImpl<>(this.em, DesktopPC.class);
+        this.laptopsDAO = new GenericDAOImpl<>(this.em, Laptop.class);
+        this.operatingSystemsDAO = new GenericDAOImpl<>(this.em, OperatingSystem.class);
+        this.otherPCComponentsDAO = new GenericDAOImpl<>(this.em, OtherPCComponent.class);
     }
 
     private Component createComponentObject(String componentID, String type, String brand, String model,
