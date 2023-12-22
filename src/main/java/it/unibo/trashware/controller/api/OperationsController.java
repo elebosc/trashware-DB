@@ -1,6 +1,8 @@
 package it.unibo.trashware.controller.api;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface OperationsController {
@@ -118,6 +120,6 @@ public interface OperationsController {
 	 */
 	void associateComponentToOperation(String componentID, String operationID);
 
-	Object getDonationsList();
+	List<Map<String, String>> getDonationsList();
 
 }

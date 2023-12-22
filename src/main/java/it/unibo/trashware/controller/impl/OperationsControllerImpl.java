@@ -2,30 +2,35 @@ package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.trashware.controller.api.OperationsController;
+import it.unibo.trashware.entities.Completion;
+import it.unibo.trashware.entities.Delivery;
+import it.unibo.trashware.entities.Operation;
+import it.unibo.trashware.entities.OperationObjectComponent;
+import it.unibo.trashware.entities.OperationObjectComponentId;
+import it.unibo.trashware.entities.OperationObjectDescription;
+import it.unibo.trashware.entities.OperationObjectDescriptionId;
+import it.unibo.trashware.entities.OperationObjectPC;
+import it.unibo.trashware.entities.OperationObjectPCId;
+import it.unibo.trashware.entities.OperationObjectPeripheral;
+import it.unibo.trashware.entities.OperationObjectPeripheralId;
+import it.unibo.trashware.entities.Representation;
+import it.unibo.trashware.entities.RepresentationId;
+import it.unibo.trashware.entities.Representative;
+import it.unibo.trashware.entities.Request;
+import it.unibo.trashware.entities.Society;
 import it.unibo.trashware.model.dao.GenericDAO;
 import it.unibo.trashware.model.dao.GenericDAOImpl;
-import it.unibo.trashware.model.entities.Completion;
-import it.unibo.trashware.model.entities.Delivery;
-import it.unibo.trashware.model.entities.Operation;
-import it.unibo.trashware.model.entities.OperationObjectComponent;
-import it.unibo.trashware.model.entities.OperationObjectComponentId;
-import it.unibo.trashware.model.entities.OperationObjectDescription;
-import it.unibo.trashware.model.entities.OperationObjectDescriptionId;
-import it.unibo.trashware.model.entities.OperationObjectPC;
-import it.unibo.trashware.model.entities.OperationObjectPCId;
-import it.unibo.trashware.model.entities.OperationObjectPeripheral;
-import it.unibo.trashware.model.entities.OperationObjectPeripheralId;
-import it.unibo.trashware.model.entities.Representation;
-import it.unibo.trashware.model.entities.RepresentationId;
-import it.unibo.trashware.model.entities.Representative;
-import it.unibo.trashware.model.entities.Request;
-import it.unibo.trashware.model.entities.Society;
 import it.unibo.trashware.model.provider.ConnectionProvider;
 import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 public class OperationsControllerImpl implements OperationsController {
 
@@ -243,8 +248,33 @@ public class OperationsControllerImpl implements OperationsController {
     }
 
     @Override
-    public Object getDonationsList() {
-        return null;
+    public List<Map<String, String>> getDonationsList() {
+        Query query = this.em.createNativeQuery(
+            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, s.Nome, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email "
+            + "FROM operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale) "
+            + "LEFT OUTER JOIN ( "
+            +       "SELECT * "
+            +       "FROM società, rappresentanza rap "
+            + ") AS s ON (s.CodiceFiscaleReferente = ref.CodiceFiscale) "
+            + "WHERE o.tipo = 'Donazione'; "
+        );
+        List<Object[]> result = query.getResultList();
+        final List<Map<String, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result) {
+            final Map<String, String> entryMap = new HashMap<>();
+            entryMap.put("IDOperazione", entry[0].toString());
+            entryMap.put("Referente", entry[1].toString() + " " + entry[2].toString());
+            entryMap.put("Società", (entry[3] != null) ? entry[3].toString() : "");
+            entryMap.put("Data effettuazione", entry[4].toString());
+            entryMap.put(
+                "Contatti telefonici",
+                entry[5].toString() + "\n" + ((entry[6] != null) ? entry[6].toString() : "")
+            );
+            entryMap.put("Fax", (entry[7] != null) ? entry[7].toString() : "");
+            entryMap.put("E-mail", (entry[8] != null) ? entry[8].toString() : "");
+            resultMaps.add(entryMap);
+        }
+        return resultMaps;
     }
     
 }
