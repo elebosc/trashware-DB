@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.trashware.commons.FieldTags;
 import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.entities.Completion;
 import it.unibo.trashware.entities.Delivery;
@@ -248,7 +249,7 @@ public class OperationsControllerImpl implements OperationsController {
     }
 
     @Override
-    public List<Map<String, String>> getDonationsList() {
+    public List<Map<FieldTags, String>> getDonationsList() {
         Query query = this.em.createNativeQuery(
             "SELECT o.IDOperazione, ref.Nome, ref.Cognome, s.Nome, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email "
             + "FROM operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale) "
@@ -259,22 +260,22 @@ public class OperationsControllerImpl implements OperationsController {
             + "WHERE o.tipo = 'Donazione'; "
         );
         List<Object[]> result = query.getResultList();
-        final List<Map<String, String>> resultMaps = new LinkedList<>();
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
         for (final var entry : result) {
-            final Map<String, String> entryMap = new HashMap<>();
-            entryMap.put("IDOperazione", entry[0].toString());
-            entryMap.put("Referente", entry[1].toString() + " " + entry[2].toString());
-            entryMap.put("Società", (entry[3] != null) ? entry[3].toString() : "");
-            entryMap.put("Data effettuazione", entry[4].toString());
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            entryMap.put(FieldTags.OPERATION_ID, entry[0].toString());
+            entryMap.put(FieldTags.REPRESENTATIVE, entry[1].toString() + " " + entry[2].toString());
+            entryMap.put(FieldTags.SOCIETY, (entry[3] != null) ? entry[3].toString() : "");
+            entryMap.put(FieldTags.EFFECTUATION_DATE, entry[4].toString());
             entryMap.put(
-                "Contatti telefonici",
+                FieldTags.PHONE_CONTACTS,
                 entry[5].toString() + "\n" + ((entry[6] != null) ? entry[6].toString() : "")
             );
-            entryMap.put("Fax", (entry[7] != null) ? entry[7].toString() : "");
-            entryMap.put("E-mail", (entry[8] != null) ? entry[8].toString() : "");
+            entryMap.put(FieldTags.FAX, (entry[7] != null) ? entry[7].toString() : "");
+            entryMap.put(FieldTags.EMAIL, (entry[8] != null) ? entry[8].toString() : "");
             resultMaps.add(entryMap);
         }
         return resultMaps;
     }
-    
+
 }

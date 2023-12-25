@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import it.unibo.trashware.commons.FieldTags;
 import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.controller.impl.OperationsControllerImpl;
 import it.unibo.trashware.view.controllers.tableItems.DonationItem;
@@ -61,16 +62,16 @@ public class DonationsViewPageController {
 
     private void fillTable() {
         final ObservableList<DonationItem> list = FXCollections.observableArrayList();
-        List<Map<String, String>> result = this.controller.getDonationsList();
+        List<Map<FieldTags, String>> result = this.controller.getDonationsList();
         for (var map : result) {
             list.add(new DonationItem(
-                map.get("IDOperazione"), 
-                map.get("Referente"),
-                map.get("Società"), 
-                map.get("Data effettuazione"), 
-                map.get("Contatti telefonici"), 
-                map.get("Fax"),
-                map.get("E-mail"))
+                map.get(FieldTags.OPERATION_ID), 
+                map.get(FieldTags.REPRESENTATIVE),
+                map.get(FieldTags.SOCIETY), 
+                map.get(FieldTags.EFFECTUATION_DATE), 
+                map.get(FieldTags.PHONE_CONTACTS), 
+                map.get(FieldTags.FAX),
+                map.get(FieldTags.EMAIL))
             );
         }
         this.donationsTableView.setItems(list);

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.trashware.commons.FieldTags;
+
 public interface OperationsController {
     
     /**
@@ -120,6 +122,6 @@ public interface OperationsController {
 	 */
 	void associateComponentToOperation(String componentID, String operationID);
 
-	List<Map<String, String>> getDonationsList();
+	List<Map<FieldTags, String>> getDonationsList();
 
 }
