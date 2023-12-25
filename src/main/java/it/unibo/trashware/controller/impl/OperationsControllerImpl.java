@@ -250,14 +250,15 @@ public class OperationsControllerImpl implements OperationsController {
 
     @Override
     public List<Map<FieldTags, String>> getDonationsList() {
+
         Query query = this.em.createNativeQuery(
-            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, s.Nome, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email\n" +
+            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email\n" +
             "FROM operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
             "LEFT OUTER JOIN (\n" +
-                   "SELECT *\n" +
-                   "FROM società, rappresentanza rap\n" +
-            ") AS s ON (s.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
-            "WHERE o.tipo = 'Donazione';\n"
+                "SELECT *\n" +
+                "FROM società s JOIN rappresentanza r ON (s.PartitaIVA = r.PartitaIVASocietà)\n" +
+            ") AS rap ON (rap.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+            "WHERE o.tipo = 'Donazione';"
         );
 
         List<Object[]> result = query.getResultList();
