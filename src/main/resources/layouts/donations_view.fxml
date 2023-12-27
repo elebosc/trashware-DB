@@ -46,17 +46,11 @@
                 <TableColumn fx:id="donationID" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="representativeName" prefWidth="136.0" text="Referente" />
                   <TableColumn fx:id="societyName" prefWidth="175.2000274658203" text="Società" />
-                  <TableColumn fx:id="numDesktops" prefWidth="75.0" text="Desktop" />
-                  <TableColumn fx:id="numLaptops" prefWidth="75.0" text="Portatili" />
-                  <TableColumn fx:id="numMonitors" prefWidth="75.0" text="Monitor" />
-                  <TableColumn fx:id="numKeyboards" prefWidth="75.0" text="Tastiere" />
-                  <TableColumn fx:id="numMouse" prefWidth="75.0" text="Mouse" />
-                  <TableColumn fx:id="numOtherPeripherals" prefWidth="75.0" text="Altre Periferiche" />
-                  <TableColumn fx:id="numComponents" prefWidth="75.0" text="Componenti" />
                   <TableColumn fx:id="date" prefWidth="120.0" text="Data Effettuazione" />
                   <TableColumn fx:id="telephoneNumbers" prefWidth="119.20001220703125" text="Contatti telefonici" />
                   <TableColumn fx:id="fax" prefWidth="100.0" text="Fax" />
                   <TableColumn fx:id="email" prefWidth="109.59991455078125" text="E-mail" />
+                  <TableColumn fx:id="details" prefWidth="236.80010986328125" text="Dettagli" />
               </columns>
             </TableView>
          </content>

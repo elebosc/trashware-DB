@@ -11,20 +11,6 @@ public class DonationItem {
 
     private StringProperty societyName;
 
-    private StringProperty numComponents;
-
-    private StringProperty numDesktops;
-
-    private StringProperty numKeyboards;
-
-    private StringProperty numLaptops;
-
-    private StringProperty numMonitors;
-
-    private StringProperty numMouse;
-
-    private StringProperty numOtherPeripherals;
-
     private StringProperty date;
 
     private StringProperty telephoneNumbers;
@@ -33,25 +19,19 @@ public class DonationItem {
 
     private StringProperty email;
 
+    private StringProperty details;
+
     public DonationItem(String donationID, String representativeName, String societyName,
-            String numDesktops, String numLaptops, String numMonitors, String numKeyboards,
-            String numMouse, String numOtherPeripherals, String numComponents,
-            String date, String telephoneNumbers, String faxNumber, String email
+            String date, String telephoneNumbers, String faxNumber, String email, String details
         ) {
         this.donationID = new SimpleStringProperty(donationID);
         this.representativeName = new SimpleStringProperty(representativeName);
         this.societyName = new SimpleStringProperty(societyName);
-        this.numComponents = new SimpleStringProperty(numComponents);
-        this.numDesktops = new SimpleStringProperty(numDesktops);
-        this.numKeyboards = new SimpleStringProperty(numKeyboards);
-        this.numLaptops = new SimpleStringProperty(numLaptops);
-        this.numMonitors = new SimpleStringProperty(numMonitors);
-        this.numMouse = new SimpleStringProperty(numMouse);
-        this.numOtherPeripherals = new SimpleStringProperty(numOtherPeripherals);
         this.date = new SimpleStringProperty(date);
         this.telephoneNumbers = new SimpleStringProperty(telephoneNumbers);
         this.faxNumber = new SimpleStringProperty(faxNumber);
         this.email = new SimpleStringProperty(email);
+        this.details = new SimpleStringProperty(details);
     }
 
     public String getDonationID() {
@@ -110,61 +90,12 @@ public class DonationItem {
         this.email = email;
     }
 
-    public String getNumComponents() {
-        return numComponents.get();
+    public String getDetails() {
+        return details.get();
     }
 
-    public void setNumComponents(StringProperty numComponents) {
-        this.numComponents = numComponents;
+    public void setDetails(StringProperty details) {
+        this.details = details;
     }
-
-    public String getNumDesktops() {
-        return numDesktops.get();
-    }
-
-    public void setNumDesktops(StringProperty numDesktops) {
-        this.numDesktops = numDesktops;
-    }
-
-    public String getNumKeyboards() {
-        return numKeyboards.get();
-    }
-
-    public void setNumKeyboards(StringProperty numKeyboards) {
-        this.numKeyboards = numKeyboards;
-    }
-
-    public String getNumLaptops() {
-        return numLaptops.get();
-    }
-
-    public void setNumLaptops(StringProperty numLaptops) {
-        this.numLaptops = numLaptops;
-    }
-
-    public String getNumMonitors() {
-        return numMonitors.get();
-    }
-
-    public void setNumMonitors(StringProperty numMonitors) {
-        this.numMonitors = numMonitors;
-    }
-
-    public String getNumMouse() {
-        return numMouse.get();
-    }
-
-    public void setNumMouse(StringProperty numMouse) {
-        this.numMouse = numMouse;
-    }
-
-    public String getNumOtherPeripherals() {
-        return numOtherPeripherals.get();
-    }
-
-    public void setNumOtherPeripherals(StringProperty numOtherPeripherals) {
-        this.numOtherPeripherals = numOtherPeripherals;
-    }
-
 
 }

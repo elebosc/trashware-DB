@@ -1,18 +1,15 @@
 package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 import it.unibo.trashware.controller.api.OperationsController;
 import it.unibo.trashware.controller.impl.OperationsControllerImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class InsertDonationPageController {
@@ -99,49 +96,7 @@ public class InsertDonationPageController {
     private TextField societyVATNumberField;
 
     @FXML
-    private TextField articleField1;
-
-    @FXML
-    private TextField articleField2;
-
-    @FXML
-    private TextField articleField3;
-
-    @FXML
-    private TextField articleField4;
-
-    @FXML
-    private TextField articleField5;
-
-    @FXML
-    private TextField articleNotesField1;
-
-    @FXML
-    private TextField articleNotesField2;
-
-    @FXML
-    private TextField articleNotesField3;
-
-    @FXML
-    private TextField articleNotesField4;
-
-    @FXML
-    private TextField articleNotesField5;
-
-    @FXML
-    private TextField articleQuantityField1;
-
-    @FXML
-    private TextField articleQuantityField2;
-
-    @FXML
-    private TextField articleQuantityField3;
-
-    @FXML
-    private TextField articleQuantityField4;
-
-    @FXML
-    private TextField articleQuantityField5;
+    private TextArea donationDetails;
 
     @FXML
     private Button insertBtn;
@@ -162,7 +117,6 @@ public class InsertDonationPageController {
                 insertRepresentation();
             }
             insertDonation();
-            insertObjectDescriptions();
         });
     }
 
@@ -216,76 +170,9 @@ public class InsertDonationPageController {
         this.controller.addDonation(
             this.donationIDField.getText(), 
             this.effectuationDatePicker.getValue(), 
-            this.notesField.getText().equals("")
-                ? Optional.empty()
-                : Optional.of(this.notesField.getText()),
+            Optional.of(this.donationDetails.getText()),
             this.repFiscalCodeField.getText()
         );
-    }
-
-    private void insertObjectDescriptions() {
-        // Get articles descriptions
-        final List<String> articles = new LinkedList<>();
-        articles.add(this.articleField1.getText());
-        articles.add(this.articleField2.getText());
-        articles.add(this.articleField3.getText());
-        articles.add(this.articleField4.getText());
-        articles.add(this.articleField5.getText());
-        // Get articles quantities
-        final List<String> articlesQuantity = new LinkedList<>();
-        articlesQuantity.add(this.articleQuantityField1.getText());
-        articlesQuantity.add(this.articleQuantityField2.getText());
-        articlesQuantity.add(this.articleQuantityField3.getText());
-        articlesQuantity.add(this.articleQuantityField4.getText());
-        articlesQuantity.add(this.articleQuantityField5.getText());
-        // Get articles notes
-        final List<Optional<String>> articlesNotes = new LinkedList<>();
-        articlesNotes.add(
-            this.articleNotesField1.getText().equals("")
-            ? Optional.empty()
-            : Optional.of(this.articleNotesField1.getText())
-        );
-        articlesNotes.add(
-            this.articleNotesField2.getText().equals("")
-            ? Optional.empty()
-            : Optional.of(this.articleNotesField2.getText())
-        );
-        articlesNotes.add(
-            this.articleNotesField3.getText().equals("")
-            ? Optional.empty()
-            : Optional.of(this.articleNotesField3.getText())
-        );
-        articlesNotes.add(
-            this.articleNotesField4.getText().equals("")
-            ? Optional.empty()
-            : Optional.of(this.articleNotesField4.getText())
-        );
-        articlesNotes.add(
-            this.articleNotesField5.getText().equals("")
-            ? Optional.empty()
-            : Optional.of(this.articleNotesField5.getText())
-        );
-        // Check list entries and, if filled and valid, insert them
-        for (int i = 0; i < articles.size(); i++) {
-            if (articles.get(i).equals("") && articlesQuantity.get(i).equals("")) {
-                // Empty line
-                continue;
-            }
-            if (articles.get(i).equals("") || articlesQuantity.get(i).equals("")) {
-                // Not all the required fields for the article have been filled
-                final Alert errorAlert = new Alert(AlertType.ERROR);
-                errorAlert.setHeaderText("Input non valido");
-                errorAlert.setContentText("Non tutti i campi obbligatori per l'articolo " + i + " sono stati riempiti.");
-                errorAlert.showAndWait();
-            }
-            this.controller.addObjectDescription(
-                this.donationIDField.getText(),
-                i + 1, 
-                articles.get(i), 
-                Integer.parseInt(articlesQuantity.get(i)), 
-                articlesNotes.get(i)
-            );
-        }
     }
 
 }

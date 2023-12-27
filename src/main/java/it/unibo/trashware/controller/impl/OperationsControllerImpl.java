@@ -252,7 +252,7 @@ public class OperationsControllerImpl implements OperationsController {
     public List<Map<FieldTags, String>> getDonationsList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email\n" +
+            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email, o.Note\n" +
             "FROM operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
             "LEFT OUTER JOIN (\n" +
                 "SELECT *\n" +
@@ -278,82 +278,7 @@ public class OperationsControllerImpl implements OperationsController {
             );
             entryMap.put(FieldTags.FAX, (entry[7] != null) ? entry[7].toString() : "");
             entryMap.put(FieldTags.EMAIL, (entry[8] != null) ? entry[8].toString() : "");
-
-            /*
-             * Get received devices counts
-             */
-
-            long count;
-            
-            // Count desktops
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_pc JOIN pc ON (oggetto_pc.IDPC = pc.IDPC)\n" + 
-                "WHERE (IDOperazione = ?1) AND (Tipo = 'Desktop');"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_DESKTOPS, String.valueOf(count));
-
-            // Count laptops
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_pc JOIN pc ON (oggetto_pc.IDPC = pc.IDPC)\n" + 
-                "WHERE (IDOperazione = ?1) AND (Tipo = 'Laptop');"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_LAPTOPS, String.valueOf(count));
-
-            // Count monitors
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_periferica o JOIN periferiche p ON (o.IDPeriferica = p.IDPeriferica)\n" +
-                "WHERE (IDOperazione = ?1) AND (Tipo = 'Monitor');"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_MONITORS, String.valueOf(count));
-
-            // Count keyboards
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_periferica o JOIN periferiche p ON (o.IDPeriferica = p.IDPeriferica)\n" +
-                "WHERE (IDOperazione = ?1) AND (Tipo = 'Tastiera');"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_KEYBOARDS, String.valueOf(count));
-
-            // Count mouse
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_periferica o JOIN periferiche p ON (o.IDPeriferica = p.IDPeriferica)\n" +
-                "WHERE (IDOperazione = ?1) AND (Tipo = 'Mouse');"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_MOUSE, String.valueOf(count));
-
-            // Count other peripherals
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*) as 'altre periferiche'\n" +
-                "FROM oggetto_periferica o JOIN periferiche p ON (o.IDPeriferica = p.IDPeriferica)\n" +
-                "WHERE (IDOperazione = ?1) AND (Tipo NOT IN ('Monitor', 'Tastiera', 'Mouse'));"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_OTHER_PERIPHERALS, String.valueOf(count));
-
-            // Count components
-            query = this.em.createNativeQuery(
-                "SELECT COUNT(*)\n" +
-                "FROM oggetto_componente\n" +
-                "WHERE (IDOperazione = ?1);"
-            );
-            query.setParameter(1, opID);
-            count = (long) query.getSingleResult();
-            entryMap.put(FieldTags.NUM_COMPONENTS, String.valueOf(count));
+            entryMap.put(FieldTags.DETAILS, (entry[9] != null) ? entry[9].toString() : "");
 
             resultMaps.add(entryMap);
         }
