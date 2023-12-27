@@ -124,4 +124,6 @@ public interface OperationsController {
 
 	List<Map<FieldTags, String>> getDonationsList();
 
+	List<Map<FieldTags, String>> getRequestsList();
+
 }

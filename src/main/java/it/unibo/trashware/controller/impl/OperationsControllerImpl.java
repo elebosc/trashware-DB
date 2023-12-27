@@ -286,4 +286,24 @@ public class OperationsControllerImpl implements OperationsController {
         return resultMaps;
     }
 
+    @Override
+    public List<Map<FieldTags, String>> getRequestsList() {
+
+        Query query = this.em.createNativeQuery("");
+
+        List<Object[]> result = query.getResultList();
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String opID = entry[0].toString();
+
+            
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
+
 }

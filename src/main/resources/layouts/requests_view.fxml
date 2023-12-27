@@ -37,25 +37,24 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <ScrollPane prefHeight="534.0" prefWidth="640.0">
+      <ScrollPane prefHeight="400.0" prefWidth="1055.0">
          <content>
-            <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="1470.0">
+            <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="1636.0">
               <columns>
-                <TableColumn fx:id="donationID" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="status" prefWidth="75.0" text="Stato" />
-                  <TableColumn fx:id="clientType" prefWidth="104.800048828125" text="Tipo Richiedente" />
+                <TableColumn fx:id="requestID" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="representativeName" prefWidth="193.60003662109375" text="Referente" />
                   <TableColumn fx:id="societyName" prefWidth="160.7999267578125" text="Società" />
                   <TableColumn fx:id="requestType" prefWidth="96.800048828125" text="Tipo Richiesta" />
-                  <TableColumn fx:id="motivation" prefWidth="136.79998779296875" text="Motivazione" />
-                  <TableColumn fx:id="date" minWidth="2.40008544921875" prefWidth="120.79998779296875" text="Data Effettuazione" />
-                  <TableColumn fx:id="deadline" prefWidth="100.0" text="Data Limite" />
-                  <TableColumn fx:id="priority" prefWidth="75.0" text="Priorità" />
-                  <TableColumn fx:id="telephoneNumbers" prefWidth="121.59991455078125" text="Contatti telefonici" />
-                  <TableColumn fx:id="fax" minWidth="0.0" prefWidth="91.9998779296875" text="Fax" />
-                  <TableColumn fx:id="email" prefWidth="113.5999755859375" text="E-mail" />
+                  <TableColumn fx:id="motivation" prefWidth="178.4000244140625" text="Motivazione" />
+                  <TableColumn fx:id="details" prefWidth="215.2000732421875" text="Dettagli" />
+                  <TableColumn fx:id="date" minWidth="2.40008544921875" prefWidth="127.20013427734375" text="Data Effettuazione" />
+                  <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="84.0001220703125" text="Data Limite" />
+                  <TableColumn fx:id="priority" minWidth="0.0" prefWidth="64.0" text="Priorità" />
+                  <TableColumn fx:id="telephoneNumbers" prefWidth="116.7999267578125" text="Contatti telefonici" />
+                  <TableColumn fx:id="fax" minWidth="0.0" prefWidth="114.400146484375" text="Fax" />
+                  <TableColumn fx:id="email" prefWidth="131.199951171875" text="E-mail" />
               </columns>
             </TableView>
          </content>
