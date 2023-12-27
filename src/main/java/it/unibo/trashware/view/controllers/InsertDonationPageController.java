@@ -21,9 +21,6 @@ public class InsertDonationPageController {
     private DatePicker effectuationDatePicker;
 
     @FXML
-    private TextField notesField;
-
-    @FXML
     private TextField officeCAPField;
 
     @FXML
