@@ -5,11 +5,15 @@ public enum FieldTags {
     OPERATION_ID("IDOperazione"),
     REPRESENTATIVE("Referente"),
     SOCIETY("Società"),
+    REQUEST_TYPE("Tipo richiesta"),
+    REASON("Motivazione"),
+    DETAILS("Dettagli"),
     EFFECTUATION_DATE("Data effettuazione"),
+    DEADLINE("Data limite"),
+    PRIORITY("Priorità"),
     PHONE_CONTACTS("Contatti telefonici"),
     FAX("Fax"),
-    EMAIL("E-mail"),
-    DETAILS("Dettagli");
+    EMAIL("E-mail");
 
     private String tag;
     

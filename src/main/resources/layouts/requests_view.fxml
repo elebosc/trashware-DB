@@ -32,32 +32,48 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.RequestsViewPageController">
   <children>
-      <ScrollPane prefHeight="400.0" prefWidth="1055.0">
-         <content>
-            <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="1636.0">
-              <columns>
-                <TableColumn fx:id="requestID" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="representativeName" prefWidth="193.60003662109375" text="Referente" />
-                  <TableColumn fx:id="societyName" prefWidth="160.7999267578125" text="Società" />
-                  <TableColumn fx:id="requestType" prefWidth="96.800048828125" text="Tipo Richiesta" />
-                  <TableColumn fx:id="motivation" prefWidth="178.4000244140625" text="Motivazione" />
-                  <TableColumn fx:id="details" prefWidth="215.2000732421875" text="Dettagli" />
-                  <TableColumn fx:id="date" minWidth="2.40008544921875" prefWidth="127.20013427734375" text="Data Effettuazione" />
-                  <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="84.0001220703125" text="Data Limite" />
-                  <TableColumn fx:id="priority" minWidth="0.0" prefWidth="64.0" text="Priorità" />
-                  <TableColumn fx:id="telephoneNumbers" prefWidth="116.7999267578125" text="Contatti telefonici" />
-                  <TableColumn fx:id="fax" minWidth="0.0" prefWidth="114.400146484375" text="Fax" />
-                  <TableColumn fx:id="email" prefWidth="131.199951171875" text="E-mail" />
-              </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ScrollPane layoutY="62.0" prefHeight="338.0" prefWidth="1055.0">
+               <content>
+                  <TableView fx:id="requestsTableView" prefHeight="400.0" prefWidth="1636.0">
+                    <columns>
+                      <TableColumn fx:id="requestID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="representativeName" prefWidth="193.60003662109375" text="Referente" />
+                        <TableColumn fx:id="societyName" prefWidth="160.7999267578125" text="Società" />
+                        <TableColumn fx:id="requestType" prefWidth="96.800048828125" text="Tipo Richiesta" />
+                        <TableColumn fx:id="motivation" prefWidth="178.4000244140625" text="Motivazione" />
+                        <TableColumn fx:id="details" prefWidth="215.2000732421875" text="Dettagli" />
+                        <TableColumn fx:id="date" minWidth="2.40008544921875" prefWidth="127.20013427734375" text="Data Effettuazione" />
+                        <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="84.0001220703125" text="Data Limite" />
+                        <TableColumn fx:id="priority" minWidth="0.0" prefWidth="64.0" text="Priorità" />
+                        <TableColumn fx:id="telephoneNumbers" prefWidth="116.7999267578125" text="Contatti telefonici" />
+                        <TableColumn fx:id="fax" minWidth="0.0" prefWidth="114.400146484375" text="Fax" />
+                        <TableColumn fx:id="email" prefWidth="131.199951171875" text="E-mail" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <MenuButton fx:id="requestStatusMenuBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Seleziona stato richieste">
+              <items>
+                  <Menu fx:id="requestStatusMenu" mnemonicParsing="false" text="Unspecified Menu" />
+                <MenuItem fx:id="inProgress" mnemonicParsing="false" text="In lavorazione" />
+                <MenuItem fx:id="completed" mnemonicParsing="false" text="Completate" />
+                  <MenuItem fx:id="delivered" mnemonicParsing="false" text="Consegnate" />
+              </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
   </children>
 </VBox>

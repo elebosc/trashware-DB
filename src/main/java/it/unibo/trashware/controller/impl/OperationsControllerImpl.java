@@ -35,9 +35,9 @@ import jakarta.persistence.Query;
 
 public class OperationsControllerImpl implements OperationsController {
 
-    private static final String DEFAULT_REQUEST_STATUS = "In lavorazione";
-    private static final String REQUEST_COMPLETED = "Pronto per la consegna";
-    private static final String DEVICES_DELIVERED = "Consegna effettuata";
+    private static final String IN_PROGRESS = "In lavorazione";
+    private static final String COMPLETED = "Pronto";
+    private static final String DELIVERED = "Evaso";
 
     private EntityManager em;
 
@@ -90,7 +90,7 @@ public class OperationsControllerImpl implements OperationsController {
         request.setType(requestType);
         request.setReason(reason);
         request.setDeadlineDate(deadline);
-        request.setStatus(DEFAULT_REQUEST_STATUS);
+        request.setStatus(IN_PROGRESS);
         request.setPriorityLevel(priorityLevel);
         // Request insertion
         this.requestsDAO.add(request);
@@ -188,7 +188,7 @@ public class OperationsControllerImpl implements OperationsController {
         }
         final Request request = response.get();
         // Update request state
-        request.setStatus(REQUEST_COMPLETED);
+        request.setStatus(COMPLETED);
         this.requestsDAO.update(request);
         // Register completion
         completion.setRequest(request);
@@ -210,7 +210,7 @@ public class OperationsControllerImpl implements OperationsController {
         final Request request = searchedRequest.get();
         final Completion completion = searchedCompletion.get();
         // Update request state
-        request.setStatus(DEVICES_DELIVERED);
+        request.setStatus(DELIVERED);
         this.requestsDAO.update(request);
         // Register delivery
         delivery.setCompletion(completion);
@@ -253,11 +253,13 @@ public class OperationsControllerImpl implements OperationsController {
 
         Query query = this.em.createNativeQuery(
             "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email, o.Note\n" +
-            "FROM operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
-            "LEFT OUTER JOIN (\n" +
-                "SELECT *\n" +
-                "FROM società s JOIN rappresentanza r ON (s.PartitaIVA = r.PartitaIVASocietà)\n" +
-            ") AS rap ON (rap.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+            "FROM (\n" +
+                "operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+                "LEFT OUTER JOIN (\n" +
+                    "SELECT *\n" +
+                    "FROM società s JOIN rappresentanza r ON (s.PartitaIVA = r.PartitaIVASocietà)\n" +
+                ") AS rap ON (rap.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+            ")\n" +
             "WHERE o.tipo = 'Donazione';"
         );
 
@@ -287,18 +289,45 @@ public class OperationsControllerImpl implements OperationsController {
     }
 
     @Override
-    public List<Map<FieldTags, String>> getRequestsList() {
+    public List<Map<FieldTags, String>> getRequestsList(final String requestStatus) {
 
-        Query query = this.em.createNativeQuery("");
-
+        Query query = this.em.createNativeQuery(
+            "SELECT ric.IDRichiesta, ref.Nome, ref.Cognome, rap.Nome AS NomeSocietà, ric.Tipo, ric.Motivazione, ric.Note, ric.DataEffettuazione, ric.DataLimite, ric.LivelloPriorità, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email\n" +
+            "FROM ((\n" +
+                    "SELECT r.IDRichiesta, r.Tipo, r.Motivazione, o.Note, o.DataEffettuazione , r.DataLimite, r.LivelloPriorità, o.CodiceFiscaleReferente\n" +
+                    "FROM richieste r JOIN operazioni o ON (r.IDRichiesta = o.IDOperazione)\n" +
+                    "WHERE r.Stato = ?1\n" +
+                ") AS ric JOIN referente ref ON (ric.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+                "LEFT OUTER JOIN (\n" +
+                    "SELECT *\n" +
+                    "FROM società s JOIN rappresentanza r ON (s.PartitaIVA = r.PartitaIVASocietà)\n" +
+                ") AS rap ON (rap.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
+            ");"
+        );
+        query.setParameter(1, requestStatus);
         List<Object[]> result = query.getResultList();
+
         final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
         for (final var entry : result) {
 
             final Map<FieldTags, String> entryMap = new HashMap<>();
             final String opID = entry[0].toString();
 
-            
+            entryMap.put(FieldTags.OPERATION_ID, opID);
+            entryMap.put(FieldTags.REPRESENTATIVE, entry[1].toString() + " " + entry[2].toString());
+            entryMap.put(FieldTags.SOCIETY, (entry[3] != null) ? entry[3].toString() : "");
+            entryMap.put(FieldTags.REQUEST_TYPE, entry[4].toString());
+            entryMap.put(FieldTags.REASON, entry[5].toString());
+            entryMap.put(FieldTags.DETAILS, (entry[6] != null) ? entry[6].toString() : "");
+            entryMap.put(FieldTags.EFFECTUATION_DATE, entry[7].toString());
+            entryMap.put(FieldTags.DEADLINE, entry[8].toString());
+            entryMap.put(FieldTags.PRIORITY, entry[9].toString());
+            entryMap.put(
+                FieldTags.PHONE_CONTACTS,
+                entry[10].toString() + "\n" + ((entry[11] != null) ? entry[11].toString() : "")
+            );
+            entryMap.put(FieldTags.FAX, (entry[12] != null) ? entry[13].toString() : "");
+            entryMap.put(FieldTags.EMAIL, (entry[13] != null) ? entry[14].toString() : "");
 
             resultMaps.add(entryMap);
         }

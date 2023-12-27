@@ -21,13 +21,7 @@ public class MainSceneController {
     private Button insertRequestBtn;
 
     @FXML
-    private Button showRequestsToCompleteBtn;
-
-    @FXML
-    private Button showRequestsToDeliverBtn;
-
-    @FXML
-    private Button showDeliveredRequestsBtn;
+    private Button showRequestsBtn;
 
     @FXML
     private Button insertDeviceBtn;
@@ -45,9 +39,7 @@ public class MainSceneController {
         insertDonationBtn.setOnAction(e -> view.setPage(Pages.DONATION_FORM));
         showDonationsBtn.setOnAction(e -> view.setPage(Pages.DONATIONS_VIEW));
         insertRequestBtn.setOnAction(e -> view.setPage(Pages.REQUEST_FORM));
-        showRequestsToCompleteBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
-        showRequestsToDeliverBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
-        showDeliveredRequestsBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
+        showRequestsBtn.setOnAction(e -> view.setPage(Pages.REQUESTS_VIEW));
         insertDeviceBtn.setOnAction(e -> view.setPage(Pages.DEVICE_FORM));
         linkDeviceToOperationBtn.setOnAction(e -> view.setPage(Pages.ASSOCIATION_FORM));
         insertOperatorBtn.setOnAction(e -> view.setPage(Pages.OPERATOR_FORM));

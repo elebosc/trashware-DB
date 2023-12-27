@@ -11,11 +11,33 @@ import it.unibo.trashware.view.controllers.tableItems.RequestItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class RequestsViewPageController {
+
+    private static final String IN_PROGRESS = "In lavorazione";
+    private static final String COMPLETED = "Pronto";
+    private static final String DELIVERED = "Evaso";
+
+    @FXML
+    private MenuButton requestStatusMenuBtn;
+
+    @FXML
+    private Menu requestStatusMenu;
+
+    @FXML
+    private MenuItem inProgress;
+    
+    @FXML
+    private MenuItem completed;
+
+    @FXML
+    private MenuItem delivered;
 
     @FXML
     private TableView<RequestItem> requestsTableView;
@@ -30,7 +52,7 @@ public class RequestsViewPageController {
     private TableColumn<RequestItem, String> details;
 
     @FXML
-    private TableColumn<RequestItem, String> donationID;
+    private TableColumn<RequestItem, String> requestID;
 
     @FXML
     private TableColumn<RequestItem, String> email;
@@ -65,7 +87,7 @@ public class RequestsViewPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.donationID.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("donationID"));
+        this.requestID.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("requestID"));
         this.representativeName.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("representativeName"));
         this.societyName.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("societyName"));
         this.requestType.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("requestType"));
@@ -77,14 +99,30 @@ public class RequestsViewPageController {
         this.telephoneNumbers.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("telephoneNumbers"));
         this.fax.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("faxNumber"));
         this.email.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("email"));
-        fillTable();
+        
+        this.inProgress.setOnAction(e -> fillTable(IN_PROGRESS));
+        this.completed.setOnAction(e -> fillTable(COMPLETED));
+        this.delivered.setOnAction(e -> fillTable(DELIVERED));
     }
 
-    private void fillTable() {
+    private void fillTable(final String requestStatus) {
         final ObservableList<RequestItem> list = FXCollections.observableArrayList();
-        List<Map<FieldTags, String>> result = this.controller.getDonationsList();
+        List<Map<FieldTags, String>> result = this.controller.getRequestsList(requestStatus);
         for (var map : result) {
-            // list.add();
+            list.add(new RequestItem(
+                map.get(FieldTags.OPERATION_ID),
+                map.get(FieldTags.REPRESENTATIVE),
+                map.get(FieldTags.SOCIETY),
+                map.get(FieldTags.REQUEST_TYPE),
+                map.get(FieldTags.REASON),
+                map.get(FieldTags.DETAILS),
+                map.get(FieldTags.EFFECTUATION_DATE),
+                map.get(FieldTags.DEADLINE),
+                map.get(FieldTags.PRIORITY),
+                map.get(FieldTags.PHONE_CONTACTS),
+                map.get(FieldTags.FAX),
+                map.get(FieldTags.EMAIL)
+            ));
         }
         this.requestsTableView.setItems(list);
     }
