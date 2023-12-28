@@ -13,10 +13,27 @@ public enum FieldTags {
     PRIORITY("Priorità"),
     PHONE_CONTACTS("Contatti telefonici"),
     FAX("Fax"),
-    EMAIL("E-mail");
+    EMAIL("E-mail"),
+    PCID("IDPC"),
+    BRAND("Marca"),
+    MODEL("Modello"),
+    COLOR("Colore"),
+    SCREENSIZE("Dimensione"),
+    ETH("Ethernet"),
+    WIFI("WiFi"),
+    BLUETOOTH("Bluetooth"),
+    NOTES("Note"),
+    CPU_BRAND("Marca CPU"),
+    CPU_MODEL("Modello CPU"),
+    CPU_ARC("Arch CPU"),
+    RAM_SIZE("Dimensione RAM"),
+    STORAGE_TYPE("Tipo Memoria"),
+    STORAGE_SIZE("Dimensione Memoria"),
+    OS_VERSION("Versione SO"),
+    OS_UPDATE("Aggiornamento SO");
 
     private String tag;
-    
+
     private FieldTags(final String tag) {
         this.tag = tag;
     }

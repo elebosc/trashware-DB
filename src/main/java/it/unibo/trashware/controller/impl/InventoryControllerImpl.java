@@ -2,8 +2,13 @@ package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.trashware.commons.FieldTags;
 import it.unibo.trashware.controller.api.InventoryController;
 import it.unibo.trashware.entities.Chassis;
 import it.unibo.trashware.entities.Component;
@@ -23,6 +28,7 @@ import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.provider.ConnectionProvider;
 import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 public class InventoryControllerImpl implements InventoryController {
     
@@ -315,6 +321,83 @@ public class InventoryControllerImpl implements InventoryController {
             () -> new IllegalArgumentException("A PC with such ID does not exist.")
         );
         this.otherPCComponentsDAO.add(pcComponentLink);
+    }
+
+    @Override
+    public List<Map<FieldTags, String>> getLaptopsList() {
+
+        // Get laptops info, except components and os info
+
+        Query query = this.em.createNativeQuery(
+            "SELECT lpt.IDPC, lpt.Marca, lpt.Modello, lpt.Colore, lpt.Dimensione, pc.Ethernet, pc.WiFi, pc.Bluetooth, pc.Note\n" +
+            "FROM portatili lpt JOIN pc ON (lpt.IDPC = pc.IDPC);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String lptID = entry[0].toString();
+
+            entryMap.put(FieldTags.PCID, lptID);
+            entryMap.put(FieldTags.BRAND, entry[1].toString());
+            entryMap.put(FieldTags.MODEL, entry[2].toString());
+            entryMap.put(FieldTags.COLOR, entry[3].toString());
+            entryMap.put(FieldTags.SCREENSIZE, entry[4].toString());
+            entryMap.put(FieldTags.ETH, entry[5].toString());
+            entryMap.put(FieldTags.WIFI, entry[6].toString());
+            entryMap.put(FieldTags.BLUETOOTH, entry[7].toString());
+            entryMap.put(FieldTags.NOTES, (entry[8] != null) ? entry[8].toString() : "");
+
+            // Get cpu info
+            query = this.em.createNativeQuery(
+                "SELECT proc.Marca, proc.Modello, Architettura\n" +
+                "FROM (SELECT c.IDComponente, c.Marca, c.Modello FROM componenti c JOIN pc ON (c.IDComponente = pc.IDCPU) WHERE (pc.IDPC = ?1)) AS proc\n" +
+                    "JOIN cpu ON (proc.IDComponente = cpu.IDComponente);"
+            );
+            query.setParameter(1, lptID);
+            List<Object[]> result2 = query.getResultList();
+            for (var e : result2) {
+                entryMap.put(FieldTags.CPU_BRAND, e[0].toString());
+                entryMap.put(FieldTags.CPU_MODEL, e[1].toString());
+                entryMap.put(FieldTags.CPU_ARC, e[2].toString());
+            }
+
+            // Get ram quantity
+            // TO DO
+            entryMap.put(FieldTags.RAM_SIZE, "");
+
+            // Get storage info
+            query = this.em.createNativeQuery(
+                "SELECT Tipologia, Dimensione\n" +
+                "FROM (SELECT c.IDComponente FROM componenti c JOIN pc ON (c.IDComponente = pc.IDMemMassa_01) WHERE (pc.IDPC = ?1)) AS stor\n" + //
+                    "JOIN memoria_di_massa m ON (stor.IDComponente = m.IDComponente);"
+            );
+            query.setParameter(1, lptID);
+            List<Object[]> result3 = query.getResultList();
+            for (var e : result3) {
+                entryMap.put(FieldTags.STORAGE_TYPE, e[0].toString());
+                entryMap.put(FieldTags.STORAGE_SIZE, e[1].toString());
+            }
+
+            // Get OS info
+            query = this.em.createNativeQuery(
+                "SELECT Nome, Versione, DataUltimoAggiornamento\n" +
+                "FROM sistema_operativo os JOIN pc ON (os.IDPC = pc.IDPC)\n" +
+                "WHERE (os.IDPC = ?1);"
+            );
+            query.setParameter(1, lptID);
+            List<Object[]> result4 = query.getResultList();
+            for (var e : result4) {
+                entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
+                entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
     }
     
 }

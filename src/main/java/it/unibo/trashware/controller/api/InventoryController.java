@@ -1,7 +1,11 @@
 package it.unibo.trashware.controller.api;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import it.unibo.trashware.commons.FieldTags;
 
 public interface InventoryController {
     
@@ -151,5 +155,7 @@ public interface InventoryController {
 	 * @param pcID
 	 */
 	void bindComponentToPC(String componentID, String pcID);
+
+	List<Map<FieldTags, String>> getLaptopsList();
 
 }
