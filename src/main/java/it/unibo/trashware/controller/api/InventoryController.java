@@ -160,4 +160,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getMonitorsList();
 
+	List<Map<FieldTags, String>> getOtherPeripheralsList();
+
 }

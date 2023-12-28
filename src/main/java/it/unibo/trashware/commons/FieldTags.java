@@ -39,7 +39,9 @@ public enum FieldTags {
     VGA("VGA"),
     DVI("DVI"),
     EMBEDDED_AUDIO("Audio Integrato"),
-    ASSIGNEDTOPC("Asssegnato a PC");
+    ASSIGNEDTOPC("Asssegnato a PC"),
+    PERIPHERAL_ID("ID Periferica"),
+    PERIPHERAL_TYPE("Tipo Periferica");
 
     private String tag;
 

@@ -28,6 +28,7 @@ import it.unibo.trashware.model.dao.GenericDAOImpl;
 import it.unibo.trashware.model.provider.ConnectionProvider;
 import it.unibo.trashware.model.provider.ConnectionProviderImpl;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 public class InventoryControllerImpl implements InventoryController {
@@ -428,12 +429,59 @@ public class InventoryControllerImpl implements InventoryController {
 
             // Is monitor assigned to a PC?
             query = this.em.createNativeQuery(
-                "SELECT d.IDPC\n" + //
-                "FROM monitor m JOIN desktop d ON (d.IDMonitor = ?1);"
+                "SELECT IDPC\n" + //
+                "FROM desktop WHERE (IDMonitor = ?1);"
             );
             query.setParameter(1, monitorID);
-            String result2 = (String) query.getSingleResult();
-            entryMap.put(FieldTags.ASSIGNEDTOPC, (result2 != null) ? result2.toString() : "");
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNEDTOPC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNEDTOPC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
+
+    @Override
+    public List<Map<FieldTags, String>> getOtherPeripheralsList() {
+
+        Query query = this.em.createNativeQuery(
+            "SELECT IDPeriferica, Tipo, Marca, Modello, Connettività, Note\n" +
+            "FROM periferiche\n" +
+            "WHERE (Tipo != 'Monitor');"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String peripheralID = entry[0].toString();
+
+            entryMap.put(FieldTags.PERIPHERAL_ID, peripheralID);
+            entryMap.put(FieldTags.PERIPHERAL_TYPE, entry[1].toString());
+            entryMap.put(FieldTags.BRAND, entry[2].toString());
+            entryMap.put(FieldTags.MODEL, entry[3].toString());
+            entryMap.put(FieldTags.CONNECTIVITY, entry[4].toString());
+            entryMap.put(FieldTags.NOTES, (entry[5] != null) ? entry[5].toString() : "");
+
+            // Is peripheral assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC\n" +
+                "FROM desktop\n" +
+                "WHERE (IDTastiera = ?1) OR (IDMouse = ?1) OR (IDCasseAudio = ?1);"
+            );
+            query.setParameter(1, peripheralID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNEDTOPC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNEDTOPC, "");
+            }
 
             resultMaps.add(entryMap);
         }

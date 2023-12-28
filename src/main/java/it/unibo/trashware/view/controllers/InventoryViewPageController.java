@@ -59,6 +59,7 @@ public class InventoryViewPageController {
     public void initialize() {
         this.laptopItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.LAPTOPS_VIEW));
         this.monitorItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.MONITORS_VIEW));
+        this.otherPeripheralItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.OTHER_PERIPHERALS_VIEW));
     }
 
     private void setSubpage(final InventoryViewSubpages page) {
