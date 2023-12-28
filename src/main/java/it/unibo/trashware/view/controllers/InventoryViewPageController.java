@@ -58,6 +58,7 @@ public class InventoryViewPageController {
     @FXML
     public void initialize() {
         this.laptopItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.LAPTOPS_VIEW));
+        this.monitorItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.MONITORS_VIEW));
     }
 
     private void setSubpage(final InventoryViewSubpages page) {

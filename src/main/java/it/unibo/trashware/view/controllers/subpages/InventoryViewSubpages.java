@@ -2,7 +2,8 @@ package it.unibo.trashware.view.controllers.subpages;
 
 public enum InventoryViewSubpages {
 
-    LAPTOPS_VIEW("laptops_view.fxml");
+    LAPTOPS_VIEW("laptops_view.fxml"),
+    MONITORS_VIEW("monitors_view.fxml");
     
     private static final String DIR = "layouts/subpages/";
     private final String fxmlFileName;
