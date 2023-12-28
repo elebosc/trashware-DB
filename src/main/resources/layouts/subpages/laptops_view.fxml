@@ -37,11 +37,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.subpages.LaptopsViewController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView layoutX="-8.0" layoutY="3.0" prefHeight="394.0" prefWidth="1007.0">
+            <TableView fx:id="laptopsTableView" layoutX="-8.0" layoutY="3.0" prefHeight="394.0" prefWidth="1083.0">
               <columns>
                 <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="brand" prefWidth="75.0" text="Marca" />
@@ -54,7 +54,12 @@
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="ram" prefWidth="75.0" text="RAM" />
-                  <TableColumn fx:id="storage" prefWidth="75.0" text="Memoria" />
+                  <TableColumn fx:id="storage" prefWidth="75.0" text="Memoria">
+                     <columns>
+                        <TableColumn fx:id="storageType" prefWidth="75.0" text="Tipo" />
+                        <TableColumn fx:id="storageSize" prefWidth="75.0" text="Dim." />
+                     </columns>
+                  </TableColumn>
                   <TableColumn fx:id="screenSize" prefWidth="75.0" text="Schermo" />
                   <TableColumn fx:id="isEthernetSupported" prefWidth="75.0" text="Ethernet" />
                   <TableColumn fx:id="isWiFiSupported" prefWidth="41.5999755859375" text="WiFi" />
