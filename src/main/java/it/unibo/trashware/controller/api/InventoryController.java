@@ -158,4 +158,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getLaptopsList();
 
+	List<Map<FieldTags, String>> getMonitorsList();
+
 }

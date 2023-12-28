@@ -399,5 +399,46 @@ public class InventoryControllerImpl implements InventoryController {
 
         return resultMaps;
     }
+
+    @Override
+    public List<Map<FieldTags, String>> getMonitorsList() {
+        
+        Query query = this.em.createNativeQuery(
+            "SELECT p.IDPeriferica, p.Marca, p.Modello, p.Connettività, m.Tipologia, m.Dimensione, m.AspectRatio, m.VGA, m.DVI, m.AudioIntegrato, p.Note\n" +
+            "FROM monitor m JOIN periferiche p ON (m.IDPeriferica = p.IDPeriferica);");
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String monitorID = entry[0].toString();
+
+            entryMap.put(FieldTags.MONITOR_ID, monitorID);
+            entryMap.put(FieldTags.BRAND, entry[1].toString());
+            entryMap.put(FieldTags.MODEL, entry[2].toString());
+            entryMap.put(FieldTags.CONNECTIVITY, entry[3].toString());
+            entryMap.put(FieldTags.MONITOR_TYPE, entry[4].toString());
+            entryMap.put(FieldTags.MONITOR_SIZE, entry[5].toString());
+            entryMap.put(FieldTags.RATIO, entry[6].toString());
+            entryMap.put(FieldTags.VGA, entry[7].toString());
+            entryMap.put(FieldTags.DVI, entry[8].toString());
+            entryMap.put(FieldTags.EMBEDDED_AUDIO, entry[9].toString());
+            entryMap.put(FieldTags.NOTES, (entry[10] != null) ? entry[10].toString() : "");
+
+            // Is monitor assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT d.IDPC\n" + //
+                "FROM monitor m JOIN desktop d ON (d.IDMonitor = ?1);"
+            );
+            query.setParameter(1, monitorID);
+            String result2 = (String) query.getSingleResult();
+            entryMap.put(FieldTags.ASSIGNEDTOPC, (result2 != null) ? result2.toString() : "");
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
     
 }

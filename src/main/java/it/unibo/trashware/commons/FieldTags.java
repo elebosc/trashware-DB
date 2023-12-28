@@ -30,7 +30,16 @@ public enum FieldTags {
     STORAGE_TYPE("Tipo Memoria"),
     STORAGE_SIZE("Dimensione Memoria"),
     OS_VERSION("Versione SO"),
-    OS_UPDATE("Aggiornamento SO");
+    OS_UPDATE("Aggiornamento SO"),
+    MONITOR_ID("Monitor ID"),
+    CONNECTIVITY("Connettività"),
+    MONITOR_TYPE("Tipo Monitor"),
+    MONITOR_SIZE("Dimensione Monitor"),
+    RATIO("Ratio"),
+    VGA("VGA"),
+    DVI("DVI"),
+    EMBEDDED_AUDIO("Audio Integrato"),
+    ASSIGNEDTOPC("Asssegnato a PC");
 
     private String tag;
 
