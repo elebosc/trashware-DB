@@ -9,6 +9,7 @@ public enum Pages {
     DONATIONS_VIEW("donations_view.fxml"),
     REQUESTS_VIEW("requests_view.fxml"),
     DEVICE_FORM("device_form.fxml"),
+    INVENTORY_VIEW("inventory_view.fxml"),
     ASSOCIATION_FORM("association_form.fxml");
 
     private static final String DIR = "layouts/";

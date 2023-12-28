@@ -2,7 +2,7 @@ package it.unibo.trashware.view.controllers;
 
 import java.io.IOException;
 
-import it.unibo.trashware.view.controllers.subpages.DeviceFormSubpages;
+import it.unibo.trashware.view.controllers.subpages.InventoryViewSubpages;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,7 +11,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 
-public class InsertDevicePageController {
+public class InventoryViewPageController {
 
     @FXML
     private MenuItem CPUItem;
@@ -57,18 +57,10 @@ public class InsertDevicePageController {
 
     @FXML
     public void initialize() {
-        this.monitorItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.MONITOR_FORM));
-        this.otherPeripheralItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.OTHER_PERIPHERAL_FORM));
-        this.CPUItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.CPU_FORM));
-        this.RAMItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.RAM_FORM));
-        this.massMemoryItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.MASS_STORAGE_FORM));
-        this.chassisItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.CHASSIS_FORM));
-        this.otherComponentItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.OTHER_COMPONENT_FORM));
-        this.desktopPCItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.DESKTOP_PC_FORM));
-        this.laptopItem.setOnAction(e -> this.setSubpage(DeviceFormSubpages.LAPTOP_FORM));
+        this.laptopItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.LAPTOPS_VIEW));
     }
 
-    private void setSubpage(final DeviceFormSubpages page) {
+    private void setSubpage(final InventoryViewSubpages page) {
         final FXMLLoader loader = new FXMLLoader();
         try {
             final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
