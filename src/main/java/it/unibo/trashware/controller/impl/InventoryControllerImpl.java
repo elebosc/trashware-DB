@@ -450,9 +450,11 @@ public class InventoryControllerImpl implements InventoryController {
     public List<Map<FieldTags, String>> getOtherPeripheralsList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT IDPeriferica, Tipo, Marca, Modello, Connettività, Note\n" +
-            "FROM periferiche\n" +
-            "WHERE (Tipo != 'Monitor');"
+            "SELECT p.IDPeriferica, Tipo, Marca, Modello, Connettività, Note\n" +
+            "FROM periferiche p \n" +
+            "WHERE NOT EXISTS (\n" +
+                "SELECT * FROM monitor m WHERE (m.IDPeriferica = p.IDPeriferica)\n" +
+            ");"
         );
         List<Object[]> result1 = query.getResultList();
 
