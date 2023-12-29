@@ -170,4 +170,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getChassisList();
 
+	List<Map<FieldTags, String>> getOtherComponentsList();
+
 }

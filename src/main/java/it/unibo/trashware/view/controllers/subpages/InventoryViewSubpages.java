@@ -8,7 +8,8 @@ public enum InventoryViewSubpages {
     CPUS_VIEW("cpus_view.fxml"),
     RAM_MODULES_VIEW("ram_modules_view.fxml"),
     STORAGE_DEVICES_VIEW("storage_devices_view.fxml"),
-    CHASSIS_VIEW("chassis_view.fxml");
+    CHASSIS_VIEW("chassis_view.fxml"),
+    OTHER_COMPONENTS_VIEW("other_components_view.fxml");
     
     private static final String DIR = "layouts/subpages/";
     private final String fxmlFileName;

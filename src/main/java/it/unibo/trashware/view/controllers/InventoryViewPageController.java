@@ -64,6 +64,7 @@ public class InventoryViewPageController {
         this.RAMItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.RAM_MODULES_VIEW));
         this.massMemoryItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.STORAGE_DEVICES_VIEW));
         this.chassisItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.CHASSIS_VIEW));
+        this.otherComponentItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.OTHER_COMPONENTS_VIEW));
     }
 
     private void setSubpage(final InventoryViewSubpages page) {

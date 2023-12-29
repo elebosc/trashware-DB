@@ -647,5 +647,48 @@ public class InventoryControllerImpl implements InventoryController {
 
         return resultMaps;
     }
+
+    @Override
+    public List<Map<FieldTags, String>> getOtherComponentsList() {
+
+        Query query = this.em.createNativeQuery(
+            "SELECT c.IDComponente, Tipo, Marca, Modello, Note\n" +
+            "FROM componenti c\n" +
+            "WHERE NOT EXISTS (SELECT * FROM cpu WHERE (cpu.IDComponente = c.IDComponente))\n" +
+                "AND NOT EXISTS (SELECT * FROM ram WHERE (ram.IDComponente = c.IDComponente))\n" +
+                "AND NOT EXISTS (SELECT * FROM memoria_di_massa m WHERE (m.IDComponente = c.IDComponente))\n" +
+                "AND NOT EXISTS (SELECT * FROM chassis ch WHERE (ch.IDComponente = c.IDComponente));"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String componentID = entry[0].toString();
+
+            entryMap.put(FieldTags.COMPONENT_ID, componentID);
+            entryMap.put(FieldTags.COMPONENT_TYPE, entry[1].toString());
+            entryMap.put(FieldTags.BRAND, entry[2].toString());
+            entryMap.put(FieldTags.MODEL, entry[3].toString());
+            entryMap.put(FieldTags.NOTES, (entry[4] != null) ? entry[4].toString() : "");
+
+            // Is component assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC FROM altri_componenti_pc WHERE (IDComponente = ?1);"
+            );
+            query.setParameter(1, componentID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
     
 }
