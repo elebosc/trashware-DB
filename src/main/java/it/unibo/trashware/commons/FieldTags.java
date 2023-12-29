@@ -32,6 +32,7 @@ public enum FieldTags {
     STORAGE_ID("ID Memoria di Massa"),
     STORAGE_TYPE("Tipo Memoria"),
     STORAGE_SIZE("Dimensione Memoria"),
+    CHASSIS_ID("ID Chassis"),
     OS_VERSION("Versione SO"),
     OS_UPDATE("Aggiornamento SO"),
     MONITOR_ID("Monitor ID"),

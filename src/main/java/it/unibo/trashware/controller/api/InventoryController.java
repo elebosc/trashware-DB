@@ -168,4 +168,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getStorageDevicesList();
 
+	List<Map<FieldTags, String>> getChassisList();
+
 }

@@ -590,8 +590,47 @@ public class InventoryControllerImpl implements InventoryController {
             // Is storage device assigned to a PC?
             query = this.em.createNativeQuery(
                 "SELECT IDPC FROM pc\n" +
-                "WHERE (IDMemMassa_01 = ?1) OR (IDMemMassa_02 = ?1);");
+                "WHERE (IDMemMassa_01 = ?1) OR (IDMemMassa_02 = ?1);"
+            );
             query.setParameter(1, sdID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
+
+    @Override
+    public List<Map<FieldTags, String>> getChassisList() {
+        
+        Query query = this.em.createNativeQuery(
+            "SELECT ch.IDComponente, Marca, Modello, Colore\n" +
+            "FROM chassis ch JOIN componenti c ON (ch.IDComponente = c.IDComponente);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String chassisID = entry[0].toString();
+
+            entryMap.put(FieldTags.CHASSIS_ID, chassisID);
+            entryMap.put(FieldTags.BRAND, entry[1].toString());
+            entryMap.put(FieldTags.MODEL, entry[2].toString());
+            entryMap.put(FieldTags.COLOR, entry[3].toString());
+
+            // Is chassis assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC FROM desktop WHERE (IDChassis = ?1);"
+            );
+            query.setParameter(1, chassisID);
             try {
                 String result2 = (String) query.getSingleResult();
                 entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
