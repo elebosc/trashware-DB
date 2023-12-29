@@ -493,7 +493,7 @@ public class InventoryControllerImpl implements InventoryController {
     public List<Map<FieldTags, String>> getCPUsList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT cpu.IDComponente, Marca, Modello, Architettura\n" +
+            "SELECT cpu.IDComponente, Marca, Modello, Architettura, Note\n" +
             "FROM cpu JOIN componenti c ON (cpu.IDComponente = c.IDComponente);"
         );
         List<Object[]> result1 = query.getResultList();
@@ -508,6 +508,7 @@ public class InventoryControllerImpl implements InventoryController {
             entryMap.put(FieldTags.CPU_BRAND, entry[1].toString());
             entryMap.put(FieldTags.CPU_MODEL, entry[2].toString());
             entryMap.put(FieldTags.CPU_ARC, entry[3].toString());
+            entryMap.put(FieldTags.NOTES, (entry[4] != null) ? entry[4].toString() : "");
 
             // Is CPU assigned to a PC?
             query = this.em.createNativeQuery(
@@ -531,7 +532,7 @@ public class InventoryControllerImpl implements InventoryController {
     public List<Map<FieldTags, String>> getRAMModulesList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT ram.IDComponente, Marca, Modello, Dimensione\n" +
+            "SELECT ram.IDComponente, Marca, Modello, Dimensione, Note\n" +
             "FROM ram JOIN componenti c ON (ram.IDComponente = c.IDComponente);"
         );
         List<Object[]> result1 = query.getResultList();
@@ -546,6 +547,7 @@ public class InventoryControllerImpl implements InventoryController {
             entryMap.put(FieldTags.BRAND, entry[1].toString());
             entryMap.put(FieldTags.MODEL, entry[2].toString());
             entryMap.put(FieldTags.RAM_SIZE, entry[3].toString());
+            entryMap.put(FieldTags.NOTES, (entry[4] != null) ? entry[4].toString() : "");
 
             // Is RAM module assigned to a PC?
             query = this.em.createNativeQuery(
@@ -570,7 +572,7 @@ public class InventoryControllerImpl implements InventoryController {
     public List<Map<FieldTags, String>> getStorageDevicesList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT m.IDComponente, Marca, Modello, Tipologia, Dimensione\n" +
+            "SELECT m.IDComponente, Marca, Modello, Tipologia, Dimensione, Note\n" +
             "FROM memoria_di_massa m JOIN componenti c ON (m.IDComponente = c.IDComponente);"
         );
         List<Object[]> result1 = query.getResultList();
@@ -586,6 +588,7 @@ public class InventoryControllerImpl implements InventoryController {
             entryMap.put(FieldTags.MODEL, entry[2].toString());
             entryMap.put(FieldTags.STORAGE_TYPE, entry[3].toString());
             entryMap.put(FieldTags.STORAGE_SIZE, entry[4].toString());
+            entryMap.put(FieldTags.NOTES, (entry[5] != null) ? entry[5].toString() : "");
 
             // Is storage device assigned to a PC?
             query = this.em.createNativeQuery(
@@ -610,7 +613,7 @@ public class InventoryControllerImpl implements InventoryController {
     public List<Map<FieldTags, String>> getChassisList() {
         
         Query query = this.em.createNativeQuery(
-            "SELECT ch.IDComponente, Marca, Modello, Colore\n" +
+            "SELECT ch.IDComponente, Marca, Modello, Colore, Note\n" +
             "FROM chassis ch JOIN componenti c ON (ch.IDComponente = c.IDComponente);"
         );
         List<Object[]> result1 = query.getResultList();
@@ -625,6 +628,7 @@ public class InventoryControllerImpl implements InventoryController {
             entryMap.put(FieldTags.BRAND, entry[1].toString());
             entryMap.put(FieldTags.MODEL, entry[2].toString());
             entryMap.put(FieldTags.COLOR, entry[3].toString());
+            entryMap.put(FieldTags.NOTES, (entry[4] != null) ? entry[4].toString() : "");
 
             // Is chassis assigned to a PC?
             query = this.em.createNativeQuery(

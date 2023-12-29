@@ -35,6 +35,9 @@ public class ChassisViewController {
     @FXML
     private TableColumn<ChassisItem, String> model;
 
+    @FXML
+    private TableColumn<ChassisItem, String> notes;
+
     private InventoryController controller;
 
     @FXML
@@ -49,6 +52,7 @@ public class ChassisViewController {
         this.brand.setCellValueFactory(new PropertyValueFactory<ChassisItem, String>("brand"));
         this.model.setCellValueFactory(new PropertyValueFactory<ChassisItem, String>("model"));
         this.color.setCellValueFactory(new PropertyValueFactory<ChassisItem, String>("color"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<ChassisItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<ChassisItem, String>("assignedToPC"));
 
         fillTable();
@@ -63,6 +67,7 @@ public class ChassisViewController {
                 map.get(FieldTags.BRAND),
                 map.get(FieldTags.MODEL),
                 map.get(FieldTags.COLOR),
+                map.get(FieldTags.NOTES),
                 map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }

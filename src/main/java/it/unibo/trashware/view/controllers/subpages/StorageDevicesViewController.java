@@ -38,6 +38,9 @@ public class StorageDevicesViewController {
     @FXML
     private TableColumn<StorageDeviceItem, String> type;
 
+    @FXML
+    private TableColumn<StorageDeviceItem, String> notes;
+
     private InventoryController controller;
 
     @FXML
@@ -53,6 +56,7 @@ public class StorageDevicesViewController {
         this.model.setCellValueFactory(new PropertyValueFactory<StorageDeviceItem, String>("model"));
         this.type.setCellValueFactory(new PropertyValueFactory<StorageDeviceItem, String>("type"));
         this.size.setCellValueFactory(new PropertyValueFactory<StorageDeviceItem, String>("size"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<StorageDeviceItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<StorageDeviceItem, String>("assignedToPC"));
 
         fillTable();
@@ -68,6 +72,7 @@ public class StorageDevicesViewController {
                 map.get(FieldTags.MODEL),
                 map.get(FieldTags.STORAGE_TYPE),
                 map.get(FieldTags.STORAGE_SIZE),
+                map.get(FieldTags.NOTES),
                 map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }

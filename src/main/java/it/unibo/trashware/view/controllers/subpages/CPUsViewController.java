@@ -33,6 +33,9 @@ public class CPUsViewController {
     private TableColumn<CPUItem, String> model;
 
     @FXML
+    private TableColumn<CPUItem, String> notes;
+
+    @FXML
     private TableColumn<CPUItem, String> assignedToPC;
 
     private InventoryController controller;
@@ -49,6 +52,7 @@ public class CPUsViewController {
         this.brand.setCellValueFactory(new PropertyValueFactory<CPUItem, String>("brand"));
         this.model.setCellValueFactory(new PropertyValueFactory<CPUItem, String>("model"));
         this.architecture.setCellValueFactory(new PropertyValueFactory<CPUItem, String>("architecture"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<CPUItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<CPUItem, String>("assignedToPC"));
 
         fillTable();
@@ -63,6 +67,7 @@ public class CPUsViewController {
                 map.get(FieldTags.CPU_BRAND), 
                 map.get(FieldTags.CPU_MODEL), 
                 map.get(FieldTags.CPU_ARC), 
+                map.get(FieldTags.NOTES),
                 map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }

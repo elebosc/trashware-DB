@@ -15,12 +15,15 @@ public class RAMModuleItem {
 
     private StringProperty size;
 
-    public RAMModuleItem(String id, String brand, String model, String size, String assignedToPC) {
+    private StringProperty notes;
+
+    public RAMModuleItem(String id, String brand, String model, String size, String notes, String assignedToPC) {
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
         this.brand = new SimpleStringProperty(brand);
         this.id = new SimpleStringProperty(id);
         this.model = new SimpleStringProperty(model);
         this.size = new SimpleStringProperty(size);
+        this.notes = new SimpleStringProperty(notes);
     }
 
     public String getAssignedToPC() {
@@ -41,6 +44,10 @@ public class RAMModuleItem {
 
     public String getSize() {
         return size.get();
+    }
+
+    public String getNotes() {
+        return notes.get();
     }
 
 }

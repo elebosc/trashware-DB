@@ -17,13 +17,16 @@ public class StorageDeviceItem {
 
     private StringProperty type;
 
-    public StorageDeviceItem(String id, String brand, String model, String type, String size, String assignedToPC) {
+    private StringProperty notes;
+
+    public StorageDeviceItem(String id, String brand, String model, String type, String size, String notes, String assignedToPC) {
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
         this.brand = new SimpleStringProperty(brand);
         this.id = new SimpleStringProperty(id);
         this.model = new SimpleStringProperty(model);
         this.size = new SimpleStringProperty(size);
         this.type = new SimpleStringProperty(type);
+        this.notes = new SimpleStringProperty(notes);
     }
 
     public String getAssignedToPC() {
@@ -48,6 +51,10 @@ public class StorageDeviceItem {
 
     public String getType() {
         return type.get();
+    }
+
+    public String getNotes() {
+        return notes.get();
     }
 
 }

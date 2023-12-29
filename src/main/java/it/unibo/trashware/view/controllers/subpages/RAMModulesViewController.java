@@ -35,6 +35,9 @@ public class RAMModulesViewController {
     @FXML
     private TableColumn<RAMModuleItem, String> size;
 
+    @FXML
+    private TableColumn<RAMModuleItem, String> notes;
+
     private InventoryController controller;
 
     @FXML
@@ -49,6 +52,7 @@ public class RAMModulesViewController {
         this.brand.setCellValueFactory(new PropertyValueFactory<RAMModuleItem, String>("brand"));
         this.model.setCellValueFactory(new PropertyValueFactory<RAMModuleItem, String>("model"));
         this.size.setCellValueFactory(new PropertyValueFactory<RAMModuleItem, String>("size"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<RAMModuleItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<RAMModuleItem, String>("assignedToPC"));
 
         fillTable();
@@ -63,6 +67,7 @@ public class RAMModulesViewController {
                 map.get(FieldTags.BRAND),
                 map.get(FieldTags.MODEL),
                 map.get(FieldTags.RAM_SIZE),
+                map.get(FieldTags.NOTES),
                 map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }
