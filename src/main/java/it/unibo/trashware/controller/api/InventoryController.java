@@ -166,4 +166,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getRAMModulesList();
 
+	List<Map<FieldTags, String>> getStorageDevicesList();
+
 }

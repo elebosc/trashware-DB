@@ -23,10 +23,13 @@ public enum FieldTags {
     WIFI("WiFi"),
     BLUETOOTH("Bluetooth"),
     NOTES("Note"),
+    CPU_ID("ID CPU"),
     CPU_BRAND("Marca CPU"),
     CPU_MODEL("Modello CPU"),
     CPU_ARC("Arch CPU"),
+    RAM_ID("ID RAM"),
     RAM_SIZE("Dimensione RAM"),
+    STORAGE_ID("ID Memoria di Massa"),
     STORAGE_TYPE("Tipo Memoria"),
     STORAGE_SIZE("Dimensione Memoria"),
     OS_VERSION("Versione SO"),
@@ -41,9 +44,7 @@ public enum FieldTags {
     EMBEDDED_AUDIO("Audio Integrato"),
     ASSIGNED_TO_PC("Asssegnato a PC"),
     PERIPHERAL_ID("ID Periferica"),
-    PERIPHERAL_TYPE("Tipo Periferica"),
-    CPU_ID("ID CPU"),
-    RAM_ID("ID RAM");
+    PERIPHERAL_TYPE("Tipo Periferica");
 
     private String tag;
 

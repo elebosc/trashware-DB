@@ -565,5 +565,44 @@ public class InventoryControllerImpl implements InventoryController {
 
         return resultMaps;
     }
+
+    @Override
+    public List<Map<FieldTags, String>> getStorageDevicesList() {
+
+        Query query = this.em.createNativeQuery(
+            "SELECT m.IDComponente, Marca, Modello, Tipologia, Dimensione\n" +
+            "FROM memoria_di_massa m JOIN componenti c ON (m.IDComponente = c.IDComponente);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String sdID = entry[0].toString();
+
+            entryMap.put(FieldTags.STORAGE_ID, sdID);
+            entryMap.put(FieldTags.BRAND, entry[1].toString());
+            entryMap.put(FieldTags.MODEL, entry[2].toString());
+            entryMap.put(FieldTags.STORAGE_TYPE, entry[3].toString());
+            entryMap.put(FieldTags.STORAGE_SIZE, entry[4].toString());
+
+            // Is storage device assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC FROM pc\n" +
+                "WHERE (IDMemMassa_01 = ?1) OR (IDMemMassa_02 = ?1);");
+            query.setParameter(1, sdID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
     
 }
