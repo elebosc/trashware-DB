@@ -162,4 +162,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getOtherPeripheralsList();
 
+	List<Map<FieldTags, String>> getCPUsList();
+
 }

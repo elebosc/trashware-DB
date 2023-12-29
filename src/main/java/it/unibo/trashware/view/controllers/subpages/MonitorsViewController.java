@@ -97,7 +97,7 @@ public class MonitorsViewController {
                 map.get(FieldTags.DVI),
                 map.get(FieldTags.EMBEDDED_AUDIO),
                 map.get(FieldTags.NOTES),
-                map.get(FieldTags.ASSIGNEDTOPC)
+                map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }
         this.monitorsTableView.setItems(list);

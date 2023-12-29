@@ -435,9 +435,9 @@ public class InventoryControllerImpl implements InventoryController {
             query.setParameter(1, monitorID);
             try {
                 String result2 = (String) query.getSingleResult();
-                entryMap.put(FieldTags.ASSIGNEDTOPC, result2.toString());
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
             } catch (NoResultException ex) {
-                entryMap.put(FieldTags.ASSIGNEDTOPC, "");
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
             }
 
             resultMaps.add(entryMap);
@@ -478,9 +478,47 @@ public class InventoryControllerImpl implements InventoryController {
             query.setParameter(1, peripheralID);
             try {
                 String result2 = (String) query.getSingleResult();
-                entryMap.put(FieldTags.ASSIGNEDTOPC, result2.toString());
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
             } catch (NoResultException ex) {
-                entryMap.put(FieldTags.ASSIGNEDTOPC, "");
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
+
+    @Override
+    public List<Map<FieldTags, String>> getCPUsList() {
+
+        Query query = this.em.createNativeQuery(
+            "SELECT cpu.IDComponente, Marca, Modello, Architettura\n" +
+            "FROM cpu JOIN componenti c ON (cpu.IDComponente = c.IDComponente);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String cpuID = entry[0].toString();
+
+            entryMap.put(FieldTags.CPU_ID, cpuID);
+            entryMap.put(FieldTags.CPU_BRAND, entry[1].toString());
+            entryMap.put(FieldTags.CPU_MODEL, entry[2].toString());
+            entryMap.put(FieldTags.CPU_ARC, entry[3].toString());
+
+            // Is CPU assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC FROM pc WHERE (IDCPU = ?1);"
+            );
+            query.setParameter(1, cpuID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
             }
 
             resultMaps.add(entryMap);

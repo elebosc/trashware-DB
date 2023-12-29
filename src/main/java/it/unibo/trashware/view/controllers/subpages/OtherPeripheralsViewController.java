@@ -50,6 +50,7 @@ public class OtherPeripheralsViewController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
         this.id.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("id"));
         this.brand.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("brand"));
         this.model.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("model"));
@@ -72,7 +73,7 @@ public class OtherPeripheralsViewController {
                 map.get(FieldTags.MODEL), 
                 map.get(FieldTags.CONNECTIVITY), 
                 map.get(FieldTags.NOTES), 
-                map.get(FieldTags.ASSIGNEDTOPC)
+                map.get(FieldTags.ASSIGNED_TO_PC)
             ));
         }
         this.otherPeripheralsTableView.setItems(list);
