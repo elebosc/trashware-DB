@@ -164,4 +164,6 @@ public interface InventoryController {
 
 	List<Map<FieldTags, String>> getCPUsList();
 
+	List<Map<FieldTags, String>> getRAMModulesList();
+
 }

@@ -526,5 +526,44 @@ public class InventoryControllerImpl implements InventoryController {
 
         return resultMaps;
     }
+
+    @Override
+    public List<Map<FieldTags, String>> getRAMModulesList() {
+
+        Query query = this.em.createNativeQuery(
+            "SELECT ram.IDComponente, Marca, Modello, Dimensione\n" +
+            "FROM ram JOIN componenti c ON (ram.IDComponente = c.IDComponente);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String ramID = entry[0].toString();
+
+            entryMap.put(FieldTags.RAM_ID, ramID);
+            entryMap.put(FieldTags.BRAND, entry[1].toString());
+            entryMap.put(FieldTags.MODEL, entry[2].toString());
+            entryMap.put(FieldTags.RAM_SIZE, entry[3].toString());
+
+            // Is RAM module assigned to a PC?
+            query = this.em.createNativeQuery(
+                "SELECT IDPC FROM pc\n" +
+                "WHERE (IDRAM_01 = ?1) OR (IDRAM_02 = ?1) OR (IDRAM_03 = ?1) OR (IDRAM_04 = ?1);"
+            );
+            query.setParameter(1, ramID);
+            try {
+                String result2 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, result2.toString());
+            } catch (NoResultException ex) {
+                entryMap.put(FieldTags.ASSIGNED_TO_PC, "");
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
     
 }

@@ -42,7 +42,8 @@ public enum FieldTags {
     ASSIGNED_TO_PC("Asssegnato a PC"),
     PERIPHERAL_ID("ID Periferica"),
     PERIPHERAL_TYPE("Tipo Periferica"),
-    CPU_ID("ID CPU");
+    CPU_ID("ID CPU"),
+    RAM_ID("ID RAM");
 
     private String tag;
 
