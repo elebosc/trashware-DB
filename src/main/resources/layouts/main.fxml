@@ -52,7 +52,7 @@
                 <Font size="18.0" fx:id="x1" />
               </font>
             </Label>
-                  <Accordion layoutX="10.0" layoutY="41.0">
+                  <Accordion layoutX="10.0" layoutY="41.0" prefWidth="202.0">
                     <panes>
                       <TitledPane animated="false" prefWidth="202.0" text="Donazioni ricevute">
                         <content>
@@ -60,17 +60,15 @@
                                  <children>
                                     <Button fx:id="insertDonationBtn" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci donazione" />
                                     <Button fx:id="showDonationsBtn" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza donazioni" />
-                                    <Button fx:id="showDonationsStatisticsBtn" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza statistiche" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane animated="false" prefHeight="137.0" prefWidth="202.0" text="Richieste">
+                      <TitledPane animated="false" prefHeight="107.0" prefWidth="202.0" text="Richieste">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="201.0">
                                  <children>
                                     <Button fx:id="insertRequestBtn" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci richiesta" />
-                                    <Button fx:id="showRequestsStatisticsBtn" layoutX="-1.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza statistiche" />
                                     <Button fx:id="updateRequestStatusBtn" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Registra completamento/consegna" />
                                     <Button fx:id="showRequestsBtn" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza richieste" />
                                  </children>
@@ -88,17 +86,6 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                        <TitledPane animated="false" text="Lavoro">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="317.0" prefWidth="162.0">
-                                 <children>
-                                    <Button fx:id="insertOperatorBtn" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci operatore" />
-                                    <Button fx:id="insertWorkShiftBtn" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci turno di lavoro svolto" />
-                                    <Button fx:id="showWorkDone" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza lavoro svolto" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </TitledPane>
                     </panes>
                   </Accordion>
           </children>

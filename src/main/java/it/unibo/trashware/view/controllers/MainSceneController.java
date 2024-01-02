@@ -35,12 +35,6 @@ public class MainSceneController {
     @FXML
     private Button linkDeviceToOperationBtn;
 
-    @FXML
-    private Button insertOperatorBtn;
-
-    @FXML
-    private Button insertWorkShiftBtn;
-
     public void init(final View view) {
         insertDonationBtn.setOnAction(e -> view.setPage(Pages.DONATION_FORM));
         showDonationsBtn.setOnAction(e -> view.setPage(Pages.DONATIONS_VIEW));
@@ -50,8 +44,6 @@ public class MainSceneController {
         updateRequestStatusBtn.setOnAction(e -> view.setPage(Pages.UPDATE_REQUEST_STATUS_FORM));
         showInventoryBtn.setOnAction(e -> view.setPage(Pages.INVENTORY_VIEW));
         linkDeviceToOperationBtn.setOnAction(e -> view.setPage(Pages.ASSOCIATION_FORM));
-        insertOperatorBtn.setOnAction(e -> view.setPage(Pages.OPERATOR_FORM));
-        insertWorkShiftBtn.setOnAction(e -> view.setPage(Pages.WORKSHIFT_FORM));
     }
 
     public Pane getSidePage() {
