@@ -41,7 +41,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="laptopsTableView" layoutX="-8.0" layoutY="3.0" prefHeight="394.0" prefWidth="1331.0">
+            <TableView fx:id="laptopsTableView" prefHeight="394.0" prefWidth="902.0">
               <columns>
                 <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="brand" prefWidth="75.0" text="Marca" />

@@ -1,6 +1,7 @@
 package it.unibo.trashware.controller.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -366,8 +367,14 @@ public class InventoryControllerImpl implements InventoryController {
             }
 
             // Get ram quantity
-            // TO DO
-            entryMap.put(FieldTags.RAM_SIZE, "");
+            query = this.em.createNativeQuery(
+                "SELECT SUM(ram.Dimensione)\n" +
+                "FROM ram JOIN pc\n" +
+                "ON (pc.IDPC = ?1) AND ((ram.IDComponente = pc.IDRAM_01) OR (ram.IDComponente = pc.IDRAM_02) OR (ram.IDComponente = pc.IDRAM_03) OR ((ram.IDComponente = pc.IDRAM_04)));"
+            );
+            query.setParameter(1, lptID);
+            BigDecimal result3 = (BigDecimal) query.getSingleResult();
+            entryMap.put(FieldTags.RAM_SIZE, result3.toString());
 
             // Get storage info
             query = this.em.createNativeQuery(
@@ -376,8 +383,8 @@ public class InventoryControllerImpl implements InventoryController {
                     "JOIN memoria_di_massa m ON (stor.IDComponente = m.IDComponente);"
             );
             query.setParameter(1, lptID);
-            List<Object[]> result3 = query.getResultList();
-            for (var e : result3) {
+            List<Object[]> result4 = query.getResultList();
+            for (var e : result4) {
                 entryMap.put(FieldTags.STORAGE_TYPE, e[0].toString());
                 entryMap.put(FieldTags.STORAGE_SIZE, e[1].toString());
             }
@@ -389,8 +396,8 @@ public class InventoryControllerImpl implements InventoryController {
                 "WHERE (os.IDPC = ?1);"
             );
             query.setParameter(1, lptID);
-            List<Object[]> result4 = query.getResultList();
-            for (var e : result4) {
+            List<Object[]> result5 = query.getResultList();
+            for (var e : result5) {
                 entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
                 entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
             }
