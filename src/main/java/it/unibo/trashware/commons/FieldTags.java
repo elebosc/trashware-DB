@@ -33,6 +33,9 @@ public enum FieldTags {
     STORAGE_TYPE("Tipo Memoria"),
     STORAGE_SIZE("Dimensione Memoria"),
     CHASSIS_ID("ID Chassis"),
+    CHASSIS_BRAND("Marca Chassis"),
+    CHASSIS_MODEL("Modello Chassis"),
+    CHASSIS_COLOR("Colore Chassis"),
     COMPONENT_ID("ID Componente"),
     COMPONENT_TYPE("Tipo Componente"),
     OS_VERSION("Versione SO"),
@@ -47,7 +50,10 @@ public enum FieldTags {
     EMBEDDED_AUDIO("Audio Integrato"),
     ASSIGNED_TO_PC("Asssegnato a PC"),
     PERIPHERAL_ID("ID Periferica"),
-    PERIPHERAL_TYPE("Tipo Periferica");
+    PERIPHERAL_TYPE("Tipo Periferica"),
+    KEYBOARD_ID("ID Tastiera"),
+    MOUSE_ID("ID Mouse"),
+    SPEAKERS_ID("ID Casse");
 
     private String tag;
 

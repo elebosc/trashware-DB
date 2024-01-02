@@ -326,10 +326,105 @@ public class InventoryControllerImpl implements InventoryController {
     }
 
     @Override
+    public List<Map<FieldTags, String>> getDesktopsList() {
+
+        // Get desktop PC info, except for components and OS info
+        Query query = this.em.createNativeQuery(
+            "SELECT d.IDPC, Ethernet, WiFi, Bluetooth, IDMonitor, IDTastiera, IDMouse, IDCasseAudio, Note\n" + //
+            "FROM desktop d JOIN pc ON (d.IDPC = pc.IDPC);"
+        );
+        List<Object[]> result1 = query.getResultList();
+
+        final List<Map<FieldTags, String>> resultMaps = new LinkedList<>();
+        for (final var entry : result1) {
+
+            final Map<FieldTags, String> entryMap = new HashMap<>();
+            final String desktopID = entry[0].toString();
+
+            entryMap.put(FieldTags.PCID, desktopID);
+            entryMap.put(FieldTags.ETH, entry[1].toString());
+            entryMap.put(FieldTags.WIFI, entry[2].toString());
+            entryMap.put(FieldTags.BLUETOOTH, entry[3].toString());
+            entryMap.put(FieldTags.MONITOR_ID, (entry[4] != null) ? entry[4].toString() : "");
+            entryMap.put(FieldTags.KEYBOARD_ID, (entry[5] != null) ? entry[5].toString() : "");
+            entryMap.put(FieldTags.MOUSE_ID, (entry[6] != null) ? entry[6].toString() : "");
+            entryMap.put(FieldTags.SPEAKERS_ID, (entry[7] != null) ? entry[7].toString() : "");
+            entryMap.put(FieldTags.NOTES, (entry[8] != null) ? entry[8].toString() : "");
+
+            // Get cpu info
+            query = this.em.createNativeQuery(
+                "SELECT proc.Marca, proc.Modello, Architettura\n" +
+                "FROM (SELECT c.IDComponente, c.Marca, c.Modello FROM componenti c JOIN pc ON (c.IDComponente = pc.IDCPU) WHERE (pc.IDPC = ?1)) AS proc\n" +
+                    "JOIN cpu ON (proc.IDComponente = cpu.IDComponente);"
+            );
+            query.setParameter(1, desktopID);
+            List<Object[]> result2 = query.getResultList();
+            for (var e : result2) {
+                entryMap.put(FieldTags.CPU_BRAND, e[0].toString());
+                entryMap.put(FieldTags.CPU_MODEL, e[1].toString());
+                entryMap.put(FieldTags.CPU_ARC, e[2].toString());
+            }
+
+            // Get ram quantity
+            query = this.em.createNativeQuery(
+                "SELECT SUM(ram.Dimensione)\n" +
+                "FROM ram JOIN pc\n" +
+                "ON (pc.IDPC = ?1) AND ((ram.IDComponente = pc.IDRAM_01) OR (ram.IDComponente = pc.IDRAM_02) OR (ram.IDComponente = pc.IDRAM_03) OR ((ram.IDComponente = pc.IDRAM_04)));"
+            );
+            query.setParameter(1, desktopID);
+            BigDecimal result3 = (BigDecimal) query.getSingleResult();
+            entryMap.put(FieldTags.RAM_SIZE, result3.toString());
+
+            // Get storage info
+            query = this.em.createNativeQuery(
+                "SELECT Tipologia, Dimensione\n" +
+                "FROM (SELECT c.IDComponente FROM componenti c JOIN pc ON (c.IDComponente = pc.IDMemMassa_01) WHERE (pc.IDPC = ?1)) AS stor\n" + //
+                    "JOIN memoria_di_massa m ON (stor.IDComponente = m.IDComponente);"
+            );
+            query.setParameter(1, desktopID);
+            List<Object[]> result4 = query.getResultList();
+            for (var e : result4) {
+                entryMap.put(FieldTags.STORAGE_TYPE, e[0].toString());
+                entryMap.put(FieldTags.STORAGE_SIZE, e[1].toString());
+            }
+
+            // Get OS info
+            query = this.em.createNativeQuery(
+                "SELECT Nome, Versione, DataUltimoAggiornamento\n" +
+                "FROM sistema_operativo os JOIN pc ON (os.IDPC = pc.IDPC)\n" +
+                "WHERE (os.IDPC = ?1);"
+            );
+            query.setParameter(1, desktopID);
+            List<Object[]> result5 = query.getResultList();
+            for (var e : result5) {
+                entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
+                entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
+            }
+
+            // Get case info
+            query = this.em.createNativeQuery(
+                "SELECT Marca, Modello, Colore\n" + //
+                "FROM (SELECT c.IDComponente, c.Marca, c.Modello FROM componenti c JOIN desktop d ON (c.IDComponente = d.IDChassis) WHERE (d.IDPC = ?1)) AS ch1\n" + //
+                    "JOIN chassis ch2 ON (ch1.IDComponente = ch2.IDComponente);"
+            );
+            query.setParameter(1, desktopID);
+            List<Object[]> result6 = query.getResultList();
+            for (var e : result6) {
+                entryMap.put(FieldTags.CHASSIS_BRAND, e[0].toString());
+                entryMap.put(FieldTags.CHASSIS_MODEL, e[1].toString());
+                entryMap.put(FieldTags.CHASSIS_COLOR, e[2].toString());
+            }
+
+            resultMaps.add(entryMap);
+        }
+
+        return resultMaps;
+    }
+
+    @Override
     public List<Map<FieldTags, String>> getLaptopsList() {
 
-        // Get laptops info, except components and os info
-
+        // Get laptops info, except for components and OS info
         Query query = this.em.createNativeQuery(
             "SELECT lpt.IDPC, lpt.Marca, lpt.Modello, lpt.Colore, lpt.Dimensione, pc.Ethernet, pc.WiFi, pc.Bluetooth, pc.Note\n" +
             "FROM portatili lpt JOIN pc ON (lpt.IDPC = pc.IDPC);"

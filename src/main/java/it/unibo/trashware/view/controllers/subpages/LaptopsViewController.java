@@ -27,9 +27,6 @@ public class LaptopsViewController {
     private TableColumn<LaptopItem, String> color;
 
     @FXML
-    private TableColumn<LaptopItem, String> cpu;
-
-    @FXML
     private TableColumn<LaptopItem, String> cpuArch;
 
     @FXML
@@ -54,9 +51,6 @@ public class LaptopsViewController {
     private TableColumn<LaptopItem, String> model;
 
     @FXML
-    private TableColumn<LaptopItem, String> os;
-
-    @FXML
     private TableColumn<LaptopItem, String> osUpdate;
 
     @FXML
@@ -67,9 +61,6 @@ public class LaptopsViewController {
 
     @FXML
     private TableColumn<LaptopItem, String> screenSize;
-
-    @FXML
-    private TableColumn<LaptopItem, String> storage;
 
     @FXML
     private TableColumn<LaptopItem, String> storageType;

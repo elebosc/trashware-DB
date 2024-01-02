@@ -2,6 +2,7 @@ package it.unibo.trashware.view.controllers.subpages;
 
 public enum InventoryViewSubpages {
 
+    DESKTOPS_VIEW("desktop_pc_view.fxml"),
     LAPTOPS_VIEW("laptops_view.fxml"),
     MONITORS_VIEW("monitors_view.fxml"),
     OTHER_PERIPHERALS_VIEW("other_peripherals_view.fxml"),

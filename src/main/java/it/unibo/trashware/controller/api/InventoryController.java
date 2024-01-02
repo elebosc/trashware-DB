@@ -156,6 +156,8 @@ public interface InventoryController {
 	 */
 	void bindComponentToPC(String componentID, String pcID);
 
+	List<Map<FieldTags, String>> getDesktopsList();
+
 	List<Map<FieldTags, String>> getLaptopsList();
 
 	List<Map<FieldTags, String>> getMonitorsList();
