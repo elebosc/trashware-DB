@@ -71,7 +71,7 @@
                                  <children>
                                     <Button fx:id="insertRequestBtn" layoutX="-1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Inserisci richiesta" />
                                     <Button fx:id="showRequestsStatisticsBtn" layoutX="-1.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza statistiche" />
-                                    <Button fx:id="requestStateUpdateBtn" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Registra completamento/consegna" />
+                                    <Button fx:id="updateRequestStatusBtn" layoutX="-1.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Registra completamento/consegna" />
                                     <Button fx:id="showRequestsBtn" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="202.0" text="Visualizza richieste" />
                                  </children>
                               </AnchorPane>

@@ -32,7 +32,6 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
@@ -67,7 +66,6 @@
             </ScrollPane>
             <MenuButton fx:id="requestStatusMenuBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="170.0" text="Seleziona stato richieste">
               <items>
-                  <Menu fx:id="requestStatusMenu" mnemonicParsing="false" text="Unspecified Menu" />
                 <MenuItem fx:id="inProgress" mnemonicParsing="false" text="In lavorazione" />
                 <MenuItem fx:id="completed" mnemonicParsing="false" text="Completate" />
                   <MenuItem fx:id="delivered" mnemonicParsing="false" text="Consegnate" />

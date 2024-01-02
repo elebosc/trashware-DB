@@ -37,7 +37,7 @@ public class OperationsControllerImpl implements OperationsController {
 
     private static final String IN_PROGRESS = "In lavorazione";
     private static final String COMPLETED = "Pronto";
-    private static final String DELIVERED = "Evaso";
+    private static final String DELIVERED = "Consegnato";
 
     private EntityManager em;
 
@@ -104,7 +104,7 @@ public class OperationsControllerImpl implements OperationsController {
         notes.ifPresent((value) -> op.setNotes(value));
         final Optional<Representative> representative = this.representativesDAO.getByID(representativeID);
         if (representative.isEmpty()) {
-            throw new IllegalArgumentException("Error: a representative with the specified ID does not exist.");
+            throw new IllegalArgumentException("Errore: non esiste un referente con l'ID specificato.");
         }
         op.setRepresentativeFiscalCode(representative.get());
         return op;
@@ -184,7 +184,7 @@ public class OperationsControllerImpl implements OperationsController {
         final Completion completion = new Completion();
         final Optional<Request> response = this.requestsDAO.getByID(requestID);
         if (response.isEmpty()) {
-            throw new IllegalArgumentException("Error: no request with such ID exists.");
+            throw new IllegalArgumentException("Errore: non esiste una richiesta con l'ID specificato.");
         }
         final Request request = response.get();
         // Update request state
@@ -202,10 +202,10 @@ public class OperationsControllerImpl implements OperationsController {
         final Optional<Completion> searchedCompletion = this.completionsDAO.getByID(requestID);
         final Optional<Request> searchedRequest = this.requestsDAO.getByID(requestID);
         if (searchedRequest.isEmpty()) {
-            throw new IllegalArgumentException("Error: no request with such ID exists.");
+            throw new IllegalArgumentException("Errore: non esiste una richiesta con l'ID specificato.");
         }
         if (searchedCompletion.isEmpty()) {
-            throw new IllegalArgumentException("Error: no request with such ID has been completed.");
+            throw new IllegalArgumentException("Errore: la richiesta con l'ID specificato non risulta completata.");
         }
         final Request request = searchedRequest.get();
         final Completion completion = searchedCompletion.get();

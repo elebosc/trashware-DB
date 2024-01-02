@@ -8,6 +8,7 @@ public enum Pages {
     WORKSHIFT_FORM("workshift_form.fxml"),
     DONATIONS_VIEW("donations_view.fxml"),
     REQUESTS_VIEW("requests_view.fxml"),
+    UPDATE_REQUEST_STATUS_FORM("update_request_status_form.fxml"),
     DEVICE_FORM("device_form.fxml"),
     INVENTORY_VIEW("inventory_view.fxml"),
     ASSOCIATION_FORM("association_form.fxml");
