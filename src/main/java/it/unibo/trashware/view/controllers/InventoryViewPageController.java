@@ -55,6 +55,8 @@ public class InventoryViewPageController {
     @FXML
     private Menu peripheralTypeMenu;
 
+    private Node currentSubpage;
+
     @FXML
     public void initialize() {
         this.desktopPCItem.setOnAction(e -> this.setSubpage(InventoryViewSubpages.DESKTOPS_VIEW));
@@ -72,7 +74,11 @@ public class InventoryViewPageController {
         final FXMLLoader loader = new FXMLLoader();
         try {
             final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
+            if (this.currentSubpage != null) {
+                this.formPane.getChildren().remove(this.currentSubpage);
+            }
             this.formPane.getChildren().add(node);
+            this.currentSubpage = node;
         } catch (final IOException ex) {
             ex.printStackTrace();
         }

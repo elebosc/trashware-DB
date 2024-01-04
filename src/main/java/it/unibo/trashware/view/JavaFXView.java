@@ -17,6 +17,7 @@ public class JavaFXView implements View {
     private final Stage stage;
     private final Scene mainScene;
     private final MainSceneController controller;
+    private Node currentPage;
 
     public JavaFXView(final Stage stage) throws IOException {
         this.stage = stage;
@@ -34,7 +35,11 @@ public class JavaFXView implements View {
         final FXMLLoader loader = new FXMLLoader();
         try {
             final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
+            if (this.currentPage != null) {
+                this.controller.getSidePage().getChildren().remove(this.currentPage);
+            }
             this.controller.getSidePage().getChildren().add(node);
+            this.currentPage = node;
         } catch (final IOException ex) {
             ex.printStackTrace();
         }
