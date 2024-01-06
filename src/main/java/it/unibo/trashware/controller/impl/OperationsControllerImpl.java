@@ -302,7 +302,8 @@ public class OperationsControllerImpl implements OperationsController {
                     "SELECT *\n" +
                     "FROM società s JOIN rappresentanza r ON (s.PartitaIVA = r.PartitaIVASocietà)\n" +
                 ") AS rap ON (rap.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
-            ");"
+            ")\n" +
+            "ORDER BY ric.LivelloPriorità DESC;"
         );
         query.setParameter(1, requestStatus);
         List<Object[]> result = query.getResultList();
