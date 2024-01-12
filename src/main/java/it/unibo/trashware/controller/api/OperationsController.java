@@ -78,16 +78,6 @@ public interface OperationsController {
 	void addRepresentation(String societyVATNumber, String representativeFiscalCode, String representativeTitle);
 
 	/**
-	 * Stores data about a new object description.
-	 * @param operationID
-	 * @param lineNumber
-	 * @param type
-	 * @param quantity
-	 * @param notes
-	 */
-    void addObjectDescription(String operationID, int lineNumber, String type, int quantity, Optional<String> notes);
-
-	/**
 	 * Registers the completion of the request.
 	 * @param requestID
 	 * @param date

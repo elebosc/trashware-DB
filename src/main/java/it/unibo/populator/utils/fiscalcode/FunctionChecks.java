@@ -1,5 +1,5 @@
 /*
- * CREDITS: https://github.com/martapanc/ItalianFiscalCodeCalculator
+ * SOURCE: https://github.com/martapanc/ItalianFiscalCodeCalculator
  */
 
 package it.unibo.populator.utils.fiscalcode;

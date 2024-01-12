@@ -15,8 +15,6 @@ import it.unibo.trashware.entities.Delivery;
 import it.unibo.trashware.entities.Operation;
 import it.unibo.trashware.entities.OperationObjectComponent;
 import it.unibo.trashware.entities.OperationObjectComponentId;
-import it.unibo.trashware.entities.OperationObjectDescription;
-import it.unibo.trashware.entities.OperationObjectDescriptionId;
 import it.unibo.trashware.entities.OperationObjectPC;
 import it.unibo.trashware.entities.OperationObjectPCId;
 import it.unibo.trashware.entities.OperationObjectPeripheral;
@@ -46,7 +44,6 @@ public class OperationsControllerImpl implements OperationsController {
     private GenericDAO<Representative, String> representativesDAO;
     private GenericDAO<Society, String> societiesDAO;
     private GenericDAO<Representation, RepresentationId> representationsDAO;
-    private GenericDAO<OperationObjectDescription, String> objectDescriptionsDAO;
     private GenericDAO<Completion, String> completionsDAO;
     private GenericDAO<Delivery, String> deliveriesDAO;
     private GenericDAO<OperationObjectPC, OperationObjectPCId> pcOperationLinksDAO;
@@ -66,7 +63,6 @@ public class OperationsControllerImpl implements OperationsController {
         this.representativesDAO = new GenericDAOImpl<>(this.em, Representative.class);
         this.societiesDAO = new GenericDAOImpl<>(this.em, Society.class);
         this.representationsDAO = new GenericDAOImpl<>(this.em, Representation.class);
-        this.objectDescriptionsDAO = new GenericDAOImpl<>(this.em, OperationObjectDescription.class);
         this.completionsDAO = new GenericDAOImpl<>(this.em, Completion.class);
         this.deliveriesDAO = new GenericDAOImpl<>(this.em, Delivery.class);
         this.pcOperationLinksDAO = new GenericDAOImpl<>(this.em, OperationObjectPC.class);
@@ -162,21 +158,6 @@ public class OperationsControllerImpl implements OperationsController {
         representation.setRepresentativeTitle(representativeTitle);
         // Representation insertion
         this.representationsDAO.add(representation);
-    }
-
-    @Override
-    public void addObjectDescription(String operationID, int lineNumber, String type, int quantity,
-            Optional<String> notes) {
-        final OperationObjectDescription objDescription = new OperationObjectDescription();
-        final OperationObjectDescriptionId objDescriptionID = new OperationObjectDescriptionId();
-        objDescriptionID.setOperationID(operationID);
-        objDescriptionID.setLineNumber(lineNumber);
-        objDescription.setId(objDescriptionID);
-        objDescription.setType(type);
-        objDescription.setQuantity(quantity);
-        notes.ifPresent(value -> objDescription.setNotes(value));
-        // Object description insertion
-        this.objectDescriptionsDAO.add(objDescription);
     }
 
     @Override

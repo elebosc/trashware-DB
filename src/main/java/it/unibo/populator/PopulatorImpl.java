@@ -15,7 +15,6 @@ import it.unibo.populator.utils.CommonPeripheralTypes;
 import it.unibo.populator.utils.Generator;
 import it.unibo.trashware.controller.api.InventoryController;
 import it.unibo.trashware.controller.api.OperationsController;
-import it.unibo.trashware.controller.api.WorkShiftsController;
 import net.datafaker.Faker;
 import net.datafaker.providers.base.Address;
 
@@ -43,7 +42,7 @@ public final class PopulatorImpl implements Populator {
 
     private OperationsController operationsController;
     private InventoryController inventoryController;
-    private WorkShiftsController workShiftsController;
+    
     private Faker faker;
     private Random random;
 
@@ -53,12 +52,10 @@ public final class PopulatorImpl implements Populator {
      */
     public PopulatorImpl(
         final OperationsController operationsController,
-        final InventoryController inventoryController,
-        final WorkShiftsController workShiftsController
+        final InventoryController inventoryController
     ) {
         this.operationsController = operationsController;
         this.inventoryController = inventoryController;
-        this.workShiftsController = workShiftsController;
         this.faker = new Faker(Locale.ITALY);
         this.random = new Random();
     }
@@ -206,13 +203,9 @@ public final class PopulatorImpl implements Populator {
         for (int i = 0; i < N_DONATIONS; i++) {
             // Link a random number of objects descriptions to the operation
             for (int j = 0; j < this.random.nextInt(1, MAX_OPERATION_OBJECTS); j++) {
-                operationsController.addObjectDescription(
-                    operationsIDs.get(i),
-                    j + 1,
-                    Generator.getRandomDeviceType(),
-                    1,
-                    Optional.empty()
-                );
+                /*
+                 * TODO: link devices to operations
+                 */
             }
         }
     }
