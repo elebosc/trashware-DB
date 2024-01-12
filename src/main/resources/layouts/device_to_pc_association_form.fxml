@@ -41,13 +41,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.AssociationPageController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.AssociateDeviceToPCPageController">
   <children>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="496.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
           <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="308.0" prefWidth="619.0">
             <children>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="256.0" text="Associa un dispositivo ad un'operazione" underline="true">
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="318.0" text="Associa una periferica o un componente ad un PC" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -57,9 +57,10 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="operationIDField" layoutX="14.0" layoutY="47.0" prefHeight="26.0" prefWidth="170.0" promptText="ID operazione" />
-                  <TextField fx:id="deviceIDField" layoutX="14.0" layoutY="83.0" prefHeight="26.0" prefWidth="170.0" promptText="ID dispositivo" />
-                  <ComboBox fx:id="deviceTypeComboBox" layoutX="198.0" layoutY="83.0" prefHeight="26.0" prefWidth="170.0" promptText="Tipo dispositivo" />
+                  <TextField fx:id="pcID" layoutX="14.0" layoutY="47.0" prefHeight="26.0" prefWidth="170.0" promptText="ID PC" />
+                  <TextField fx:id="deviceID" layoutX="14.0" layoutY="83.0" prefHeight="26.0" prefWidth="170.0" promptText="ID dispositivo" />
+                  <ComboBox fx:id="pcTypeComboBox" layoutX="198.0" layoutY="47.0" prefHeight="26.0" prefWidth="143.0" promptText="Tipo PC" />
+                  <ComboBox fx:id="deviceTypeComboBox" layoutX="198.0" layoutY="84.0" prefHeight="26.0" prefWidth="144.0" promptText="Tipo Dispositivo" />
             </children>
           </AnchorPane>
          </content>

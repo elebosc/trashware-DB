@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class AssociationPageController {
+public class AssociateDeviceToOperationPageController {
 
     private static final String PC = "PC";
     private static final String PERIPHERAL = "Periferica";

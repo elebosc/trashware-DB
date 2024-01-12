@@ -35,6 +35,9 @@ public class MainSceneController {
     @FXML
     private Button linkDeviceToOperationBtn;
 
+    @FXML
+    private Button linkDeviceToPCBtn;
+
     public void init(final View view) {
         insertDonationBtn.setOnAction(e -> view.setPage(Pages.DONATION_FORM));
         showDonationsBtn.setOnAction(e -> view.setPage(Pages.DONATIONS_VIEW));
@@ -43,7 +46,8 @@ public class MainSceneController {
         insertDeviceBtn.setOnAction(e -> view.setPage(Pages.DEVICE_FORM));
         updateRequestStatusBtn.setOnAction(e -> view.setPage(Pages.UPDATE_REQUEST_STATUS_FORM));
         showInventoryBtn.setOnAction(e -> view.setPage(Pages.INVENTORY_VIEW));
-        linkDeviceToOperationBtn.setOnAction(e -> view.setPage(Pages.ASSOCIATION_FORM));
+        linkDeviceToOperationBtn.setOnAction(e -> view.setPage(Pages.DEVICE_TO_OPERATION_ASSOCIATION_FORM));
+        linkDeviceToPCBtn.setOnAction(e -> view.setPage(Pages.DEVICE_TO_PC_ASSOCIATION_FORM));
     }
 
     public Pane getSidePage() {

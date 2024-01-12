@@ -11,7 +11,8 @@ public enum Pages {
     UPDATE_REQUEST_STATUS_FORM("update_request_status_form.fxml"),
     DEVICE_FORM("device_form.fxml"),
     INVENTORY_VIEW("inventory_view.fxml"),
-    ASSOCIATION_FORM("association_form.fxml");
+    DEVICE_TO_OPERATION_ASSOCIATION_FORM("device_to_operation_association_form.fxml"),
+    DEVICE_TO_PC_ASSOCIATION_FORM("device_to_pc_association_form.fxml");
 
     private static final String DIR = "layouts/";
     private final String fxmlFileName;
