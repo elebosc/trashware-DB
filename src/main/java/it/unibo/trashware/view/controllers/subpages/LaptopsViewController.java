@@ -63,10 +63,16 @@ public class LaptopsViewController {
     private TableColumn<LaptopItem, String> screenSize;
 
     @FXML
-    private TableColumn<LaptopItem, String> storageType;
+    private TableColumn<LaptopItem, String> storage01Type;
 
     @FXML
-    private TableColumn<LaptopItem, String> storageSize;
+    private TableColumn<LaptopItem, String> storage01Size;
+
+    @FXML
+    private TableColumn<LaptopItem, String> storage02Type;
+
+    @FXML
+    private TableColumn<LaptopItem, String> storage02Size;
 
     @FXML
     private TableColumn<LaptopItem, String> notes;
@@ -88,8 +94,10 @@ public class LaptopsViewController {
         this.cpuModel.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("cpuModel"));
         this.cpuArch.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("cpuArch"));
         this.ram.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("ram"));
-        this.storageType.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storageType"));
-        this.storageSize.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storageSize"));
+        this.storage01Type.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storage01Type"));
+        this.storage01Size.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storage01Size"));
+        this.storage02Type.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storage02Type"));
+        this.storage02Size.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("storage02Size"));
         this.screenSize.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("screenSize"));
         this.isEthernetSupported.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("isEthernetSupported"));
         this.isWiFiSupported.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("isWiFiSupported"));
@@ -114,8 +122,10 @@ public class LaptopsViewController {
                 map.get(FieldTags.CPU_MODEL),
                 map.get(FieldTags.CPU_ARC),
                 map.get(FieldTags.RAM_SIZE),
-                map.get(FieldTags.STORAGE_TYPE),
-                map.get(FieldTags.STORAGE_SIZE),
+                map.get(FieldTags.STORAGE_01_TYPE),
+                map.get(FieldTags.STORAGE_01_SIZE),
+                map.get(FieldTags.STORAGE_02_TYPE),
+                map.get(FieldTags.STORAGE_02_SIZE),
                 map.get(FieldTags.SCREENSIZE),
                 map.get(FieldTags.ETH),
                 map.get(FieldTags.WIFI),

@@ -384,8 +384,19 @@ public class InventoryControllerImpl implements InventoryController {
             query.setParameter(1, desktopID);
             List<Object[]> result4 = query.getResultList();
             for (var e : result4) {
-                entryMap.put(FieldTags.STORAGE_TYPE, e[0].toString());
-                entryMap.put(FieldTags.STORAGE_SIZE, e[1].toString());
+                entryMap.put(FieldTags.STORAGE_01_TYPE, e[0].toString());
+                entryMap.put(FieldTags.STORAGE_01_SIZE, e[1].toString());
+            }
+            query = this.em.createNativeQuery(
+                "SELECT Tipologia, Dimensione\n" +
+                "FROM (SELECT c.IDComponente FROM componenti c JOIN pc ON (c.IDComponente = pc.IDMemMassa_02) WHERE (pc.IDPC = ?1)) AS stor\n" + //
+                    "JOIN memoria_di_massa m ON (stor.IDComponente = m.IDComponente);"
+            );
+            query.setParameter(1, desktopID);
+            List<Object[]> result5 = query.getResultList();
+            for (var e : result5) {
+                entryMap.put(FieldTags.STORAGE_02_TYPE, (e[0].toString() != null) ? e[0].toString() : "");
+                entryMap.put(FieldTags.STORAGE_02_SIZE, (e[1].toString() != null) ? e[1].toString() : "");
             }
 
             // Get OS info
@@ -395,8 +406,8 @@ public class InventoryControllerImpl implements InventoryController {
                 "WHERE (os.IDPC = ?1);"
             );
             query.setParameter(1, desktopID);
-            List<Object[]> result5 = query.getResultList();
-            for (var e : result5) {
+            List<Object[]> result6 = query.getResultList();
+            for (var e : result6) {
                 entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
                 entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
             }
@@ -408,8 +419,8 @@ public class InventoryControllerImpl implements InventoryController {
                     "JOIN chassis ch2 ON (ch1.IDComponente = ch2.IDComponente);"
             );
             query.setParameter(1, desktopID);
-            List<Object[]> result6 = query.getResultList();
-            for (var e : result6) {
+            List<Object[]> result7 = query.getResultList();
+            for (var e : result7) {
                 entryMap.put(FieldTags.CHASSIS_BRAND, e[0].toString());
                 entryMap.put(FieldTags.CHASSIS_MODEL, e[1].toString());
                 entryMap.put(FieldTags.CHASSIS_COLOR, e[2].toString());
@@ -480,8 +491,19 @@ public class InventoryControllerImpl implements InventoryController {
             query.setParameter(1, lptID);
             List<Object[]> result4 = query.getResultList();
             for (var e : result4) {
-                entryMap.put(FieldTags.STORAGE_TYPE, e[0].toString());
-                entryMap.put(FieldTags.STORAGE_SIZE, e[1].toString());
+                entryMap.put(FieldTags.STORAGE_01_TYPE, e[0].toString());
+                entryMap.put(FieldTags.STORAGE_01_SIZE, e[1].toString());
+            }
+            query = this.em.createNativeQuery(
+                "SELECT Tipologia, Dimensione\n" +
+                "FROM (SELECT c.IDComponente FROM componenti c JOIN pc ON (c.IDComponente = pc.IDMemMassa_02) WHERE (pc.IDPC = ?1)) AS stor\n" + //
+                    "JOIN memoria_di_massa m ON (stor.IDComponente = m.IDComponente);"
+            );
+            query.setParameter(1, lptID);
+            List<Object[]> result5 = query.getResultList();
+            for (var e : result5) {
+                entryMap.put(FieldTags.STORAGE_02_TYPE, (e[0].toString() != null) ? e[0].toString() : "");
+                entryMap.put(FieldTags.STORAGE_02_SIZE, (e[1].toString() != null) ? e[1].toString() : "");
             }
 
             // Get OS info
@@ -491,8 +513,8 @@ public class InventoryControllerImpl implements InventoryController {
                 "WHERE (os.IDPC = ?1);"
             );
             query.setParameter(1, lptID);
-            List<Object[]> result5 = query.getResultList();
-            for (var e : result5) {
+            List<Object[]> result6 = query.getResultList();
+            for (var e : result6) {
                 entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
                 entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
             }
@@ -690,8 +712,8 @@ public class InventoryControllerImpl implements InventoryController {
             entryMap.put(FieldTags.STORAGE_ID, sdID);
             entryMap.put(FieldTags.BRAND, entry[1].toString());
             entryMap.put(FieldTags.MODEL, entry[2].toString());
-            entryMap.put(FieldTags.STORAGE_TYPE, entry[3].toString());
-            entryMap.put(FieldTags.STORAGE_SIZE, entry[4].toString());
+            entryMap.put(FieldTags.STORAGE_01_TYPE, entry[3].toString());
+            entryMap.put(FieldTags.STORAGE_01_SIZE, entry[4].toString());
             entryMap.put(FieldTags.NOTES, (entry[5] != null) ? entry[5].toString() : "");
 
             // Is storage device assigned to a PC?

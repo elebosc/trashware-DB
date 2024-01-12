@@ -70,8 +70,8 @@ public class StorageDevicesViewController {
                 map.get(FieldTags.STORAGE_ID),
                 map.get(FieldTags.BRAND),
                 map.get(FieldTags.MODEL),
-                map.get(FieldTags.STORAGE_TYPE),
-                map.get(FieldTags.STORAGE_SIZE),
+                map.get(FieldTags.STORAGE_01_TYPE),
+                map.get(FieldTags.STORAGE_01_SIZE),
                 map.get(FieldTags.NOTES),
                 map.get(FieldTags.ASSIGNED_TO_PC)
             ));

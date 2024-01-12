@@ -41,12 +41,16 @@ public class DesktopItem {
 
     private StringProperty speakersID;
 
-    private StringProperty storageSize;
+    private StringProperty storage01Size;
 
-    private StringProperty storageType;
+    private StringProperty storage01Type;
+
+    private StringProperty storage02Size;
+
+    private StringProperty storage02Type;
 
     public DesktopItem(String id, String caseBrand, String caseModel, String caseColor, String cpuBrand,
-            String cpuModel, String cpuArch, String ram, String storageType, String storageSize,
+            String cpuModel, String cpuArch, String ram, String storage01Type, String storage01Size, String storage02Type, String storage02Size,
             String isEthernetSupported, String isWiFiSupported, String isBluetoothSupported,
             String osVersion, String osUpdate, String monitorID, String keyboardID, String mouseID, String speakersID,
             String notes) {
@@ -68,8 +72,10 @@ public class DesktopItem {
         this.osVersion = new SimpleStringProperty(osVersion);
         this.ram = new SimpleStringProperty(ram);
         this.speakersID = new SimpleStringProperty(speakersID);
-        this.storageSize = new SimpleStringProperty(storageSize);
-        this.storageType = new SimpleStringProperty(storageType);
+        this.storage01Size = new SimpleStringProperty(storage01Size);
+        this.storage01Type = new SimpleStringProperty(storage01Type);
+        this.storage02Size = new SimpleStringProperty(storage02Size);
+        this.storage02Type = new SimpleStringProperty(storage02Type);
     }
 
     public String getCaseBrand() {
@@ -144,12 +150,20 @@ public class DesktopItem {
         return speakersID.get();
     }
 
-    public String getStorageSize() {
-        return storageSize.get();
+    public String getStorage01Size() {
+        return storage01Size.get();
     }
 
-    public String getStorageType() {
-        return storageType.get();
+    public String getStorage01Type() {
+        return storage01Type.get();
+    }
+
+    public String getStorage02Size() {
+        return storage02Size.get();
+    }
+
+    public String getStorage02Type() {
+        return storage02Type.get();
     }
 
 }

@@ -75,10 +75,16 @@ public class DesktopsViewController {
     private TableColumn<DesktopItem, String> speakersID;
 
     @FXML
-    private TableColumn<DesktopItem, String> storageSize;
+    private TableColumn<DesktopItem, String> storage01Size;
 
     @FXML
-    private TableColumn<DesktopItem, String> storageType;
+    private TableColumn<DesktopItem, String> storage01Type;
+
+    @FXML
+    private TableColumn<DesktopItem, String> storage02Size;
+
+    @FXML
+    private TableColumn<DesktopItem, String> storage02Type;
 
     private InventoryController controller;
 
@@ -97,8 +103,10 @@ public class DesktopsViewController {
         this.cpuModel.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("cpuModel"));
         this.cpuArch.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("cpuArch"));
         this.ram.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("ram"));
-        this.storageType.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storageType"));
-        this.storageSize.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storageSize"));
+        this.storage01Type.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storage01Type"));
+        this.storage01Size.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storage01Size"));
+        this.storage02Type.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storage02Type"));
+        this.storage02Size.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("storage02Size"));
         this.isEthernetSupported.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("isEthernetSupported"));
         this.isWiFiSupported.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("isWiFiSupported"));
         this.isBluetoothSupported.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("isBluetoothSupported"));
@@ -126,8 +134,10 @@ public class DesktopsViewController {
                 map.get(FieldTags.CPU_MODEL),
                 map.get(FieldTags.CPU_ARC),
                 map.get(FieldTags.RAM_SIZE),
-                map.get(FieldTags.STORAGE_TYPE),
-                map.get(FieldTags.STORAGE_SIZE),
+                map.get(FieldTags.STORAGE_01_TYPE),
+                map.get(FieldTags.STORAGE_01_SIZE),
+                map.get(FieldTags.STORAGE_02_TYPE),
+                map.get(FieldTags.STORAGE_02_SIZE),
                 map.get(FieldTags.ETH),
                 map.get(FieldTags.WIFI),
                 map.get(FieldTags.BLUETOOTH),
