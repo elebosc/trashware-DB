@@ -12,7 +12,7 @@ public enum DeviceFormSubpages {
     DESKTOP_PC_FORM("desktop_pc_form.fxml"),
     LAPTOP_FORM("laptop_form.fxml");
 
-    private static final String DIR = "layouts/subpages/";
+    private static final String DIR = "it/unibo/trashware/layouts/subpages/";
     private final String fxmlFileName;
 
     private DeviceFormSubpages(final String fxmlFileName) {

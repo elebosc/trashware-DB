@@ -12,7 +12,7 @@ public enum InventoryViewSubpages {
     CHASSIS_VIEW("chassis_view.fxml"),
     OTHER_COMPONENTS_VIEW("other_components_view.fxml");
     
-    private static final String DIR = "layouts/subpages/";
+    private static final String DIR = "it/unibo/trashware/layouts/subpages/";
     private final String fxmlFileName;
 
     private InventoryViewSubpages(final String fxmlFileName) {

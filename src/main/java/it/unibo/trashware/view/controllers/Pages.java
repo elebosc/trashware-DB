@@ -14,7 +14,7 @@ public enum Pages {
     DEVICE_TO_OPERATION_ASSOCIATION_FORM("device_to_operation_association_form.fxml"),
     DEVICE_TO_PC_ASSOCIATION_FORM("device_to_pc_association_form.fxml");
 
-    private static final String DIR = "layouts/";
+    private static final String DIR = "it/unibo/trashware/layouts/";
     private final String fxmlFileName;
 
     private Pages(final String fxmlFileName) {

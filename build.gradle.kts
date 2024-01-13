@@ -51,3 +51,7 @@ application {
     // Definition of the main class for the application
     mainClass.set("it.unibo.trashware.App")
 }
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}

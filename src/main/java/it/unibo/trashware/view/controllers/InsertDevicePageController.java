@@ -6,6 +6,8 @@ import it.unibo.trashware.view.controllers.subpages.DeviceFormSubpages;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -71,9 +73,8 @@ public class InsertDevicePageController {
     }
 
     private void setSubpage(final DeviceFormSubpages page) {
-        final FXMLLoader loader = new FXMLLoader();
         try {
-            final Node node = loader.load(ClassLoader.getSystemResourceAsStream(page.getFXMLFilePath()));
+            final Node node = FXMLLoader.load(ClassLoader.getSystemResource(page.getFXMLFilePath()));
             if (this.currentSubpage != null) {
                 this.formPane.getChildren().remove(this.currentSubpage);
             }
@@ -81,6 +82,10 @@ public class InsertDevicePageController {
             this.currentSubpage = node;
         } catch (final IOException ex) {
             ex.printStackTrace();
+            final Alert alert = new Alert(AlertType.ERROR);
+            alert.setHeaderText("Errore: impossibile aprire la sottopagina.");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
         }
     }
 
