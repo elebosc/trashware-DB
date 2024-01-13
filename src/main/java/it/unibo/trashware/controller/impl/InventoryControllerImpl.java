@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.unibo.trashware.commons.FieldTags;
 import it.unibo.trashware.controller.api.InventoryController;
@@ -33,6 +37,8 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 public class InventoryControllerImpl implements InventoryController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryControllerImpl.class);
     
     private EntityManager em;
 
@@ -310,7 +316,7 @@ public class InventoryControllerImpl implements InventoryController {
     }
 
     @Override
-    public void bindComponentToPC(String componentID, String pcID) {
+    public void associateOtherComponentToPC(String componentID, String pcID) {
         final OtherPCComponent pcComponentLink = new OtherPCComponent();
         final Optional<Component> searchedComponent = this.otherComponentsDAO.getByID(componentID);
         searchedComponent.ifPresentOrElse(
@@ -815,6 +821,77 @@ public class InventoryControllerImpl implements InventoryController {
         }
 
         return resultMaps;
+    }
+
+    @Override
+    public void associateCPUToPC(String cpuID, String pcID) {
+
+        // Check that a CPU with the specified ID exists
+        if (this.cpuDAO.getByID(cpuID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste una CPU con l'ID specificato.");
+        }
+        // Check that a PC with the specified ID exists
+        if (this.pcsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC con l'ID specificato.");
+        }
+
+        // Update CPU field in PC
+        Query query = this.em.createNativeQuery("UPDATE pc SET IDCPU = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, cpuID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
+    }
+
+    @Override
+    public void associateRAMToPC(String ramID, String pcID, int nModule) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateRAMToPC'");
+    }
+
+    @Override
+    public void associateStorageToPC(String storageID, String pcID, int nStorage) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateStorageToPC'");
+    }
+
+    @Override
+    public void associateChassisToPC(String chassisID, String pcID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateChassisToPC'");
+    }
+
+    @Override
+    public void associateMonitorToPC(String monitorID, String pcID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateMonitorToPC'");
+    }
+
+    @Override
+    public void associateKeyboardToPC(String keyboardID, String pcID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateKeyboardToPC'");
+    }
+
+    @Override
+    public void associateMouseToPC(String mouseID, String pcID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateMouseToPC'");
+    }
+
+    @Override
+    public void associateSpeakersToPC(String speakersID, String pcID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'associateSpeakersToPC'");
     }
     
 }

@@ -1,6 +1,5 @@
 package it.unibo.trashware.model.dao;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,11 +17,6 @@ public interface GenericDAO<T, ID> {
      * of the searched row if found; an empty {@link Optional} otherwise.
      */
     Optional<T> getByID(ID id);
-    
-    /**
-     * @return all the rows of the table mapped to the entity class {@link T}.
-     */
-    List<T> getAll();
     
     /**
      * Adds a new row to the database table.

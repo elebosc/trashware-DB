@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.trashware.commons.FieldTags;
+import jakarta.transaction.Transactional;
 
 public interface InventoryController {
     
@@ -149,12 +150,28 @@ public interface InventoryController {
 	*/
 	void addOperatingSystem(String pcID, String name, String version, LocalDate lastUpdateDate);
 
+	void associateCPUToPC(String cpuID, String pcID);
+
+	void associateRAMToPC(String ramID, String pcID, int nModule);
+
+	void associateStorageToPC(String storageID, String pcID, int nStorage);
+
+	void associateChassisToPC(String chassisID, String pcID);
+
+	void associateMonitorToPC(String monitorID, String pcID);
+
+	void associateKeyboardToPC(String keyboardID, String pcID);
+
+	void associateMouseToPC(String mouseID, String pcID);
+
+	void associateSpeakersToPC(String speakersID, String pcID);
+
 	/**
-	 * Binds a component to a PC.
+	 * Associates another type of component to a PC.
 	 * @param componentID
 	 * @param pcID
 	 */
-	void bindComponentToPC(String componentID, String pcID);
+	void associateOtherComponentToPC(String componentID, String pcID);
 
 	List<Map<FieldTags, String>> getDesktopsList();
 

@@ -1,7 +1,6 @@
 package it.unibo.trashware.model.dao;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -32,12 +31,6 @@ public class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     public Optional<T> getByID(final ID id) {
         final T entity = this.em.find(this.entityClass, id);
         return (entity != null) ? Optional.of(entity) : Optional.empty();
-    }
-
-    @Override
-    public List<T> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
 
     @Override

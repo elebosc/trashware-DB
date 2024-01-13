@@ -131,7 +131,7 @@ public class LaptopFormController {
             this.lastOSUpdateDatePicker.getValue() 
         );
         if (!this.otherComponentIDField.getText().equals("")) {
-            this.controller.bindComponentToPC(this.otherComponentIDField.getText(), this.PCIDField.getText());
+            this.controller.associateOtherComponentToPC(this.otherComponentIDField.getText(), this.PCIDField.getText());
         }
     }
 
