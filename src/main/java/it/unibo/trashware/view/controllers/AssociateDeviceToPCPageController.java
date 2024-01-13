@@ -102,31 +102,43 @@ public class AssociateDeviceToPCPageController {
                             this.controller.associateCPUToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case RAM_01:
+                            this.controller.associateRAMToPC(this.deviceID.getText(), this.pcID.getText(), 1);
                             break;
                         case RAM_02:
+                            this.controller.associateRAMToPC(this.deviceID.getText(), this.pcID.getText(), 2);
                             break;
                         case RAM_03:
+                            this.controller.associateRAMToPC(this.deviceID.getText(), this.pcID.getText(), 3);
                             break;
                         case RAM_04:
+                            this.controller.associateRAMToPC(this.deviceID.getText(), this.pcID.getText(), 4);
                             break;
                         case STORAGE_01:
+                            this.controller.associateStorageToPC(this.deviceID.getText(), this.pcID.getText(), 1);
                             break;
                         case STORAGE_02:
+                            this.controller.associateStorageToPC(this.deviceID.getText(), this.pcID.getText(), 2);
                             break;
                         case CHASSIS:
+                            this.controller.associateChassisToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case OTH_COMP:
+                            this.controller.associateOtherComponentToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case MONITOR:
+                            this.controller.associateMonitorToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case KEYBOARD:
+                            this.controller.associateKeyboardToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case MOUSE:
+                            this.controller.associateMouseToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         case SPEAKERS:
+                            this.controller.associateSpeakersToPC(this.deviceID.getText(), this.pcID.getText());
                             break;
                         default:
-                            break;
+                            throw new IllegalArgumentException("Tipo di dispositivo selezionato non valido.");
                     }
                     final Alert alert = new Alert(AlertType.INFORMATION);
                     alert.setHeaderText("Info");

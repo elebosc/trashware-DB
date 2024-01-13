@@ -316,22 +316,6 @@ public class InventoryControllerImpl implements InventoryController {
     }
 
     @Override
-    public void associateOtherComponentToPC(String componentID, String pcID) {
-        final OtherPCComponent pcComponentLink = new OtherPCComponent();
-        final Optional<Component> searchedComponent = this.otherComponentsDAO.getByID(componentID);
-        searchedComponent.ifPresentOrElse(
-            (component) -> pcComponentLink.setComponentID(componentID), 
-            () -> new IllegalArgumentException("A component with such ID does not exist.")
-        );
-        final Optional<PC> searchedPC = this.pcsDAO.getByID(pcID);
-        searchedPC.ifPresentOrElse(
-            (pc) -> pcComponentLink.setPcID(pcID), 
-            () -> new IllegalArgumentException("A PC with such ID does not exist.")
-        );
-        this.otherPCComponentsDAO.add(pcComponentLink);
-    }
-
-    @Override
     public List<Map<FieldTags, String>> getDesktopsList() {
 
         // Get desktop PC info, except for components and OS info
@@ -854,44 +838,247 @@ public class InventoryControllerImpl implements InventoryController {
 
     @Override
     public void associateRAMToPC(String ramID, String pcID, int nModule) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateRAMToPC'");
+
+        // Check that a RAM module with the specified ID exists
+        if (this.ramDAO.getByID(ramID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un modulo RAM con l'ID specificato.");
+        }
+        // Check that a PC with the specified ID exists
+        if (this.pcsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC con l'ID specificato.");
+        }
+
+        // Update RAM field in PC
+        Query query;
+        switch (nModule) {
+            case 1:
+                query = this.em.createNativeQuery("UPDATE pc SET IDRAM_01 = ?1 WHERE (IDPC = ?2)");
+                break;
+            case 2:
+                query = this.em.createNativeQuery("UPDATE pc SET IDRAM_02 = ?1 WHERE (IDPC = ?2)");
+                break;
+            case 3:
+                query = this.em.createNativeQuery("UPDATE pc SET IDRAM_03 = ?1 WHERE (IDPC = ?2)");
+                break;
+            case 4:
+                query = this.em.createNativeQuery("UPDATE pc SET IDRAM_04 = ?1 WHERE (IDPC = ?2)");
+                break;
+            default:
+                throw new IllegalArgumentException("Numero del modulo RAM non valido.");
+        };
+        query.setParameter(1, ramID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
 
     @Override
     public void associateStorageToPC(String storageID, String pcID, int nStorage) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateStorageToPC'");
+        
+        // Check that a mass storage device with the specified ID exists
+        if (this.massStorageDAO.getByID(storageID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un dispositivo di memoria di massa con l'ID specificato.");
+        }
+        // Check that a PC with the specified ID exists
+        if (this.pcsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC con l'ID specificato.");
+        }
+
+        // Update mass storage field in PC
+        Query query;
+        switch (nStorage) {
+            case 1:
+                query = this.em.createNativeQuery("UPDATE pc SET IDMemMassa_01 = ?1 WHERE (IDPC = ?2)");
+                break;
+            case 2:
+                query = this.em.createNativeQuery("UPDATE pc SET IDMemMassa_02 = ?1 WHERE (IDPC = ?2)");
+                break;
+            default:
+                throw new IllegalArgumentException("Numero del dispositivo di memoria di massa non valido.");
+        };
+        query.setParameter(1, storageID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
 
     @Override
     public void associateChassisToPC(String chassisID, String pcID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateChassisToPC'");
+        
+        // Check that a chassis with the specified ID exists
+        if (this.chassisDAO.getByID(chassisID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste uno chassis con l'ID specificato.");
+        }
+        // Check that a desktop PC with the specified ID exists
+        if (this.desktopPCsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC desktop con l'ID specificato.");
+        }
+
+        // Update chassis field in desktop PC
+        Query query = this.em.createNativeQuery("UPDATE desktop SET IDChassis = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, chassisID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
+    }
+
+    @Override
+    public void associateOtherComponentToPC(String componentID, String pcID) {
+        final OtherPCComponent pcComponentLink = new OtherPCComponent();
+        final Optional<Component> searchedComponent = this.otherComponentsDAO.getByID(componentID);
+        searchedComponent.ifPresentOrElse(
+            (component) -> pcComponentLink.setComponentID(componentID), 
+            () -> new IllegalArgumentException("A component with such ID does not exist.")
+        );
+        final Optional<PC> searchedPC = this.pcsDAO.getByID(pcID);
+        searchedPC.ifPresentOrElse(
+            (pc) -> pcComponentLink.setPcID(pcID), 
+            () -> new IllegalArgumentException("A PC with such ID does not exist.")
+        );
+        this.otherPCComponentsDAO.add(pcComponentLink);
     }
 
     @Override
     public void associateMonitorToPC(String monitorID, String pcID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateMonitorToPC'");
+        
+        // Check that a monitor with the specified ID exists
+        if (this.monitorsDAO.getByID(monitorID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un monitor con l'ID specificato.");
+        }
+        // Check that a desktop PC with the specified ID exists
+        if (this.desktopPCsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC desktop con l'ID specificato.");
+        }
+
+        // Update monitor field in desktop PC
+        Query query = this.em.createNativeQuery("UPDATE desktop SET IDMonitor = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, monitorID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
 
     @Override
     public void associateKeyboardToPC(String keyboardID, String pcID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateKeyboardToPC'");
+        
+        // Check that a keyboard with the specified ID exists
+        if (this.peripheralsDAO.getByID(keyboardID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste una tastiera con l'ID specificato.");
+        }
+        // Check that a desktop PC with the specified ID exists
+        if (this.desktopPCsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC desktop con l'ID specificato.");
+        }
+
+        // Update keyboard field in desktop PC
+        Query query = this.em.createNativeQuery("UPDATE desktop SET IDTastiera = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, keyboardID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
 
     @Override
     public void associateMouseToPC(String mouseID, String pcID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateMouseToPC'");
+        
+        // Check that a mouse with the specified ID exists
+        if (this.peripheralsDAO.getByID(mouseID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un mouse con l'ID specificato.");
+        }
+        // Check that a desktop PC with the specified ID exists
+        if (this.desktopPCsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC desktop con l'ID specificato.");
+        }
+
+        // Update mouse field in desktop PC
+        Query query = this.em.createNativeQuery("UPDATE desktop SET IDMouse = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, mouseID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
 
     @Override
     public void associateSpeakersToPC(String speakersID, String pcID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'associateSpeakersToPC'");
+        
+        // Check that speakers with the specified ID exists
+        if (this.peripheralsDAO.getByID(speakersID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste una coppia di casse audio con l'ID specificato.");
+        }
+        // Check that a desktop PC with the specified ID exists
+        if (this.desktopPCsDAO.getByID(pcID).isEmpty()) {
+            throw new NoSuchElementException("Non esiste un PC desktop con l'ID specificato.");
+        }
+
+        // Update keyboard field in desktop PC
+        Query query = this.em.createNativeQuery("UPDATE desktop SET IDCasseAudio = ?1 WHERE (IDPC = ?2)");
+        query.setParameter(1, speakersID);
+        query.setParameter(2, pcID);
+        try {
+            this.em.getTransaction().begin();
+            query.executeUpdate();
+            this.em.getTransaction().commit();
+        } catch (final Exception ex) {
+            this.em.getTransaction().rollback();
+            LOGGER.error(ex.getMessage());
+            throw new IllegalStateException("Impossibile portare a termine l'operazione.");
+        }
+        
+        return;
     }
     
 }
