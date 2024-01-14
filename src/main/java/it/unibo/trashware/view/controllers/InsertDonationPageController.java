@@ -95,7 +95,10 @@ public class InsertDonationPageController {
     private TextField societyVATNumberField;
 
     @FXML
-    private TextArea donationDetails;
+    private TextArea devicesList;
+
+    @FXML
+    private TextArea notes;
 
     @FXML
     private Button insertBtn;
@@ -180,8 +183,9 @@ public class InsertDonationPageController {
     private void insertDonation() {
         this.controller.addDonation(
             this.donationIDField.getText(), 
-            this.effectuationDatePicker.getValue(), 
-            Optional.of(this.donationDetails.getText()),
+            this.effectuationDatePicker.getValue(),
+            this.devicesList.getText(),
+            Optional.of(this.notes.getText()),
             this.repFiscalCodeField.getText()
         );
     }

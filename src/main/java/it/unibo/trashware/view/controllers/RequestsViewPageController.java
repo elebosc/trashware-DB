@@ -49,7 +49,7 @@ public class RequestsViewPageController {
     private TableColumn<RequestItem, String> deadline;
 
     @FXML
-    private TableColumn<RequestItem, String> details;
+    private TableColumn<RequestItem, String> devicesList;
 
     @FXML
     private TableColumn<RequestItem, String> requestID;
@@ -78,6 +78,9 @@ public class RequestsViewPageController {
     @FXML
     private TableColumn<RequestItem, String> telephoneNumbers;
 
+    @FXML
+    private TableColumn<RequestItem, String> notes;
+
     private OperationsController controller;
 
     @FXML
@@ -92,13 +95,14 @@ public class RequestsViewPageController {
         this.societyName.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("societyName"));
         this.requestType.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("requestType"));
         this.motivation.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("motivation"));
-        this.details.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("details"));
+        this.devicesList.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("devicesList"));
         this.date.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("date"));
         this.deadline.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("deadline"));
         this.priority.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("priority"));
         this.telephoneNumbers.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("telephoneNumbers"));
         this.fax.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("faxNumber"));
         this.email.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("email"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("notes"));
         
         this.inProgress.setOnAction(e -> fillTable(IN_PROGRESS));
         this.completed.setOnAction(e -> fillTable(COMPLETED));
@@ -115,13 +119,14 @@ public class RequestsViewPageController {
                 map.get(FieldTags.SOCIETY),
                 map.get(FieldTags.REQUEST_TYPE),
                 map.get(FieldTags.REASON),
-                map.get(FieldTags.DETAILS),
+                map.get(FieldTags.DEVICES_LIST),
                 map.get(FieldTags.EFFECTUATION_DATE),
                 map.get(FieldTags.DEADLINE),
                 map.get(FieldTags.PRIORITY),
                 map.get(FieldTags.PHONE_CONTACTS),
                 map.get(FieldTags.FAX),
-                map.get(FieldTags.EMAIL)
+                map.get(FieldTags.EMAIL),
+                map.get(FieldTags.NOTES)
             ));
         }
         this.requestsTableView.setItems(list);

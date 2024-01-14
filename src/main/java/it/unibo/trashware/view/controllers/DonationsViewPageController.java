@@ -24,7 +24,7 @@ public class DonationsViewPageController {
     private TableColumn<DonationItem, String> date;
 
     @FXML
-    private TableColumn<DonationItem, String> details;
+    private TableColumn<DonationItem, String> devicesList;
 
     @FXML
     private TableColumn<DonationItem, String> donationID;
@@ -44,6 +44,9 @@ public class DonationsViewPageController {
     @FXML
     private TableColumn<DonationItem, String> telephoneNumbers;
 
+    @FXML
+    private TableColumn<DonationItem, String> notes;
+
     private OperationsController controller;
 
     @FXML
@@ -57,10 +60,11 @@ public class DonationsViewPageController {
         this.representativeName.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("representativeName"));
         this.societyName.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("societyName"));
         this.date.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("date"));
+        this.devicesList.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("devicesList"));
         this.telephoneNumbers.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("telephoneNumbers"));
         this.fax.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("faxNumber"));
         this.email.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("email"));
-        this.details.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("details"));
+        this.notes.setCellValueFactory(new PropertyValueFactory<DonationItem, String>("notes"));
         fillTable();
     }
 
@@ -72,11 +76,12 @@ public class DonationsViewPageController {
                 map.get(FieldTags.OPERATION_ID), 
                 map.get(FieldTags.REPRESENTATIVE),
                 map.get(FieldTags.SOCIETY),
-                map.get(FieldTags.EFFECTUATION_DATE), 
+                map.get(FieldTags.EFFECTUATION_DATE),
+                map.get(FieldTags.DEVICES_LIST),
                 map.get(FieldTags.PHONE_CONTACTS), 
                 map.get(FieldTags.FAX),
                 map.get(FieldTags.EMAIL),
-                map.get(FieldTags.DETAILS)
+                map.get(FieldTags.NOTES)
             ));
         }
         this.donationsTableView.setItems(list);

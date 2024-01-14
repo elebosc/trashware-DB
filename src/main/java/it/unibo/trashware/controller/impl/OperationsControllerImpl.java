@@ -71,16 +71,16 @@ public class OperationsControllerImpl implements OperationsController {
     }
 
     @Override
-    public void addDonation(String id, LocalDate date, Optional<String> notes, String representativeID) {
-        final Operation op = createOperationObj(id, "Donazione", date, notes, representativeID);
+    public void addDonation(String id, LocalDate date, String devicesList, Optional<String> notes, String representativeID) {
+        final Operation op = createOperationObj(id, "Donazione", date, devicesList, notes, representativeID);
         // Operation insertion
         this.operationsDAO.add(op);
     }
 
     @Override
-    public void addRequest(String id, String requestType, String reason, LocalDate date, LocalDate deadline, int priorityLevel,
+    public void addRequest(String id, String requestType, String reason, LocalDate date, String devicesList, LocalDate deadline, int priorityLevel,
             Optional<String> notes, String representativeID) {
-        final Operation operation = createOperationObj(id, "Richiesta", date, notes, representativeID);
+        final Operation operation = createOperationObj(id, "Richiesta", date, devicesList, notes, representativeID);
         final Request request = new Request();
         request.setOperationID(operation);  // sets the reference to the Operation object containing the general info about the operation
         request.setType(requestType);
@@ -92,11 +92,12 @@ public class OperationsControllerImpl implements OperationsController {
         this.requestsDAO.add(request);
     }
 
-    private Operation createOperationObj(String id, String type, LocalDate date, Optional<String> notes, String representativeID) {
+    private Operation createOperationObj(String id, String type, LocalDate date, String devicesList, Optional<String> notes, String representativeID) {
         final Operation op = new Operation();
         op.setOperationID(id);
         op.setType(type);
         op.setDate(date);
+        op.setDevicesList(devicesList);
         notes.ifPresent((value) -> op.setNotes(value));
         final Optional<Representative> representative = this.representativesDAO.getByID(representativeID);
         if (representative.isEmpty()) {
@@ -233,7 +234,7 @@ public class OperationsControllerImpl implements OperationsController {
     public List<Map<FieldTags, String>> getDonationsList() {
 
         Query query = this.em.createNativeQuery(
-            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email, o.Note\n" +
+            "SELECT o.IDOperazione, ref.Nome, ref.Cognome, rap.Nome as NomeSocietà, o.DataEffettuazione, o.ElencoDispositivi, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email, o.Note\n" +
             "FROM (\n" +
                 "operazioni o JOIN referente ref ON (o.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
                 "LEFT OUTER JOIN (\n" +
@@ -255,13 +256,14 @@ public class OperationsControllerImpl implements OperationsController {
             entryMap.put(FieldTags.REPRESENTATIVE, entry[1].toString() + " " + entry[2].toString());
             entryMap.put(FieldTags.SOCIETY, (entry[3] != null) ? entry[3].toString() : "");
             entryMap.put(FieldTags.EFFECTUATION_DATE, entry[4].toString());
+            entryMap.put(FieldTags.DEVICES_LIST, entry[5].toString());
             entryMap.put(
                 FieldTags.PHONE_CONTACTS,
-                entry[5].toString() + "\n" + ((entry[6] != null) ? entry[6].toString() : "")
+                entry[6].toString() + "\n" + ((entry[7] != null) ? entry[7].toString() : "")
             );
-            entryMap.put(FieldTags.FAX, (entry[7] != null) ? entry[7].toString() : "");
-            entryMap.put(FieldTags.EMAIL, (entry[8] != null) ? entry[8].toString() : "");
-            entryMap.put(FieldTags.DETAILS, (entry[9] != null) ? entry[9].toString() : "");
+            entryMap.put(FieldTags.FAX, (entry[8] != null) ? entry[8].toString() : "");
+            entryMap.put(FieldTags.EMAIL, (entry[9] != null) ? entry[9].toString() : "");
+            entryMap.put(FieldTags.NOTES, (entry[10] != null) ? entry[10].toString() : "");
 
             resultMaps.add(entryMap);
         }
@@ -273,9 +275,9 @@ public class OperationsControllerImpl implements OperationsController {
     public List<Map<FieldTags, String>> getRequestsList(final String requestStatus) {
 
         Query query = this.em.createNativeQuery(
-            "SELECT ric.IDRichiesta, ref.Nome, ref.Cognome, rap.Nome AS NomeSocietà, ric.Tipo, ric.Motivazione, ric.Note, ric.DataEffettuazione, ric.DataLimite, ric.LivelloPriorità, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email\n" +
+            "SELECT ric.IDRichiesta, ref.Nome, ref.Cognome, rap.Nome AS NomeSocietà, ric.Tipo, ric.Motivazione, ric.ElencoDispositivi, ric.DataEffettuazione, ric.DataLimite, ric.LivelloPriorità, ref.NumTelefono1, ref.NumTelefono2, ref.Fax, ref.Email, ric.Note\n" +
             "FROM ((\n" +
-                    "SELECT r.IDRichiesta, r.Tipo, r.Motivazione, o.Note, o.DataEffettuazione , r.DataLimite, r.LivelloPriorità, o.CodiceFiscaleReferente\n" +
+                    "SELECT r.IDRichiesta, r.Tipo, r.Motivazione, o.ElencoDispositivi, o.DataEffettuazione, o.Note, r.DataLimite, r.LivelloPriorità, o.CodiceFiscaleReferente\n" +
                     "FROM richieste r JOIN operazioni o ON (r.IDRichiesta = o.IDOperazione)\n" +
                     "WHERE r.Stato = ?1\n" +
                 ") AS ric JOIN referente ref ON (ric.CodiceFiscaleReferente = ref.CodiceFiscale)\n" +
@@ -300,7 +302,7 @@ public class OperationsControllerImpl implements OperationsController {
             entryMap.put(FieldTags.SOCIETY, (entry[3] != null) ? entry[3].toString() : "");
             entryMap.put(FieldTags.REQUEST_TYPE, entry[4].toString());
             entryMap.put(FieldTags.REASON, entry[5].toString());
-            entryMap.put(FieldTags.DETAILS, (entry[6] != null) ? entry[6].toString() : "");
+            entryMap.put(FieldTags.DEVICES_LIST, entry[6].toString());
             entryMap.put(FieldTags.EFFECTUATION_DATE, entry[7].toString());
             entryMap.put(FieldTags.DEADLINE, entry[8].toString());
             entryMap.put(FieldTags.PRIORITY, entry[9].toString());
@@ -310,6 +312,7 @@ public class OperationsControllerImpl implements OperationsController {
             );
             entryMap.put(FieldTags.FAX, (entry[12] != null) ? entry[13].toString() : "");
             entryMap.put(FieldTags.EMAIL, (entry[13] != null) ? entry[14].toString() : "");
+            entryMap.put(FieldTags.NOTES, (entry[14] != null) ? entry[14].toString() : "");
 
             resultMaps.add(entryMap);
         }

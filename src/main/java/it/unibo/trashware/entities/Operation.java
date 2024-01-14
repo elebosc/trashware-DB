@@ -17,6 +17,9 @@ public class Operation {
     @Column(name = "DataEffettuazione", nullable = false)
     private LocalDate date;
 
+    @Column(name = "ElencoDispositivi", nullable = false, length = 2000)
+    private String devicesList;
+
     @Column(name = "Note", length = 2000)
     private String notes;
 
@@ -46,6 +49,14 @@ public class Operation {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getDevicesList() {
+        return devicesList;
+    }
+
+    public void setDevicesList(String devicesList) {
+        this.devicesList = devicesList;
     }
 
     public String getNotes() {

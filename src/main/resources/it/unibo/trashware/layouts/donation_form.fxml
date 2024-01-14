@@ -45,9 +45,9 @@
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="474.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.trashware.view.controllers.InsertDonationPageController">
   <children>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="506.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="517.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
-          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="687.0" prefWidth="619.0">
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="830.0" prefWidth="619.0">
             <children>
               <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                 <font>
@@ -92,7 +92,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="repResidenceCityField" layoutX="13.0" layoutY="189.0" promptText="Città di residenza" />
-                  <Button fx:id="insertBtn" defaultButton="true" layoutX="536.0" layoutY="641.0" mnemonicParsing="false" text="Inserisci">
+                  <Button fx:id="insertBtn" defaultButton="true" layoutX="536.0" layoutY="777.0" mnemonicParsing="false" text="Inserisci">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -100,7 +100,13 @@
                   <TextField fx:id="donationIDField" layoutX="14.0" layoutY="15.0" prefHeight="26.0" prefWidth="170.0" promptText="ID Donazione" />
                   <DatePicker fx:id="effectuationDatePicker" layoutX="195.0" layoutY="15.0" promptText="Data di effettuazione" />
                   <DatePicker fx:id="repBirthdayDatePicker" layoutX="195.0" layoutY="114.0" promptText="Data di nascita" />
-                  <TextArea fx:id="donationDetails" layoutX="16.0" layoutY="477.0" prefHeight="150.0" prefWidth="554.0" />
+                  <TextArea fx:id="devicesList" layoutX="16.0" layoutY="477.0" prefHeight="150.0" prefWidth="554.0" />
+                  <Label layoutX="18.0" layoutY="640.0" prefHeight="26.0" prefWidth="191.0" text="Note" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="notes" layoutX="18.0" layoutY="676.0" prefHeight="79.0" prefWidth="554.0" />
             </children>
           </AnchorPane>
          </content>

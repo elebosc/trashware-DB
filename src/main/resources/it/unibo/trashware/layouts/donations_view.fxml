@@ -41,16 +41,17 @@
   <children>
       <ScrollPane prefHeight="400.0" prefWidth="799.0" VBox.vgrow="ALWAYS">
          <content>
-            <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="1075.0">
+            <TableView fx:id="donationsTableView" prefHeight="400.0" prefWidth="1283.0">
               <columns>
                 <TableColumn fx:id="donationID" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="representativeName" prefWidth="136.0" text="Referente" />
                   <TableColumn fx:id="societyName" prefWidth="175.2000274658203" text="Società" />
-                  <TableColumn fx:id="details" prefWidth="236.80010986328125" text="Dettagli" />
+                  <TableColumn fx:id="devicesList" prefWidth="236.80010986328125" text="Elenco Dispositivi" />
                   <TableColumn fx:id="date" prefWidth="120.0" text="Data Effettuazione" />
                   <TableColumn fx:id="telephoneNumbers" prefWidth="119.20001220703125" text="Contatti telefonici" />
                   <TableColumn fx:id="fax" prefWidth="100.0" text="Fax" />
                   <TableColumn fx:id="email" prefWidth="109.59991455078125" text="E-mail" />
+                  <TableColumn fx:id="notes" prefWidth="207.2000732421875" text="Note" />
               </columns>
             </TableView>
          </content>

@@ -112,7 +112,10 @@ public class InsertRequestPageController {
     private TextField societyVATNumberField;
 
     @FXML
-    private TextArea requestDetails;
+    private TextArea devicesList;
+
+    @FXML
+    private TextArea notes;
 
     private OperationsController controller; 
 
@@ -198,9 +201,10 @@ public class InsertRequestPageController {
             this.requestTypeComboBox.getValue(),
             this.reasonField.getText(),
             this.effectuationDatePicker.getValue(),
+            this.devicesList.getText(),
             this.deadlineDataPicker.getValue(),
             Integer.parseInt(this.priorityLevelField.getText()),
-            Optional.of(this.requestDetails.getText()),
+            Optional.of(this.notes.getText()),
             this.repFiscalCodeField.getText()
         );
     }

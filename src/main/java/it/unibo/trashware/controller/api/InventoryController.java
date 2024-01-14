@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.trashware.commons.FieldTags;
-import jakarta.transaction.Transactional;
 
 public interface InventoryController {
     

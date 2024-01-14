@@ -16,7 +16,7 @@ public interface OperationsController {
 	 * @param notes
 	 * @param representativeID
 	 */
-    void addDonation(String id, LocalDate date, Optional<String> notes, String representativeID);
+    void addDonation(String id, LocalDate date, String devicesList, Optional<String> notes, String representativeID);
 	
 	/**
 	 * Stores data about a new request.
@@ -29,7 +29,7 @@ public interface OperationsController {
 	 * @param notes
 	 * @param representativeID
 	 */
-    void addRequest(String id, String type, String reason, LocalDate date,
+    void addRequest(String id, String type, String reason, LocalDate date, String devicesList,
             LocalDate deadline, int priorityLevel, Optional<String> notes, String representativeID);
     
 	/**

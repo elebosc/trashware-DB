@@ -165,6 +165,7 @@ public final class PopulatorImpl implements Populator {
             operationsController.addDonation(
                 donationID,
                 faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a past date within one year from now
+                "", // empty devices list
                 Optional.empty(),   // empty notes
                 repFiscalCodes.get(this.random.nextInt(N_REP))
             );
@@ -180,6 +181,7 @@ public final class PopulatorImpl implements Populator {
                 "Ordine",
                 "",
                 faker.date().past(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a past date within one year from now
+                "", // empty devices list
                 faker.date().future(365, TimeUnit.DAYS).toLocalDateTime().toLocalDate(), // generates a future date within one year from now
                 random.nextInt(MIN_PRIORITY_LEVEL, MAX_PRIORITY_LEVEL),
                 Optional.empty(),

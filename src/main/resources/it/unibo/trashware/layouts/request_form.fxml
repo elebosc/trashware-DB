@@ -48,7 +48,7 @@
   <children>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="506.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <content>
-          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="916.0" prefWidth="619.0">
+          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="1074.0" prefWidth="619.0">
             <children>
               <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                 <font>
@@ -97,7 +97,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="insertBtn" defaultButton="true" layoutX="536.0" layoutY="872.0" mnemonicParsing="false" text="Inserisci">
+                  <Button fx:id="insertBtn" defaultButton="true" layoutX="536.0" layoutY="1014.0" mnemonicParsing="false" text="Inserisci">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -107,10 +107,16 @@
                   <CheckBox fx:id="societyCheckbox" layoutX="224.0" layoutY="267.0" mnemonicParsing="false" text="Il referente rappresenta una ditta o associazione?" />
                   <TextField fx:id="requestIDField" layoutX="12.0" layoutY="20.0" prefHeight="26.0" prefWidth="171.0" promptText="ID richiesta" />
                   <ComboBox fx:id="requestTypeComboBox" layoutX="18.0" layoutY="721.0" opacity="0.8" prefHeight="26.0" prefWidth="128.0" promptText="Tipo Richiesta" />
-                  <TextArea fx:id="requestDetails" layoutX="16.0" layoutY="477.0" prefHeight="200.0" prefWidth="494.0" />
+                  <TextArea fx:id="devicesList" layoutX="16.0" layoutY="477.0" prefHeight="200.0" prefWidth="548.0" />
                   <DatePicker fx:id="deadlineDataPicker" layoutX="22.0" layoutY="837.0" prefHeight="26.0" prefWidth="160.0" promptText="Data limite" />
                   <DatePicker fx:id="effectuationDatePicker" layoutX="195.0" layoutY="20.0" prefHeight="26.0" prefWidth="172.0" promptText="Data di effettuazione" />
                   <DatePicker fx:id="repBirthdayDatePicker" layoutX="195.0" layoutY="114.0" prefHeight="26.0" prefWidth="171.0" promptText="Data di nascita" />
+                  <Label layoutX="26.0" layoutY="878.0" prefHeight="26.0" prefWidth="207.0" text="Note" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="notes" layoutX="27.0" layoutY="911.0" prefHeight="82.0" prefWidth="542.0" />
             </children>
           </AnchorPane>
          </content>

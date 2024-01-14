@@ -7,7 +7,7 @@ public enum FieldTags {
     SOCIETY("Società"),
     REQUEST_TYPE("Tipo richiesta"),
     REASON("Motivazione"),
-    DETAILS("Dettagli"),
+    DEVICES_LIST("Elenco Dispositivi"),
     EFFECTUATION_DATE("Data effettuazione"),
     DEADLINE("Data limite"),
     PRIORITY("Priorità"),
