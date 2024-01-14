@@ -49,11 +49,13 @@ public class DesktopItem {
 
     private StringProperty storage02Type;
 
+    private StringProperty assignedToRequest;
+
     public DesktopItem(String id, String caseBrand, String caseModel, String caseColor, String cpuBrand,
             String cpuModel, String cpuArch, String ram, String storage01Type, String storage01Size, String storage02Type, String storage02Size,
             String isEthernetSupported, String isWiFiSupported, String isBluetoothSupported,
             String osVersion, String osUpdate, String monitorID, String keyboardID, String mouseID, String speakersID,
-            String notes) {
+            String notes, String assignedToRequest) {
         this.caseBrand = new SimpleStringProperty(caseBrand);
         this.caseColor = new SimpleStringProperty(caseColor);
         this.caseModel = new SimpleStringProperty(caseModel);
@@ -76,6 +78,7 @@ public class DesktopItem {
         this.storage01Type = new SimpleStringProperty(storage01Type);
         this.storage02Size = new SimpleStringProperty(storage02Size);
         this.storage02Type = new SimpleStringProperty(storage02Type);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getCaseBrand() {
@@ -164,6 +167,10 @@ public class DesktopItem {
 
     public String getStorage02Type() {
         return storage02Type.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
 
 }

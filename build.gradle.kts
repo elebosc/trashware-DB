@@ -20,7 +20,7 @@ val supportedPlatforms = listOf("linux", "mac", "win")
 
 dependencies {
     // JavaFX
-    val javaFxVersion = 19
+    val javaFxVersion = "20.0.1"
     for (platform in supportedPlatforms) {
         for (module in javaFXModules) {
             implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")

@@ -55,7 +55,8 @@ public enum FieldTags {
     PERIPHERAL_TYPE("Tipo Periferica"),
     KEYBOARD_ID("ID Tastiera"),
     MOUSE_ID("ID Mouse"),
-    SPEAKERS_ID("ID Casse");
+    SPEAKERS_ID("ID Casse"),
+    ASSIGNED_TO_REQUEST("Assegnato a richiesta");
 
     private String tag;
 

@@ -86,6 +86,9 @@ public class DesktopsViewController {
     @FXML
     private TableColumn<DesktopItem, String> storage02Type;
 
+    @FXML
+    private TableColumn<DesktopItem, String> assignedToRequest;
+
     private InventoryController controller;
 
     @FXML
@@ -117,6 +120,7 @@ public class DesktopsViewController {
         this.mouseID.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("mouseID"));
         this.speakersID.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("speakersID"));
         this.notes.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("notes"));
+        this.assignedToRequest.setCellValueFactory(new PropertyValueFactory<DesktopItem, String>("assignedToRequest"));
 
         fillTable();
     }
@@ -147,7 +151,8 @@ public class DesktopsViewController {
                 map.get(FieldTags.KEYBOARD_ID),
                 map.get(FieldTags.MOUSE_ID),
                 map.get(FieldTags.SPEAKERS_ID),
-                map.get(FieldTags.NOTES)
+                map.get(FieldTags.NOTES),
+                map.get(FieldTags.ASSIGNED_TO_REQUEST)
             ));
         }
         this.desktopsTableView.setItems(list);
