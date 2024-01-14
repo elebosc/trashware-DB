@@ -41,6 +41,9 @@ public class OtherPeripheralsViewController {
     @FXML
     private TableColumn<PeripheralItem, String> assignedToPC;
 
+    @FXML
+    private TableColumn<PeripheralItem, String> assignedToRequest;
+
     private InventoryController controller;
 
     @FXML
@@ -58,6 +61,7 @@ public class OtherPeripheralsViewController {
         this.connectivity.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("connectivity"));
         this.notes.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("assignedToPC"));
+        this.assignedToRequest.setCellValueFactory(new PropertyValueFactory<PeripheralItem, String>("assignedToRequest"));
 
         fillTable();
     }
@@ -73,7 +77,8 @@ public class OtherPeripheralsViewController {
                 map.get(FieldTags.MODEL), 
                 map.get(FieldTags.CONNECTIVITY), 
                 map.get(FieldTags.NOTES), 
-                map.get(FieldTags.ASSIGNED_TO_PC)
+                map.get(FieldTags.ASSIGNED_TO_PC),
+                map.get(FieldTags.ASSIGNED_TO_REQUEST)
             ));
         }
         this.otherPeripheralsTableView.setItems(list);

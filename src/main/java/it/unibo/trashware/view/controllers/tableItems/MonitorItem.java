@@ -29,10 +29,12 @@ public class MonitorItem {
 
     private StringProperty size;
 
+    private StringProperty assignedToRequest;
+
     public MonitorItem(String id, String brand, String model, String connectivity,
             String monitorType, String size, String ratio,
             String isVGASupported, String isDVISupported,  String hasEmbeddedAudio,
-            String notes, String assignedToPC) {
+            String notes, String assignedToPC, String assignedToRequest) {
         this.notes = new SimpleStringProperty(notes);
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
         this.brand = new SimpleStringProperty(brand);
@@ -45,6 +47,7 @@ public class MonitorItem {
         this.monitorType = new SimpleStringProperty(monitorType);
         this.ratio = new SimpleStringProperty(ratio);
         this.size = new SimpleStringProperty(size);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getNotes() {
@@ -93,6 +96,10 @@ public class MonitorItem {
 
     public String getSize() {
         return size.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
     
 }

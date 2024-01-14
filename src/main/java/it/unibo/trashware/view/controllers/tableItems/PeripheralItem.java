@@ -19,8 +19,10 @@ public class PeripheralItem {
 
     private StringProperty assignedToPC;
 
+    private StringProperty assignedToRequest;
+
     public PeripheralItem(String id, String type, String brand, String model, 
-            String connectivity, String notes, String assignedToPC) {
+            String connectivity, String notes, String assignedToPC, String assignedToRequest) {
         this.brand = new SimpleStringProperty(brand);
         this.connectivity = new SimpleStringProperty(connectivity);
         this.id = new SimpleStringProperty(id);
@@ -28,6 +30,7 @@ public class PeripheralItem {
         this.notes = new SimpleStringProperty(notes);
         this.type = new SimpleStringProperty(type);
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getBrand() {
@@ -56,6 +59,10 @@ public class PeripheralItem {
 
     public String getAssignedToPC() {
         return assignedToPC.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
     
 }

@@ -56,6 +56,9 @@ public class MonitorsViewController {
     @FXML
     private TableColumn<MonitorItem, String> size;
 
+    @FXML
+    private TableColumn<MonitorItem, String> assignedToRequest;
+
     private InventoryController controller;
 
     @FXML
@@ -77,6 +80,7 @@ public class MonitorsViewController {
         this.hasEmbeddedAudio.setCellValueFactory(new PropertyValueFactory<MonitorItem, String>("hasEmbeddedAudio"));
         this.notes.setCellValueFactory(new PropertyValueFactory<MonitorItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<MonitorItem, String>("assignedToPC"));
+        this.assignedToRequest.setCellValueFactory(new PropertyValueFactory<MonitorItem, String>("assignedToRequest"));
 
         fillTable();
     }
@@ -97,7 +101,8 @@ public class MonitorsViewController {
                 map.get(FieldTags.DVI),
                 map.get(FieldTags.EMBEDDED_AUDIO),
                 map.get(FieldTags.NOTES),
-                map.get(FieldTags.ASSIGNED_TO_PC)
+                map.get(FieldTags.ASSIGNED_TO_PC),
+                map.get(FieldTags.ASSIGNED_TO_REQUEST)
             ));
         }
         this.monitorsTableView.setItems(list);
