@@ -43,10 +43,12 @@ public class LaptopItem {
 
     private StringProperty notes;
 
+    private StringProperty assignedToRequest;
+
     public LaptopItem(String id, String brand, String model, String color, String cpuBrand,
             String cpuModel, String cpuArch, String ram, String storage01Type, String storage01Size, String storage02Type, String storage02Size,
             String screenSize, String isEthernetSupported, String isWiFiSupported, String isBluetoothSupported,
-            String osVersion, String osUpdate, String notes) {
+            String osVersion, String osUpdate, String notes, String assignedToRequest) {
         this.brand = new SimpleStringProperty(brand);
         this.color = new SimpleStringProperty(color);
         this.cpuArch = new SimpleStringProperty(cpuArch);
@@ -66,6 +68,7 @@ public class LaptopItem {
         this.storage02Type = new SimpleStringProperty(storage02Type);
         this.storage02Size = new SimpleStringProperty(storage02Size);
         this.notes = new SimpleStringProperty(notes);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getBrand() {
@@ -142,6 +145,10 @@ public class LaptopItem {
 
     public String getNotes() {
         return notes.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
     
 }

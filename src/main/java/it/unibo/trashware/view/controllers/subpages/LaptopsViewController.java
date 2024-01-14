@@ -77,6 +77,9 @@ public class LaptopsViewController {
     @FXML
     private TableColumn<LaptopItem, String> notes;
 
+    @FXML
+    private TableColumn<LaptopItem, String> assignedToRequest;
+
     private InventoryController controller;
 
     @FXML
@@ -105,6 +108,7 @@ public class LaptopsViewController {
         this.osVersion.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("osVersion"));
         this.osUpdate.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("osUpdate"));
         this.notes.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("notes"));
+        this.assignedToRequest.setCellValueFactory(new PropertyValueFactory<LaptopItem, String>("assignedToRequest"));
 
         fillTable();
     }
@@ -132,7 +136,8 @@ public class LaptopsViewController {
                 map.get(FieldTags.BLUETOOTH),
                 map.get(FieldTags.OS_VERSION),
                 map.get(FieldTags.OS_UPDATE),
-                map.get(FieldTags.NOTES)
+                map.get(FieldTags.NOTES),
+                map.get(FieldTags.ASSIGNED_TO_REQUEST)
             ));
         }
         this.laptopsTableView.setItems(list);

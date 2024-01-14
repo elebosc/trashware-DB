@@ -416,7 +416,7 @@ public class InventoryControllerImpl implements InventoryController {
                 entryMap.put(FieldTags.CHASSIS_COLOR, e[2].toString());
             }
 
-            // Is the PC assigned to a request?
+            // Is the PC associated to a request?
             // Search among maintenance requests first, since they are more recent than a donation request
             // that involves the same device
             boolean request_found = false;
@@ -451,11 +451,11 @@ public class InventoryControllerImpl implements InventoryController {
                 );
                 query.setParameter(1, desktopID);
                 try {
-                    String result8 = (String) query.getSingleResult();
-                    entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, result8.toString());
+                    String result9 = (String) query.getSingleResult();
+                    entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, result9.toString());
                     request_found = true;
                 } catch (NoResultException ex) {
-                    // No doantion request involving the device has been found
+                    // No donation request involving the device has been found
                     entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, "");
                 }
             }
@@ -551,6 +551,50 @@ public class InventoryControllerImpl implements InventoryController {
             for (var e : result6) {
                 entryMap.put(FieldTags.OS_VERSION, e[0].toString() + " " + e[1].toString());
                 entryMap.put(FieldTags.OS_UPDATE, e[2].toString());
+            }
+
+            // Is the PC associated to a request?
+            // Search among maintenance requests first, since they are more recent than a donation request
+            // that involves the same device
+            boolean request_found = false;
+            query = this.em.createNativeQuery(
+                "SELECT ric.IDOperazione\n" + //
+                "FROM oggetto_pc opc JOIN (\n" + //
+                    "SELECT o.IDOperazione\n" + //
+                    "FROM operazioni o JOIN richieste r ON (o.IDOperazione = r.IDRichiesta)\n" + //
+                    "WHERE (r.Tipo = 'Manutenzione')\n" + //
+                ") AS ric ON (opc.IDOperazione = ric.IDOperazione)\n" + //
+                "WHERE (opc.IDPC = ?1);"
+            );
+            query.setParameter(1, lptID);
+            try {
+                String result7 = (String) query.getSingleResult();
+                entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, result7.toString());
+                request_found = true;
+            } catch (NoResultException ex) {
+                // No maintenance request involving the device has been found
+            }
+
+            if (!request_found) {
+                // Search among donation requests
+                query = this.em.createNativeQuery(
+                    "SELECT ric.IDOperazione\n" + //
+                    "FROM oggetto_pc opc JOIN (\n" + //
+                        "SELECT o.IDOperazione\n" + //
+                        "FROM operazioni o JOIN richieste r ON (o.IDOperazione = r.IDRichiesta)\n" + //
+                        "WHERE (r.Tipo = 'Ordine')\n" + //
+                    ") AS ric ON (opc.IDOperazione = ric.IDOperazione)\n" + //
+                    "WHERE (opc.IDPC = ?1);"
+                );
+                query.setParameter(1, lptID);
+                try {
+                    String result8 = (String) query.getSingleResult();
+                    entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, result8.toString());
+                    request_found = true;
+                } catch (NoResultException ex) {
+                    // No donation request involving the device has been found
+                    entryMap.put(FieldTags.ASSIGNED_TO_REQUEST, "");
+                }
             }
 
             resultMaps.add(entryMap);

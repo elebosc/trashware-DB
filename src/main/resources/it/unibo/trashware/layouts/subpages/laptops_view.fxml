@@ -78,6 +78,7 @@
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="notes" prefWidth="172.7999267578125" text="Note" />
+                  <TableColumn fx:id="assignedToRequest" prefWidth="130.0" text="Assegnato a richiesta" />
               </columns>
             </TableView>
          </children>
