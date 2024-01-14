@@ -48,9 +48,9 @@
                   <TableColumn fx:id="brand" prefWidth="75.0" text="Marca" />
                   <TableColumn fx:id="model" prefWidth="75.0" text="Modello" />
                   <TableColumn fx:id="connectivity" prefWidth="120.79998779296875" text="Wired / Wireless" />
-                  <TableColumn fx:id="notes" prefWidth="157.5999755859375" text="Note" />
                   <TableColumn fx:id="assignedToPC" prefWidth="116.800048828125" text="Assegnata a PC" />
                   <TableColumn fx:id="assignedToRequest" prefWidth="132.0" text="Assegnata a richiesta" />
+                  <TableColumn fx:id="notes" prefWidth="157.5999755859375" text="Note" />
               </columns>
             </TableView>
          </children>

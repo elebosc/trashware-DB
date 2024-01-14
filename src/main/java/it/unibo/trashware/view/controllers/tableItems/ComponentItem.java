@@ -17,13 +17,17 @@ public class ComponentItem {
 
     private StringProperty assignedToPC;
 
-    public ComponentItem(String id, String type, String brand, String model, String notes, String assignedToPC) {
+    private StringProperty assignedToRequest;
+
+    public ComponentItem(String id, String type, String brand, String model, String notes,
+            String assignedToPC, String assignedToRequest) {
         this.brand = new SimpleStringProperty(brand);
         this.id = new SimpleStringProperty(id);
         this.model = new SimpleStringProperty(model);
         this.notes = new SimpleStringProperty(notes);
         this.type = new SimpleStringProperty(type);
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getBrand() {
@@ -48,6 +52,10 @@ public class ComponentItem {
 
     public String getAssignedToPC() {
         return assignedToPC.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
     
 }

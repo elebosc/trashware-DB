@@ -17,13 +17,17 @@ public class ChassisItem {
 
     private StringProperty notes;
 
-    public ChassisItem(String id, String brand, String model, String color, String notes, String assignedToPC) {
+    private StringProperty assignedToRequest;
+
+    public ChassisItem(String id, String brand, String model, String color, String notes,
+            String assignedToPC, String assignedToRequest) {
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
         this.brand = new SimpleStringProperty(brand);
         this.color = new SimpleStringProperty(color);
         this.id = new SimpleStringProperty(id);
         this.model = new SimpleStringProperty(model);
         this.notes = new SimpleStringProperty(notes);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getAssignedToPC() {
@@ -48,6 +52,10 @@ public class ChassisItem {
 
     public String getNotes() {
         return notes.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
 
 }

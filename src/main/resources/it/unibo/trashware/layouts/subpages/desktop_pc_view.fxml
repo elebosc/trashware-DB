@@ -84,8 +84,8 @@
                   <TableColumn fx:id="keyboardID" prefWidth="75.0" text="ID Tastiera" />
                   <TableColumn fx:id="mouseID" prefWidth="75.0" text="ID Mouse" />
                   <TableColumn fx:id="speakersID" prefWidth="75.0" text="ID Casse" />
-                  <TableColumn fx:id="notes" prefWidth="172.7999267578125" text="Note" />
                   <TableColumn fx:id="assignedToRequest" prefWidth="130.0" text="Assegnato a richiesta" />
+                  <TableColumn fx:id="notes" prefWidth="172.7999267578125" text="Note" />
               </columns>
             </TableView>
          </children>

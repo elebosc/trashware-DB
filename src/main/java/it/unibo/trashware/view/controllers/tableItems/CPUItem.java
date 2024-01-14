@@ -17,13 +17,17 @@ public class CPUItem {
 
     private StringProperty assignedToPC;
 
-    public CPUItem(String id, String brand, String model, String architecture, String notes, String assignedToPC) {
+    private StringProperty assignedToRequest;
+
+    public CPUItem(String id, String brand, String model, String architecture, String notes,
+            String assignedToPC, String assignedToRequest) {
         this.architecture = new SimpleStringProperty(architecture);
         this.brand = new SimpleStringProperty(brand);
         this.id = new SimpleStringProperty(id);
         this.model = new SimpleStringProperty(model);
         this.notes = new SimpleStringProperty(notes);
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getArchitecture() {
@@ -48,6 +52,10 @@ public class CPUItem {
 
     public String getAssignedToPC() {
         return assignedToPC.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
 
 }

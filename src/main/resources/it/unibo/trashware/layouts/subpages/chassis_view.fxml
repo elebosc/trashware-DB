@@ -41,13 +41,14 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="595.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="chassisTableView" prefHeight="400.0" prefWidth="640.0">
+            <TableView fx:id="chassisTableView" prefHeight="400.0" prefWidth="755.0">
               <columns>
                 <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="brand" prefWidth="75.0" text="Marca" />
                   <TableColumn fx:id="model" prefWidth="75.0" text="Modello" />
                   <TableColumn fx:id="color" prefWidth="75.0" text="Colore" />
                   <TableColumn fx:id="assignedToPC" prefWidth="104.800048828125" text="Assegnato a PC" />
+                  <TableColumn fx:id="assignedToRequest" prefWidth="130.0" text="Assegnato a richiesta" />
                   <TableColumn fx:id="notes" prefWidth="203.99993896484375" text="Note" />
               </columns>
             </TableView>

@@ -53,9 +53,9 @@
                   <TableColumn fx:id="isVGASupported" prefWidth="75.0" text="VGA" />
                   <TableColumn fx:id="isDVISupported" prefWidth="75.0" text="DVI" />
                   <TableColumn fx:id="hasEmbeddedAudio" prefWidth="99.199951171875" text="Audio Integrato" />
-                  <TableColumn fx:id="notes" prefWidth="156.0" text="Note" />
                   <TableColumn fx:id="assignedToPC" prefWidth="156.0" text="Assegnato a PC" />
                   <TableColumn fx:id="assignedToRequest" prefWidth="156.0" text="Assegnato a richiesta" />
+                  <TableColumn fx:id="notes" prefWidth="156.0" text="Note" />
               </columns>
             </TableView>
          </children>

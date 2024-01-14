@@ -38,6 +38,9 @@ public class OtherComponentsViewController {
     @FXML
     private TableColumn<ComponentItem, String> assignedToPC;
 
+    @FXML
+    private TableColumn<ComponentItem, String> assignedToRequest;
+
     private InventoryController controller;
 
     @FXML
@@ -54,6 +57,7 @@ public class OtherComponentsViewController {
         this.model.setCellValueFactory(new PropertyValueFactory<ComponentItem, String>("model"));
         this.notes.setCellValueFactory(new PropertyValueFactory<ComponentItem, String>("notes"));
         this.assignedToPC.setCellValueFactory(new PropertyValueFactory<ComponentItem, String>("assignedToPC"));
+        this.assignedToRequest.setCellValueFactory(new PropertyValueFactory<ComponentItem, String>("assignedToRequest"));
 
         fillTable();
     }
@@ -68,7 +72,8 @@ public class OtherComponentsViewController {
                 map.get(FieldTags.BRAND),
                 map.get(FieldTags.MODEL),
                 map.get(FieldTags.NOTES),
-                map.get(FieldTags.ASSIGNED_TO_PC)
+                map.get(FieldTags.ASSIGNED_TO_PC),
+                map.get(FieldTags.ASSIGNED_TO_REQUEST)
             ));
         }
         this.otherComponentsTableView.setItems(list);

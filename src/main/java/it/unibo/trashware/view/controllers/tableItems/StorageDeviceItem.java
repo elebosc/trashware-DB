@@ -19,7 +19,10 @@ public class StorageDeviceItem {
 
     private StringProperty notes;
 
-    public StorageDeviceItem(String id, String brand, String model, String type, String size, String notes, String assignedToPC) {
+    private StringProperty assignedToRequest;
+
+    public StorageDeviceItem(String id, String brand, String model, String type, String size, String notes,
+            String assignedToPC, String assignedToRequest) {
         this.assignedToPC = new SimpleStringProperty(assignedToPC);
         this.brand = new SimpleStringProperty(brand);
         this.id = new SimpleStringProperty(id);
@@ -27,6 +30,7 @@ public class StorageDeviceItem {
         this.size = new SimpleStringProperty(size);
         this.type = new SimpleStringProperty(type);
         this.notes = new SimpleStringProperty(notes);
+        this.assignedToRequest = new SimpleStringProperty(assignedToRequest);
     }
 
     public String getAssignedToPC() {
@@ -55,6 +59,10 @@ public class StorageDeviceItem {
 
     public String getNotes() {
         return notes.get();
+    }
+
+    public String getAssignedToRequest() {
+        return assignedToRequest.get();
     }
 
 }
