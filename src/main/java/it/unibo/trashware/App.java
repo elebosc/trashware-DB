@@ -17,7 +17,7 @@ public final class App {
     /**
      * The entry point of the application.
      * @param args unused
-     * @throws IOException if an error occurs while populating or connecting to the database.
+     * @throws IOException if an error occurs while connecting to the database.
      */
     public static void main(final String... args) throws IOException {
         Application.launch(JavaFXApp.class);

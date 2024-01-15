@@ -13,10 +13,6 @@ public final class JavaFXApp extends Application {
 
         stage.setTitle("TrashwareDB");
         final View view = new JavaFXView(stage);
-
-        // final Populator populator = new PopulatorImpl(controller);
-        // populator.populateDB();
-
         view.show();
     }
 

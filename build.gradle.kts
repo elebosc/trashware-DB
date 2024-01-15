@@ -43,8 +43,6 @@ dependencies {
     // Logback backend for SLF4J
     runtimeOnly("ch.qos.logback:logback-classic:1.4.5")
 
-    // Datafaker
-    implementation("net.datafaker:datafaker:2.0.1")
 }
 
 application {
