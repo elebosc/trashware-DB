@@ -22,7 +22,7 @@ public class RequestsViewPageController {
 
     private static final String IN_PROGRESS = "In lavorazione";
     private static final String COMPLETED = "Pronto";
-    private static final String DELIVERED = "Evaso";
+    private static final String DELIVERED = "Consegnato";
 
     @FXML
     private MenuButton requestStatusMenuBtn;
