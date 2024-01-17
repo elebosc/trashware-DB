@@ -54,7 +54,7 @@
                         <TableColumn fx:id="cpuArch" prefWidth="75.0" text="Bit" />
                      </columns>
                   </TableColumn>
-                  <TableColumn fx:id="ram" prefWidth="75.0" text="RAM" />
+                  <TableColumn fx:id="ram" prefWidth="75.0" text="RAM (GB)" />
                   <TableColumn fx:id="storage" prefWidth="75.0" text="Memoria 01">
                      <columns>
                         <TableColumn fx:id="storage01Type" prefWidth="75.0" text="Tipo" />
@@ -73,8 +73,8 @@
                   <TableColumn fx:id="isBluetoothSupported" prefWidth="71.199951171875" text="Bluetooth" />
                   <TableColumn fx:id="os" prefWidth="169.60009765625" text="Sistema operativo">
                      <columns>
-                        <TableColumn fx:id="osVersion" prefWidth="71.199951171875" text="Versione" />
-                        <TableColumn fx:id="osUpdate" prefWidth="71.199951171875" text="Update" />
+                        <TableColumn fx:id="osVersion" prefWidth="90.0" text="Versione" />
+                        <TableColumn fx:id="osUpdate" prefWidth="90.0" text="Update" />
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="assignedToRequest" prefWidth="130.0" text="Assegnato a richiesta" />

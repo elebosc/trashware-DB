@@ -61,7 +61,7 @@
                   <TextField fx:id="brandField" layoutX="14.0" layoutY="91.0" prefHeight="26.0" prefWidth="170.0" promptText="Marca" />
                   <TextField fx:id="modelField" layoutX="195.0" layoutY="91.0" prefHeight="26.0" prefWidth="170.0" promptText="Modello" />
                   <TextArea fx:id="notesField" layoutX="14.0" layoutY="131.0" prefHeight="94.0" prefWidth="362.0" promptText="Note (opzionale)" />
-                  <TextField fx:id="sizeField" layoutX="376.0" layoutY="91.0" prefHeight="26.0" prefWidth="126.0" promptText="Dimensione (MB)" />
+                  <TextField fx:id="sizeField" layoutX="376.0" layoutY="91.0" prefHeight="26.0" prefWidth="126.0" promptText="Dimensione (GB)" />
             </children>
           </AnchorPane>
          </content>

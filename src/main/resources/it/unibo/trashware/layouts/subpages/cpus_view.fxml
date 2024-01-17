@@ -41,15 +41,15 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="cpusTableView" prefHeight="400.0" prefWidth="702.0">
+            <TableView fx:id="cpusTableView" prefHeight="400.0" prefWidth="764.0">
               <columns>
                 <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="brand" prefWidth="75.0" text="Marca" />
-                  <TableColumn fx:id="model" prefWidth="75.0" text="Modello" />
-                  <TableColumn fx:id="architecture" prefWidth="84.79998779296875" text="Architettura" />
-                  <TableColumn fx:id="assignedToPC" prefWidth="105.60003662109375" text="Assegnata a PC" />
-                  <TableColumn fx:id="assignedToRequest" prefWidth="130.0" text="Assegnata a richiesta" />
-                  <TableColumn fx:id="notes" prefWidth="154.39996337890625" text="Note" />
+                  <TableColumn fx:id="model" prefWidth="108.00001525878906" text="Modello" />
+                  <TableColumn fx:id="architecture" prefWidth="94.39996337890625" text="Architettura" />
+                  <TableColumn fx:id="assignedToPC" prefWidth="104.79998779296875" text="Assegnata a PC" />
+                  <TableColumn fx:id="assignedToRequest" prefWidth="132.0" text="Assegnata a richiesta" />
+                  <TableColumn fx:id="notes" prefWidth="171.20001220703125" text="Note" />
               </columns>
             </TableView>
          </children>
