@@ -62,13 +62,13 @@
                   <TableColumn fx:id="storage" prefWidth="75.0" text="Memoria 01">
                      <columns>
                         <TableColumn fx:id="storage01Type" prefWidth="75.0" text="Tipo" />
-                        <TableColumn fx:id="storage01Size" prefWidth="75.0" text="Dim." />
+                        <TableColumn fx:id="storage01Size" prefWidth="75.0" text="Dim. (GB)" />
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="storage1" prefWidth="75.0" text="Memoria 02">
                      <columns>
                         <TableColumn fx:id="storage02Type" prefWidth="75.0" text="Tipo" />
-                        <TableColumn fx:id="storage02Size" prefWidth="75.0" text="Dim." />
+                        <TableColumn fx:id="storage02Size" prefWidth="75.0" text="Dim. (GB)" />
                      </columns>
                   </TableColumn>
                   <TableColumn fx:id="isEthernetSupported" prefWidth="75.0" text="Ethernet" />
