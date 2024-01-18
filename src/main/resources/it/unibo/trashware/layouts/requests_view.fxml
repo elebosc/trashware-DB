@@ -46,7 +46,7 @@
          <children>
             <ScrollPane layoutY="62.0" prefHeight="338.0" prefWidth="1055.0">
                <content>
-                  <TableView fx:id="requestsTableView" prefHeight="400.0" prefWidth="1756.0">
+                  <TableView fx:id="requestsTableView" prefHeight="400.0" prefWidth="2060.0">
                     <columns>
                       <TableColumn fx:id="requestID" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="representativeName" prefWidth="193.60003662109375" text="Referente" />
@@ -55,12 +55,14 @@
                         <TableColumn fx:id="motivation" prefWidth="178.4000244140625" text="Motivazione" />
                         <TableColumn fx:id="devicesList" prefWidth="215.2000732421875" text="Elenco Dispositivi" />
                         <TableColumn fx:id="date" minWidth="2.40008544921875" prefWidth="127.20013427734375" text="Data Effettuazione" />
-                        <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="84.0001220703125" text="Data Limite" />
+                        <TableColumn fx:id="deadline" minWidth="0.0" prefWidth="108.800048828125" text="Data Limite" />
                         <TableColumn fx:id="priority" minWidth="0.0" prefWidth="64.0" text="Priorità" />
-                        <TableColumn fx:id="telephoneNumbers" prefWidth="116.7999267578125" text="Contatti telefonici" />
-                        <TableColumn fx:id="fax" minWidth="0.0" prefWidth="114.400146484375" text="Fax" />
-                        <TableColumn fx:id="email" prefWidth="131.199951171875" text="E-mail" />
-                        <TableColumn fx:id="notes" prefWidth="189.599853515625" text="Note" />
+                        <TableColumn fx:id="completionDate" minWidth="0.0" prefWidth="133.5999755859375" text="Data Completamento" />
+                        <TableColumn fx:id="deliveryDate" minWidth="0.0" prefWidth="133.5999755859375" text="Data Consegna" />
+                        <TableColumn fx:id="telephoneNumbers" prefWidth="124.7999267578125" text="Contatti telefonici" />
+                        <TableColumn fx:id="fax" minWidth="0.0" prefWidth="120.7999267578125" text="Fax" />
+                        <TableColumn fx:id="email" prefWidth="128.800048828125" text="E-mail" />
+                        <TableColumn fx:id="notes" prefWidth="193.599853515625" text="Note" />
                     </columns>
                   </TableView>
                </content>

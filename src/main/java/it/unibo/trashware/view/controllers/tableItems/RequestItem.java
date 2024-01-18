@@ -31,9 +31,13 @@ public class RequestItem {
 
     private StringProperty notes;
 
+    private StringProperty completionDate;
+
+    private StringProperty deliveryDate;
+
     public RequestItem(String requestID, String representativeName, String societyName,
             String requestType, String motivation, String devicesList, String date,
-            String deadline, String priority, String telephoneNumbers, String faxNumber, String email, String notes
+            String deadline, String priority, String completionDate, String deliveryDate, String telephoneNumbers, String faxNumber, String email, String notes
         ) {
         this.requestID = new SimpleStringProperty(requestID);
         this.representativeName = new SimpleStringProperty(representativeName);
@@ -44,6 +48,8 @@ public class RequestItem {
         this.date = new SimpleStringProperty(date);
         this.deadline = new SimpleStringProperty(deadline);
         this.priority = new SimpleStringProperty(priority);
+        this.completionDate = new SimpleStringProperty(completionDate);
+        this.deliveryDate = new SimpleStringProperty(deliveryDate);
         this.telephoneNumbers = new SimpleStringProperty(telephoneNumbers);
         this.faxNumber = new SimpleStringProperty(faxNumber);
         this.email = new SimpleStringProperty(email);
@@ -100,6 +106,14 @@ public class RequestItem {
 
     public String getNotes() {
         return notes.get();
+    }
+
+    public String getCompletionDate() {
+        return completionDate.get();
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate.get();
     }
 
 }

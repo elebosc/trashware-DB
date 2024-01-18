@@ -314,6 +314,31 @@ public class OperationsControllerImpl implements OperationsController {
             entryMap.put(FieldTags.EMAIL, (entry[13] != null) ? entry[14].toString() : "");
             entryMap.put(FieldTags.NOTES, (entry[14] != null) ? entry[14].toString() : "");
 
+            if (requestStatus.equals(IN_PROGRESS)) {
+                entryMap.put(FieldTags.COMPLETION_DATE, "");
+                entryMap.put(FieldTags.DELIVERY_DATE, "");
+            } else {
+                // Get completion date
+                query = this.em.createNativeQuery(
+                    "SELECT data\n" +
+                    "FROM completamento\n" +
+                    "WHERE (IDRichiesta = ?1);"
+                );
+                query.setParameter(1, opID);
+                entryMap.put(FieldTags.COMPLETION_DATE, query.getSingleResult().toString());
+
+                if (requestStatus.equals(DELIVERED)) {
+                    // Get delivery date
+                    query = this.em.createNativeQuery(
+                        "SELECT data\n" +
+                        "FROM consegna\n" +
+                        "WHERE (IDRichiesta = ?1);"
+                    );
+                    query.setParameter(1, opID);
+                    entryMap.put(FieldTags.DELIVERY_DATE, query.getSingleResult().toString());
+                }
+            }
+
             resultMaps.add(entryMap);
         }
 

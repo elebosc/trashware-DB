@@ -81,6 +81,12 @@ public class RequestsViewPageController {
     @FXML
     private TableColumn<RequestItem, String> notes;
 
+    @FXML
+    private TableColumn<RequestItem, String> completionDate;
+
+    @FXML
+    private TableColumn<RequestItem, String> deliveryDate;
+
     private OperationsController controller;
 
     @FXML
@@ -98,6 +104,8 @@ public class RequestsViewPageController {
         this.devicesList.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("devicesList"));
         this.date.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("date"));
         this.deadline.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("deadline"));
+        this.completionDate.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("completionDate"));
+        this.deliveryDate.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("deliveryDate"));
         this.priority.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("priority"));
         this.telephoneNumbers.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("telephoneNumbers"));
         this.fax.setCellValueFactory(new PropertyValueFactory<RequestItem, String>("faxNumber"));
@@ -123,6 +131,8 @@ public class RequestsViewPageController {
                 map.get(FieldTags.EFFECTUATION_DATE),
                 map.get(FieldTags.DEADLINE),
                 map.get(FieldTags.PRIORITY),
+                map.get(FieldTags.COMPLETION_DATE),
+                map.get(FieldTags.DELIVERY_DATE),
                 map.get(FieldTags.PHONE_CONTACTS),
                 map.get(FieldTags.FAX),
                 map.get(FieldTags.EMAIL),

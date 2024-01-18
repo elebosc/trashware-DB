@@ -10,6 +10,8 @@ public enum FieldTags {
     DEVICES_LIST("Elenco Dispositivi"),
     EFFECTUATION_DATE("Data effettuazione"),
     DEADLINE("Data limite"),
+    COMPLETION_DATE("Data completamento"),
+    DELIVERY_DATE("Data consegna"),
     PRIORITY("Priorità"),
     PHONE_CONTACTS("Contatti telefonici"),
     FAX("Fax"),
