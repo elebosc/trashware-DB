@@ -8,4 +8,4 @@ This project has been made for the Databases course of the Bachelor's degree in 
 
 1. Install MySQL Workbench 8.0 ([download](https://dev.mysql.com/downloads/workbench/)).
 2. Create the database using the file `createdb/trashware.sql`.
-3. Start the application by running the command `java -jar trashware-all.jar` in the project root directory.
+3. Start the application by clicking `trashware-all.jar` or by running the command `java -jar trashware-all.jar` in the project root directory.
