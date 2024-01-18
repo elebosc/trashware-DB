@@ -112,41 +112,48 @@ public class OperationsControllerImpl implements OperationsController {
             String residenceCity, String residenceCAP, String residenceProvince, String residenceStreet,
             int residenceStreetNumber, String telephoneNumber1, Optional<String> telephoneNumber2,
             Optional<String> faxNumber, Optional<String> email) {
-        // Create representative entity
-        final Representative rep = new Representative();
-        rep.setFiscalCode(fiscalCode);
-        rep.setName(name);
-        rep.setSurname(surname);
-        rep.setBirthplace(birthplace);
-        rep.setBirthday(birthday);
-        rep.setResidenceCity(residenceCity);
-        rep.setResidenceCAP(residenceCAP);
-        rep.setResidenceProvince(residenceProvince);
-        rep.setResidenceStreet(residenceStreet);
-        rep.setResidenceStreetNumber(Integer.valueOf(residenceStreetNumber));
-        rep.setTelephoneNumber1(telephoneNumber1);
-        telephoneNumber2.ifPresent((number) -> rep.setTelephoneNumber2(number));
-        faxNumber.ifPresent((number) -> rep.setFaxNumber(number));
-        email.ifPresent((address) -> rep.setEmail(address));
-        // Representative insertion
-        this.representativesDAO.add(rep);
+        // Create representative entity, unless the representative is already registered
+        if (this.representativesDAO.getByID(fiscalCode).isEmpty()) {
+            final Representative rep = new Representative();
+            rep.setFiscalCode(fiscalCode);
+            rep.setName(name);
+            rep.setSurname(surname);
+            rep.setBirthplace(birthplace);
+            rep.setBirthday(birthday);
+            rep.setResidenceCity(residenceCity);
+            rep.setResidenceCAP(residenceCAP);
+            rep.setResidenceProvince(residenceProvince);
+            rep.setResidenceStreet(residenceStreet);
+            rep.setResidenceStreetNumber(Integer.valueOf(residenceStreetNumber));
+            rep.setTelephoneNumber1(telephoneNumber1);
+            telephoneNumber2.ifPresent((number) -> rep.setTelephoneNumber2(number));
+            faxNumber.ifPresent((number) -> rep.setFaxNumber(number));
+            email.ifPresent((address) -> rep.setEmail(address));
+            // Representative insertion
+            this.representativesDAO.add(rep);
+        }
+        
     }
 
     @Override
     public void addSociety(String VATNumber, String fiscalCode, String name, String registeredOfficeCity,
             String registeredOfficeCAP, String registeredOfficeProvince, String registeredOfficeStreet,
             int registeredOfficeStreetNumber) {
-        final Society society = new Society();
-        society.setVATNumber(VATNumber);
-        society.setFiscalCode(fiscalCode);
-        society.setName(name);
-        society.setRegisteredOfficeCity(registeredOfficeCity);
-        society.setRegisteredOfficeCAP(registeredOfficeCAP);
-        society.setRegisteredOfficeProvince(registeredOfficeProvince);
-        society.setRegisteredOfficeStreet(registeredOfficeStreet);
-        society.setRegisteredOfficeStreetNumber(registeredOfficeStreetNumber);
-        // Society insertion
-        this.societiesDAO.add(society);
+        // Create society entity, unless the society is already registered
+        if (this.societiesDAO.getByID(VATNumber).isEmpty()) {
+            final Society society = new Society();
+            society.setVATNumber(VATNumber);
+            society.setFiscalCode(fiscalCode);
+            society.setName(name);
+            society.setRegisteredOfficeCity(registeredOfficeCity);
+            society.setRegisteredOfficeCAP(registeredOfficeCAP);
+            society.setRegisteredOfficeProvince(registeredOfficeProvince);
+            society.setRegisteredOfficeStreet(registeredOfficeStreet);
+            society.setRegisteredOfficeStreetNumber(registeredOfficeStreetNumber);
+            // Society insertion
+            this.societiesDAO.add(society);
+        }
+        
     }
 
     @Override
@@ -154,11 +161,13 @@ public class OperationsControllerImpl implements OperationsController {
         final RepresentationId representationID = new RepresentationId();
         representationID.setSocietyVATNumber(societyVATNumber);
         representationID.setRepresentativeFiscalCode(representativeFiscalCode);
-        final Representation representation = new Representation();
-        representation.setId(representationID);
-        representation.setRepresentativeTitle(representativeTitle);
-        // Representation insertion
-        this.representationsDAO.add(representation);
+        if (this.representationsDAO.getByID(representationID).isEmpty()) {
+            final Representation representation = new Representation();
+            representation.setId(representationID);
+            representation.setRepresentativeTitle(representativeTitle);
+            // Representation insertion
+            this.representationsDAO.add(representation);
+        }
     }
 
     @Override
